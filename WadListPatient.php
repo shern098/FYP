@@ -1,6 +1,8 @@
 <?php
 session_start();
-if (!$_SESSION['CurrentUser']) {
+$user = $_SESSION["CurrentUser"];
+
+if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
 ?>
@@ -61,7 +63,7 @@ if (!$_SESSION['CurrentUser']) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><?php echo  $_SESSION["CurrentUser"]; ?></h1>
+                        <h1 class="h3 mb-0 text-gray-800"><?php echo $user; ?></h1>
 
                     </div>
 
@@ -77,7 +79,7 @@ if (!$_SESSION['CurrentUser']) {
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -88,6 +90,7 @@ if (!$_SESSION['CurrentUser']) {
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
+                                            
                                             <th>R/N PESAKIT</th>
                                             <th>NO. KATIL</th>
                                             <th>NAMA PESAKIT</th>
@@ -95,7 +98,6 @@ if (!$_SESSION['CurrentUser']) {
                                             <th>JENIS DIET</th>
                                             <th>CATATAN</th>
                                             <th>STATUS</th>
-
                                         </tr>
                                     </thead>
 
@@ -112,16 +114,16 @@ if (!$_SESSION['CurrentUser']) {
 
                                             while ($data = mysqli_fetch_assoc($display)) {
 
-                                          
-                                                switch ( $data['status']) {
+
+                                                switch ($data['status']) {
                                                     case 0:
-                                                      $status = "Belum Disahkan";
-                                                      break;
+                                                        $status = "Belum Disahkan";
+                                                        break;
                                                     case 1:
-                                                      $status = "Telah Disahkan";
-                                                      break;
-                                                  }
-                                            
+                                                        $status = "Telah Disahkan";
+                                                        break;
+                                                }
+
                                                 echo "<tr>";
                                                 echo "<td>" . $data["rn"] . "</td>";
                                                 echo "<td>" . $data["bednum"] . "</td>";
@@ -146,7 +148,7 @@ if (!$_SESSION['CurrentUser']) {
                                             <th>JENIS DIET</th>
                                             <th>CATATAN</th>
                                             <th>STATUS</th>
-
+                                            
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -157,13 +159,7 @@ if (!$_SESSION['CurrentUser']) {
                                     </span>
                                     <span class="text">Edit Pesanan Masuk</span>
                                 </a>
-                                
-                                <a href="WadAddPatient.php" class="btn btn-info btn-icon-split ">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-plus"></i>
-                                    </span>
-                                    <span class="text">Tambah Pesanan</span>
-                                </a>
+
 
 
 
@@ -213,7 +209,9 @@ if (!$_SESSION['CurrentUser']) {
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable();
+            $('#dataTable').DataTable({
+              
+            });
         });
     </script>
 

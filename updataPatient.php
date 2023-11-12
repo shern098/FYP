@@ -10,24 +10,37 @@
                 $nama = $_GET['nama'];
                 $diet = $_GET['diet'];
                 $catatan = $_GET['txtcatatan'];
-                
 
-                echo "<script>alert(" .
-                    $rn . '<br>' .
-                    $nokatil . '<br>' .
-                    $kelas . '<br' .
-                    $nama . '<br>' .
-                    $diet . '<br>' .
-                    ");</script>";
+                // Get the current user from the session
+                $currentUser = $_SESSION['CurrentUser'];
 
-                $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`,`iddiet`,`catatan`) VALUES (?,?,?,?,?,?)");
-                $getdata->bind_param("ssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan);
-                if ($getdata->execute()) {
-                    $_SESSION['add_success'] = true;
+                // PROCEDURAL STYLE MYSQLI
 
-                    header("Location: WadAddPatient.php");
-                } else {
-                    echo "Error inserting record: " .  $getdata->error . "<br>";
+                // Use a try-catch block to catch unique constraint violation error
+                try {
+                    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `wad`) VALUES (?,?,?,?,?,?,?)");
+                    $getdata->bind_param("sssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan, $currentUser);
+
+                    if ($getdata->execute()) {
+                        $_SESSION['add_success'] = true;
+
+                        // Display an alert with the values of the parameters
+                        echo "<script>alert('$rn $nokatil $kelas $nama $diet');</script>";
+
+                        header("Location: WadAddPatient.php");
+                    } else {
+                        echo "Error inserting record: " . $getdata->error . "<br>";
+                    }
+                } catch (Exception $e) {
+                    $_SESSION['duplicate_data'] = true;
+                    $_SESSION['rn'] = $rn;
+                    // Handle the unique constraint violation (duplicate rn) error here
+
+                    echo "<script> window.history.back(); </script> ";
+                } finally {
+                    $getdata->close(); // Close the prepared statement
+                    $conn->close(); // Close the database connection
                 }
+
                 ?>
           

@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (!$_SESSION['CurrentUser']) {
+$user = $_SESSION["CurrentUser"];
+if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
 
@@ -28,6 +29,13 @@ if (isset($_SESSION['save_success']) && $_SESSION['save_success']) {
     unset($_SESSION['save_success']);
 }
 
+if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
+    // Output JavaScript code to show an alert
+    echo "<script>alert('Data berjaya dibatalkan!');</script>";
+
+    // Unset the session variable to prevent it from appearing on reload
+    unset($_SESSION['cancel_success']);
+}
 
 
 ?>
@@ -53,8 +61,10 @@ if (isset($_SESSION['save_success']) && $_SESSION['save_success']) {
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-- link checkbox datatable -->
 
-
+    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
 </head>
 
 <body id="page-top">
@@ -89,8 +99,7 @@ if (isset($_SESSION['save_success']) && $_SESSION['save_success']) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><?php echo   $_SESSION["CurrentUser"]; ?></h1>
-                        <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Generate Report</a>
+                        <h1 class="h3 mb-0 text-gray-800"><?php echo   $user; ?></h1>
                     </div>
 
 
@@ -112,113 +121,185 @@ if (isset($_SESSION['save_success']) && $_SESSION['save_success']) {
                             <h6 class="m-0 font-weight-bold text-primary">Senarai Perubahan Pesanan Pesakit </h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
-                                <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                    <thead>
-                                        <tr>
-                                            <th>R/N PESAKIT</th>
-                                            <th>NO. KATIL</th>
-                                            <th>NAMA PESAKIT</th>
-                                            <th>KELAS</th>
-                                            <th>JENIS DIET</th>
+                            <form id="SaveFunction.php" method="get">
+                                <input type="hidden" name="currentUser" value="<?php echo $user; ?>">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                        <thead>
+                                            <tr>
+                                                <th></th>
+                                                <th>R/N PESAKIT</th>
+                                                <th>NO. KATIL</th>
+                                                <th>NAMA PESAKIT</th>
+                                                <th>KELAS</th>
+                                                <th>JENIS DIET</th>
+                                                <th>STATUS</th>
+                                                <th>OPERASI</th>
+                                            </tr>
+                                        </thead>
 
-                                            <th>STATUS</th>
-                                            <th>Operasi</th>
-                                        </tr>
-                                    </thead>
+                                        <tbody>
 
-                                    <tbody>
+                                            <?php
+                                            //connect database
+                                            include("db_connection.php");
+                                            // select data
+                                            $getdata = "SELECT * FROM `tblpatient`";
+                                            $display = mysqli_query($conn, $getdata);
+                                            //display data
+                                            if (mysqli_num_rows($display) > 0) {
 
-                                        <?php
-                                        //connect database
-                                        include("db_connection.php");
-                                        // select data
-                                        $getdata = "SELECT * FROM `tblpatient`";
-                                        $display = mysqli_query($conn, $getdata);
-                                        //display data
-                                        if (mysqli_num_rows($display) > 0) {
+                                                while ($data = mysqli_fetch_assoc($display)) {
+
+                                                    switch ($data['status']) {
+                                                        case 0:
+                                                            $status = "Belum Disahkan";
+                                                            break;
+                                                        case 1:
+                                                            $status = "Telah Disahkan";
+                                                            break;
+                                                    }
+
+
+
+                                            ?>
+
+                                                    <tr>
+
+                                                        <td><?php $data["rn"];         ?></td>
+                                                        <td> <?php echo $data["rn"];         ?> </td>
+                                                        <td> <?php echo $data["bednum"];     ?> </td>
+                                                        <td> <?php echo $data["name"];       ?> </td>
+                                                        <td> <?php echo $data["kelas"];      ?> </td>
+                                                        <td> <?php echo $data["iddiet"];     ?> </td>
+                                                        <td> <?php echo $status              ?> </td>
+                                                        <td class="text-center">
+
+                                                            <?php
+
+
+                                                            switch ($status) {
+                                                                case "Belum Disahkan":
+                                                            ?>
+                                                                    <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn-circle btn-info" style="text-decoration: none; ">
+                                                                        <i class='fas fa-edit'></i>
+                                                                    </a> <!-- Edit icon -->
+
+                                                                    <a onclick="return confirm('Buang Pesanan nama: <?php echo $data['name']; ?> ')" href='DeleteFunction.php?id=<?php echo $data["rn"]; ?>' class="btn-circle btn-danger" style="text-decoration: none; ">
+                                                                        <i class='fas fa-trash'></i>
+                                                                    </a> <!-- Delete icon -->
+
+                                                                <?php
+                                                                    break;
+                                                                case "Telah Disahkan":
+                                                                ?>
+
+                                                                    <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn-circle btn-warning" style="text-decoration: none; ">
+                                                                        <i class='fas fa-ban'></i>
+                                                                    </a>
+                                                            <?php
+                                                                    break;
+
+                                                                    mysqli_close($conn);
+                                                            }
+                                                            ?>
+                                                        </td>
+
+                                                    </tr>
+
+                                            <?php
+                                                } // end while loop
+                                            } // end if 
+                                            ?>
+
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                                <th></th>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                    <hr>
+                                    <div class="">
+
+
+                                        <!--Will Bring to Add Patient Page-->
+                                        <a href="WadListPatient.php" class="btn btn-success btn-md btn-icon-split ">
+                                            <span class="icon text-white-600">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </span>
+                                            <span class="text">Senarai Pesanan Pesakit </span>
+                                        </a>
+                                        <a href="WadAddPatient.php" class="btn btn-info btn-md btn-icon-split ">
+                                            <span class="icon text-white-50">
+                                                <i class="fas fa-plus"></i>
+                                            </span>
+                                            <span class="text">Tambah Pesanan</span>
+                                        </a>
+                                        <a href="#" class=" btn btn-icon-split btn-md btn-primary ">
+                                            <span class="icon text-white-600">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            </span>
+                                            <span class="text">Generate Report </span>
+                                        </a>
+
+
+                                        <select class="form-control col-3 offset-md-1" name="nurse" id="nurseSelect" style="display:inline-flex; ">
+                                            <option class="dropdown-item col-md-4" value="">Pilih Jururawat</option>
+                                            <?php
+                                            // Include database connection
+                                            include("db_connection.php");
+
+                                            // Select data from the database
+                                            $getdata = "SELECT * FROM `tblnurse`";
+                                            $display = mysqli_query($conn, $getdata);
+
+
+                                            // Loop through diet options and mark the selected option based on $diet variable
 
                                             while ($data = mysqli_fetch_assoc($display)) {
 
-                                                switch ($data['status']) {
-                                                    case 0:
-                                                        $status = "Belum Disahkan";
-                                                        break;
-                                                    case 1:
-                                                        $status = "Telah Disahkan";
-                                                        break;
-                                                }
+                                                echo "<option value='" . $data["idnurse"] . "' $selected>" . $data["nama"] . "</option>";
+                                            }
 
-                                        ?>
+                                            mysqli_close($conn);
 
-                                                <tr>
-                                                    <td> <?php echo $data["rn"];         ?> </td>
-                                                    <td> <?php echo $data["bednum"];     ?> </td>
-                                                    <td> <?php echo $data["name"];       ?> </td>
-                                                    <td> <?php echo $data["kelas"];      ?> </td>
-                                                    <td> <?php echo $data["iddiet"];     ?> </td>
-                                                    <td> <?php echo $status              ?> </td>
-                                                    <td>
-                                                        <?php
+                                            ?>
+                                        </select>
+
+                                        <button type="button" class=" btn btn-icon-split btn-sm btn-primary" id="submit">
+                                            <span class="icon text-white-600">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            </span>
+                                            <span class="text ">Hantar Pesanan</span>
+                                        </button>
+
+                            </form>
 
 
-                                                        switch ($status) {
-                                                            case "Belum Disahkan":
-                                                        ?>
-                                                                <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>'><i class='fas fa-edit'></i></a> <!-- Edit icon -->
-                                                                <a onclick="return confirm('Buang Pesanan nama: <?php echo $data['name']; ?> ')" href='DeleteFunction.php?id=<?php echo $data["rn"]; ?>'><i class='fas fa-trash'></i></a> <!-- Delete icon -->
-                                                                <a onclick="return confirm('Hantar Pesanan?')" href='SaveFunction.php?id=<?php echo $data["rn"]; ?>&status=1'><i class='fas fa-save'></i></a> <!-- Save icon -->
-                                                        <?php
-                                                                break;
-                                                            case "Telah Disahkan":
-                                                                echo "Data telah dihantar";
-                                                                break;
-                                                        }
-                                                        ?>
-                                                    </td>
-                                                </tr>
 
-                                        <?php
-                                            } // end while loop
-                                        } // end if 
-                                        ?>
-
-                                    </tbody>
-                                    <tfoot>
-                                        <tr>
-                                            <th>R/N PESAKIT</th>
-                                            <th>NO. KATIL</th>
-                                            <th>NAMA PESAKIT</th>
-                                            <th>KELAS</th>
-                                            <th>JENIS DIET</th>
-
-                                            <th>STATUS</th>
-                                            <th>Operasi</th>
-                                        </tr>
-                                    </tfoot>
-                                </table>
-
-                                <!--Will Bring to Add Patient Page-->
-                                <a href="WadListPatient.php" class="btn btn-info btn-icon-split ">
-                                    <span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Senarai Pesanan Pesakit </span>
-                                </a>
-                            </div>
                         </div>
                     </div>
-
                 </div>
-
-                <!-- /.container-fluid -->
-
             </div>
-            <!-- End of Main Content -->
-
 
         </div>
-        <!-- End of Content Wrapper -->
+
+        <!-- /.container-fluid -->
+
+    </div>
+    <!-- End of Main Content -->
+
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -252,22 +333,118 @@ if (isset($_SESSION['save_success']) && $_SESSION['save_success']) {
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
 
+    <!-- link checkboxes datatable -->
+
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+   
+   <!-- untuk adjust tinggi filter active -->
+   <style>
+        div.dtsp-searchPane div.dataTables_scrollBody {
+            height: 100px !important;
+        }
+    </style>
+
     <script>
         $(document).ready(function() {
 
 
             var table = $('#dataTable').DataTable({
-                dom: 'Plfrtip',
 
-                // scrollY: 400,
 
-                // "lengthMenu": [
-                //     [5, 10, 25, -1],
-                //     [5, 10, 25, "All"]
-                // ]
+                searchPanes: {
+                    columns: [1, 2, 3, 4, 5, 6], // Specify the column indices to include in the search panes
+
+                },
+                columnDefs: [{
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0,
+
+                    },
+                    {
+                        targets: 7, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        orderable: false,
+                    }
+                ],
+                select: {
+                    style: 'multi',
+                    selector: 'td:first-child'
+                },
+                oLanguage: {
+                    sLengthMenu: "Tunjuk _MENU_ rekod",
+                    sSearch: "Carian:"
+                },
+                lengthMenu: [
+                    [5, 10, 25, -1],
+                    [5, 10, 25, "All"]
+                ]
             });
 
+            table.searchPanes.container().prependTo(table.table().container());
+            table.searchPanes.resizePanes();
 
+            // Hide checkboxes for rows with "Telah Disahkan" status.
+            table.rows().every(function() {
+                var data = this.data();
+                var status = data[6]; // Assuming the status is in the 7th column (index 6).
+                var isCancel = status === "Telah Disahkan";
+
+                if (isCancel) {
+                    // Hide the checkboxes by setting their display style'.
+                    $(this.node()).find("td.select-checkbox").css('visibility', 'hidden');
+                }
+            });
+
+            //send data from FORM
+            $('#submit').on('click', function() {
+                var selectedRows = table.rows('.selected').data();
+                var nurseId = $('#nurseSelect').val();
+                var nurseName = $('#nurseSelect option:selected').text();
+                var currentUser = $('input[name="currentUser"]').val(); // Get the value of the hidden input field
+
+                if (!currentUser) {
+                    alert('Current user is not defined. Please make sure you are logged in.');
+                    return;
+                }
+
+                if (selectedRows.length === 0) {
+                    alert('Sila pilih pesakit untuk dihantar.');
+                } else if (nurseId === '') {
+                    alert('Sila pilih jururawat pemesan.');
+                } else {
+                    var rnList = [];
+
+                    for (var i = 0; i < selectedRows.length; i++) {
+                        rnList.push(selectedRows[i][1]); // Assuming the R/N PESAKIT is in the second column (index 1).
+                    }
+
+                    $.ajax({
+                        type: 'GET',
+                        url: 'SaveFunction.php',
+                        data: {
+                            currentUser: currentUser,
+                            nurseId: nurseId,
+                            nurseName: nurseName,
+                            rnList: rnList
+                        },
+                        success: function(response) {
+                            if (response === 'success') {
+                                alert('Data has been successfully submitted to the database.');
+                                window.location.reload();
+                            } else {
+                                alert('Data submission failed. Please try again or check the server logs for more information.');
+                                window.location.reload();
+                            }
+                        },
+                        error: function(xhr, status, error) {
+                            alert('An error occurred while sending the data to the server. Please try again or check the server logs for more information.');
+                        }
+                    });
+
+                }
+            });
         });
     </script>
 

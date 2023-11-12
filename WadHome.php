@@ -1,6 +1,7 @@
 <?php
 session_start();
-if (!$_SESSION['CurrentUser']) {
+$user = $_SESSION["CurrentUser"];
+if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
 ?>
@@ -60,7 +61,7 @@ if (!$_SESSION['CurrentUser']) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"> <?php echo  $_SESSION["CurrentUser"]; ?> </h1>
+                        <h1 class="h3 mb-0 text-gray-800"> <?php echo $user; ?> </h1>
 
                     </div>
 
@@ -133,52 +134,26 @@ if (!$_SESSION['CurrentUser']) {
                                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                             <thead>
                                                 <tr>
-                                                    <th>R/N PESAKIT</th>
-                                                    <th>NO. KATIL</th>
-                                                    <th>NAMA PESAKIT</th>
-                                                    <th>KELAS</th>
-                                                    <th>JENIS DIET</th>
+                                                    <th>JENIS WAD</th>
+                                                    <th>KOD DIET</th>
+                                                    <th>STATUS</th>
+
 
                                                 </tr>
                                             </thead>
 
                                             <tbody>
 
-                                                <?php
-                                                //connect database
-                                                include("db_connection.php");
-                                                // select data
-                                                $getdata = "SELECT `rn`, `bednum`, `name`, `kelas`, `iddiet` FROM `tblpatient`";
-                                                $display = mysqli_query($conn, $getdata);
-                                                //display data
-                                                if (mysqli_num_rows($display) > 0) {
 
-                                                    while ($data = mysqli_fetch_assoc($display)) {
-                                                        echo "<tr>";
-                                                        echo "<td>" . $data["rn"] . "</td>";
-                                                        echo "<td>" . $data["bednum"] . "</td>";
-                                                        echo "<td>" . $data["name"] . "</td>";
-                                                        echo "<td>" . $data["kelas"] . "</td>";
-                                                        echo "<td>" . $data["iddiet"] . "</td>";
-                                                        echo "</tr>";
-                                                    }
-                                                }
-
-                                                ?>
                                             </tbody>
 
                                             <tfoot>
                                                 <tr>
-                                                    <th>R/N PESAKIT</th>
-                                                    <th>NO. KATIL</th>
-                                                    <th>NAMA PESAKIT</th>
-                                                    <th>KELAS</th>
-                                                    <th>JENIS DIET</th>
 
                                                 </tr>
                                             </tfoot>
                                         </table>
-                                  
+
                                     </div>
                                     <!-- end of table responsive -->
                                 </div>
@@ -229,7 +204,10 @@ if (!$_SESSION['CurrentUser']) {
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable();
+            $('#dataTable').DataTable({
+                "lengthChange": false, // Hide the "Show entries" dropdown
+                "searching": false, // Hide the search input field
+            });
         });
     </script>
 </body>

@@ -4,6 +4,7 @@ session_start();
 if(isset($_GET["login"])){
     $loginuser =$_GET["username"];
     $loginpass =hash("sha512",$_GET["password"]);
+
 include ("db_connection.php");
 //check in tbl wad
 $sql = "SELECT * FROM `tbluser` WHERE `username` = '$loginuser' and `password`='$loginpass';";

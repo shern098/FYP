@@ -1,27 +1,26 @@
 <?php
-
-include "db_connection.php";
 session_start();
-if ( isset($_GET['id']) && isset($_GET['status']) ){
-  $id = $_GET['id'];
-  $status = $_GET['status'];
+include("db_connection.php");
 
+if (isset($_GET['nurseId']) && isset($_GET['nurseName']) && isset($_GET['rnList']) && isset($_GET['currentUser'])) {
+    $nurseId = $_GET['nurseId'];
+    $nurseName = $_GET['nurseName'];
+    $rnList = $_GET['rnList'];
+    $currentUser = $_GET['currentUser'];
 
+  
+    // Update the status of selected rows in the database and set the nurse name and currentUser.
+    $updateQuery = "UPDATE tblpatient SET status = 1, nama_nurse = ?, masa_keyIn = CURRENT_TIMESTAMP, wad = ? WHERE rn IN (" . implode(',', $rnList) . ")";
 
-  $sqlkeyin = "UPDATE `tblpatient` SET `status`='$status',`masa_keyIn`=CURRENT_TIMESTAMP WHERE rn='$id'";
+    $stmt = mysqli_prepare($conn, $updateQuery);
+    mysqli_stmt_bind_param($stmt, "ss" ,$nurseName,$currentUser); // Bind nurse name and currentUser as parameters.
 
-  if (mysqli_query($conn, $sqlkeyin)) {
-    // Redirect back to the form page with a success message in the URL
-    $_SESSION['save_success'] = true;
-   header("Location: WadEditOrder.php");
-    exit();
-} else {
-    // Handle the case where the update query fails
-    echo "Error sending record: " . mysqli_error($conn);
+    if (mysqli_stmt_execute($stmt)) {
+      echo 'success'; // Database update was successful.
+  } else {
+      echo 'error: ' . mysqli_error($conn); // Include the MySQL error message.
+  }
+
+    mysqli_stmt_close($stmt);
+    mysqli_close($conn);
 }
-} else {
-// Handle the case where required data is missing in the URL
-echo "Data missing in the URL.";
-}
-mysqli_close($conn);
-?>

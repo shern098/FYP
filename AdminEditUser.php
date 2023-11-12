@@ -1,7 +1,8 @@
 <?php
 include ("db_connection.php");
 session_start();
-if (!$_SESSION['CurrentUser']) {
+$user = $_SESSION["CurrentUser"]; 
+if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
   }
 

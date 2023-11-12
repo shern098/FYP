@@ -12,6 +12,13 @@ if (isset($_SESSION['add_success']) && $_SESSION['add_success']) {
     unset($_SESSION['add_success']);
 }
 
+if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
+    // Output JavaScript code to show an alert for duplicate 'rn' value
+    echo "<script>alert('R\N Pesakit: " . $_SESSION['rn'] . " telah wujud. Sila masukkan RN lain.');</script>";
+
+    // Unset the session variable to prevent it from appearing on reload
+    unset($_SESSION['duplicate_data']);
+}
 
 ?>
 <!DOCTYPE html>
@@ -119,11 +126,11 @@ if (isset($_SESSION['add_success']) && $_SESSION['add_success']) {
                                             </label>
 
                                             <label class="radio-inline">
-                                                <input type="radio" name="kelas" id="Kelas3" value="K3" > Kelas 3
+                                                <input type="radio" name="kelas" id="Kelas3" value="K3"> Kelas 3
                                             </label>
                                         </div>
 
-                                    
+
 
                                         <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback ">
 
@@ -145,13 +152,14 @@ if (isset($_SESSION['add_success']) && $_SESSION['add_success']) {
                                                         echo "<option value='" . $data["iddiet"] . "'>" . $data["name"] . "</option>";
                                                     }
                                                 }
+                                                mysqli_close($conn);
                                                 ?>
                                             </select>
 
                                             <br>
 
-                                            <div id="lainlainTextarea" >
-                                                <textarea placeholder="Catatan" id="catatan" class="form-control has-feedback-left" name="txtcatatan" rows="4" cols="25" ></textarea>
+                                            <div id="lainlainTextarea">
+                                                <textarea placeholder="Catatan" id="catatan" class="form-control has-feedback-left" name="txtcatatan" rows="4" cols="25"></textarea>
                                             </div>
 
 
@@ -162,21 +170,22 @@ if (isset($_SESSION['add_success']) && $_SESSION['add_success']) {
                                         <div class="form-group">
                                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                                                 <button type="button" class="btn btn-primary" id="cancelButton">Cancel</button>
-                                                <button type="submit" class="btn btn-success">Submit</button>
+                                                <button type="submit" class="btn btn-success" id="submitButton">Submit</button>
                                             </div>
                                         </div>
                                     </form>
 
 
                                     <script>
-                                
                                         const cancelButton = document.getElementById('cancelButton');
+                                        const submitButton = document.getElementById('submitButton');
 
-                                  
                                         cancelButton.addEventListener('click', function() {
                                             // Use the history object to go back to the previous page
                                             window.history.back();
                                         });
+
+                                        
                                     </script>
                                 </div>
                             </div>

@@ -1,7 +1,7 @@
 <?php
 session_start();
-
-if (!$_SESSION['CurrentUser']) {
+$user  = $_SESSION["CurrentUser"]; 
+if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
   }
 ?>
@@ -60,10 +60,7 @@ if (!$_SESSION['CurrentUser']) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><?php
-
-                                                            echo  $_SESSION["CurrentUser"];
-                                                            ?></h1>
+                        <h1 class="h3 mb-0 text-gray-800"><?php echo  $user; ?></h1>
                     </div>
 
 
