@@ -85,7 +85,7 @@ if (!$user) {
                             <div>
 
                             </div>
-                              <form action="updataDocPro.php" method="get">
+                              <form action="AddDataDocPro.php.php" method="get">
                                 <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback ">
                                     <select class="form-control" name="fasiliti" id="fasiliti" required>
                                         <option class="dropdown-item col-md-4" value="">Pilih Fasiliti</option>

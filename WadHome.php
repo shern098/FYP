@@ -137,6 +137,7 @@ if (!$user) {
                                                     <th>JENIS WAD</th>
                                                     <th>KOD DIET</th>
                                                     <th>STATUS</th>
+                                                 
 
 
                                                 </tr>

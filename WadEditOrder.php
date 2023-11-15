@@ -144,7 +144,8 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             //connect database
                                             include("db_connection.php");
                                             // select data
-                                            $getdata = "SELECT * FROM `tblpatient`";
+                                            $getdata = "SELECT * FROM `tblpatient` where wad = '$user'";
+
                                             $display = mysqli_query($conn, $getdata);
                                             //display data
                                             if (mysqli_num_rows($display) > 0) {
@@ -338,9 +339,9 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
     <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
     <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
-   
-   <!-- untuk adjust tinggi filter active -->
-   <style>
+
+    <!-- untuk adjust tinggi filter active -->
+    <style>
         div.dtsp-searchPane div.dataTables_scrollBody {
             height: 100px !important;
         }

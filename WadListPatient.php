@@ -4,6 +4,7 @@ $user = $_SESSION["CurrentUser"];
 
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
+    exit();
 }
 ?>
 <!DOCTYPE html>
@@ -63,8 +64,8 @@ if (!$user) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><?php echo $user; ?></h1>
-
+                        <h1 class="h3 mb-0 text-gray-800"><?php echo $user; ?> </h1>
+                       
                     </div>
 
 
@@ -107,7 +108,7 @@ if (!$user) {
                                         //connect database
                                         include("db_connection.php");
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient`";
+                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user'";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {

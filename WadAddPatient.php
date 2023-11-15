@@ -32,7 +32,29 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
 
     <title>Home</title>
+    <script>
+        function checkRadioButton() {
+            var currentTime = new Date();
+            var currentHour = currentTime.getHours();
+            var currentMinute = currentTime.getMinutes();
 
+            // Convert current time to minutes since midnight
+            var currentTimeInMinutes = currentHour * 60 + currentMinute;
+
+            // Define schedule times in minutes since midnight
+            var morningStartTime = 7 * 60 + 30; // 7:30 AM
+            var morningEndTime = 8 * 60; // 8:00 AM
+            var eveningStartTime = 15 * 60; // 3:00 PM
+            var eveningEndTime = 17 * 60 + 45; // 5:45 PM
+
+            // Check the appropriate radio button based on the current time
+            if (currentTimeInMinutes >= morningStartTime && currentTimeInMinutes <= morningEndTime) {
+                document.getElementById("Pagi").checked = true;
+            } else if (currentTimeInMinutes >= eveningStartTime && currentTimeInMinutes <= eveningEndTime) {
+                document.getElementById("Petang").checked = true;
+            }
+        }
+    </script>
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -42,7 +64,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
 </head>
 
-<body id="page-top">
+<body id="page-top"  onload="checkRadioButton()">
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -106,7 +128,23 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                     <h6 class="m-0 font-weight-bold text-primary">Masukkan Maklumat Pesakit </h6>
                                 </div>
                                 <div class="card-body">
-                                    <form action="updataPatient.php" method=get>
+                                    <form action="AddDataPatient.php" method=get>
+
+                                        <div class="container form-group has-feedback">
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="pagi" required>
+                                                <label class="custom-control-label" for="Pagi">PAGI</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="Petang" name="shift" class="custom-control-input" value="petang">
+                                                <label class="custom-control-label" for="Petang">PETANG</label>
+                                            </div>
+
+                                        </div>
+
+
 
                                         <div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
                                             <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="rn" placeholder="RN Pesakit" required>
@@ -120,14 +158,19 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                             <input type="text" class="form-control" id="inputSuccess3" name="nokatil" placeholder="No Katil" required>
                                         </div>
 
-                                        <div class="container">
-                                            <label class="radio-inline">
-                                                <input type="radio" name="kelas" id="Kelas2" value="K2" required> Kelas 2
-                                            </label>
 
-                                            <label class="radio-inline">
-                                                <input type="radio" name="kelas" id="Kelas3" value="K3"> Kelas 3
-                                            </label>
+                                        <div class="container form-group has-feedback">
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="Kelas2" name="kelas" class="custom-control-input" value="K2" required>
+                                                <label class="custom-control-label" for="Kelas2">Kelas 2</label>
+                                            </div>
+
+                                            <div class="custom-control custom-radio custom-control-inline">
+                                                <input type="radio" id="Kelas3" name="kelas" class="custom-control-input" value="K3">
+                                                <label class="custom-control-label" for="Kelas3">Kelas 3</label>
+                                            </div>
+
                                         </div>
 
 
@@ -184,8 +227,6 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                             // Use the history object to go back to the previous page
                                             window.history.back();
                                         });
-
-                                        
                                     </script>
                                 </div>
                             </div>
@@ -238,12 +279,6 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

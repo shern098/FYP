@@ -4,22 +4,27 @@
                 include("db_connection.php");
                 session_start();
 
+                $shift = $_GET["shift"];
                 $rn = $_GET['rn'];
                 $nokatil = $_GET['nokatil'];
                 $kelas = $_GET['kelas'];
                 $nama = $_GET['nama'];
                 $diet = $_GET['diet'];
                 $catatan = $_GET['txtcatatan'];
+                
 
+                
                 // Get the current user from the session
-                $currentUser = $_SESSION['CurrentUser'];
+                $user = $_SESSION['CurrentUser'];
 
                 // PROCEDURAL STYLE MYSQLI
 
                 // Use a try-catch block to catch unique constraint violation error
                 try {
-                    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `wad`) VALUES (?,?,?,?,?,?,?)");
-                    $getdata->bind_param("sssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan, $currentUser);
+
+                    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `wad`, `shift`) VALUES (?,?,?,?,?,?,?,?)");
+                    $getdata->bind_param("ssssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan, $user, $shift);
+
 
                     if ($getdata->execute()) {
                         $_SESSION['add_success'] = true;
