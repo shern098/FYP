@@ -1,9 +1,10 @@
 <?php
 session_start();
-$user = $_SESSION["CurrentUser"]; 
-if (!$user ) {
+$user = $_SESSION["CurrentUser"];
+
+if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -15,7 +16,7 @@ if (!$user ) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <title>Semak Report</title>
+    <title>Lihat Report</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
@@ -24,7 +25,7 @@ if (!$user ) {
     <!-- Custom styles for this template-->
     <link href="css/style.css" rel="stylesheet">
 
-    <!-- Custom styles for this page -->
+    <!-- Custom dt for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
 </head>
@@ -36,7 +37,9 @@ if (!$user ) {
 
         <!-- Sidebar -->
         <?php
-        include("AdminSidebar.php");
+
+        include("AdminSideBar.php");
+
         ?>
         <!-- End of Sidebar -->
         <!-- Content Wrapper -->
@@ -44,7 +47,7 @@ if (!$user ) {
 
             <!-- Main Content -->
             <div id="content">
-                
+
                 <!-- Topbar -->
                 <?php
 
@@ -60,7 +63,8 @@ if (!$user ) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><?php echo  $user; ?></h1>
+                        <h1 class="h3 mb-0 text-gray-800"><?php echo $user; ?></h1>
+
                     </div>
 
 
@@ -75,56 +79,76 @@ if (!$user ) {
                             </div>
                         </div>
                     </div>
-
+                    
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit</h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">
+                            <div class="table-responsive">  
                                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            <th>Wad</th>
-                                            <th>Butiran</th>
-                                            <th>Tindakkan</th>
+                                            
+                                            <th>R/N PESAKIT</th>
+                                            <th>NO. KATIL</th>
+                                            <th>NAMA PESAKIT</th>
+                                            <th>KELAS</th>
+                                            <th>JENIS DIET</th>
+                                            <th>CATATAN</th>
+                                            <th>STATUS</th>
                                         </tr>
                                     </thead>
-                                    
+
                                     <tbody>
 
                                         <?php
                                         //connect database
                                         include("db_connection.php");
                                         // select data
-                                        $getdata = "SELECT * FROM `tbluser` ORDER BY `tbluser`.`username` ASC";
+                                        $getdata = "SELECT * FROM `tblpatient` where `status` = '1' ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
 
                                             while ($data = mysqli_fetch_assoc($display)) {
+
+
+                                                switch ($data['status']) {
+                                                    case 0:
+                                                        $status = "Belum Disahkan";
+                                                        break;
+                                                    case 1:
+                                                        $status = "Telah Disahkan";
+                                                        break;
+                                                }
+
                                                 echo "<tr>";
-                                                echo "<td>" . $data["username"] . "</td>";
-                                                echo "<td> status </td>";
-                                                echo "<td> <a href='AdminViewReportWad.php' class='btn btn-light btn-icon-split right'>
-                                                <span class='icon text-gray-600'>
-                                                <i class='fas fa-eye'></i>
-                                            </span>
-                                                <span class='text'>Lihat Laporan</span>
-                                            </a> </td>";
+                                                echo "<td>" . $data["rn"] . "</td>";
+                                                echo "<td>" . $data["bednum"] . "</td>";
+                                                echo "<td>" . $data["name"] . "</td>";
+                                                echo "<td>" . $data["kelas"] . "</td>";
+                                                echo "<td>" . $data["iddiet"] . "</td>";
+                                                echo "<td>" . $data["catatan"] . "</td>";
+                                                echo "<td>" . $status . "</td>";
                                                 echo "</tr>";
-                                                
                                             }
                                         }
 
                                         ?>
                                     </tbody>
+
                                     <tfoot>
                                         <tr>
-                                            <th>Wad</th>
-                                            <th>Butiran</th>
-                                            <th>Tindakkan</th>
+                                            <th>R/N PESAKIT</th>
+                                            <th>NO. KATIL</th>
+                                            <th>NAMA PESAKIT</th>
+                                            <th>KELAS</th>
+                                            <th>JENIS DIET</th>
+                                            <th>CATATAN</th>
+                                            <th>STATUS</th>
+                                            
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -172,9 +196,6 @@ if (!$user ) {
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/datatables-demo.js"></script>
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
