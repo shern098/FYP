@@ -225,7 +225,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
                                         cancelButton.addEventListener('click', function() {
                                             // Use the history object to go back to the previous page
-                                            window.history.back();
+                                            window.location.href = "WadEditOrder.php"
                                         });
                                     </script>
                                 </div>

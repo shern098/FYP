@@ -60,15 +60,19 @@ function clock() {
     if (totalMinutes24h >= 450 && totalMinutes24h <= 480) {
       // 7.30 AM - 8.00 AM
       return "Sarapan Pagi";
+
     } else if (totalMinutes24h >= 690 && totalMinutes24h <= 720) {
       // 11.30 AM - 12.00 PM
       return "Makan Tengahari";
+
     } else if (totalMinutes24h >= 900 && totalMinutes24h <= 930) {
       // 3.00 PM - 3.30 PM
       return "Minum Petang";
+
     } else if (totalMinutes24h >= 1050 && totalMinutes24h <= 1065) {
       // 5.30 PM - 5.45 PM
       return "Makan Malam";
+      
     } else {
       return "Belum waktu makan";
     }
@@ -77,3 +81,28 @@ function clock() {
 
 setInterval(clock, 1000);
 
+function updateDateAndYear() {
+  // Create a new Date object to get the current date
+  var currentDate = new Date();
+
+  
+  // Get the year from the Date object
+  var year = currentDate.getFullYear();
+
+  // Get the month as a number (0-11) from the Date object
+  var month = currentDate.getMonth() + 1; // Adding 1 to the month since it's zero-based
+
+  // Get the day from the Date object
+  var day = currentDate.getDate();
+  // Get the element where you want to display the date and year
+  var dateElement = document.querySelector(".update-date");
+
+  // Update the content of the element with the date and year
+  dateElement.textContent = "Jumlah pesakit pada : " + day + "/" + month + "/ " + year;
+}
+
+// Call the function to initially set the date and year
+updateDateAndYear();
+
+// Use setInterval to update the date and year every second (1000 milliseconds)
+setInterval(updateDateAndYear, 1000);

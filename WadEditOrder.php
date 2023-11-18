@@ -244,15 +244,10 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             </span>
                                             <span class="text">Tambah Pesanan</span>
                                         </a>
-                                        <a href="#" class=" btn btn-icon-split btn-md btn-primary ">
-                                            <span class="icon text-white-600">
-                                                <i class="fas fa-download fa-sm text-white-50"></i>
-                                            </span>
-                                            <span class="text">Generate Report </span>
-                                        </a>
+                                     
 
-
-                                        <select class="form-control col-3 offset-md-1" name="nurse" id="nurseSelect" style="display:inline-flex; ">
+                                        <!-- offset is padding right -->
+                                        <select class="form-control col-3 offset-md-3" name="nurse" id="nurseSelect" style="display:inline-flex; ">
                                             <option class="dropdown-item col-md-4" value="">Pilih Jururawat</option>
                                             <?php
                                             // Include database connection
@@ -345,6 +340,9 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
         div.dtsp-searchPane div.dataTables_scrollBody {
             height: 100px !important;
         }
+        #dataTable tbody tr:hover {
+            background-color: #B1BDC5; /* Change the background color as desired */
+        }
     </style>
 
     <script>
@@ -355,7 +353,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
 
                 searchPanes: {
-                    columns: [1, 2, 3, 4, 5, 6], // Specify the column indices to include in the search panes
+                    columns: [ 2, 3, 4, 5, 6], // Specify the column indices to include in the search panes
 
                 },
                 columnDefs: [{
@@ -363,10 +361,6 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                         className: 'select-checkbox',
                         targets: 0,
 
-                    },
-                    {
-                        targets: 7, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
-                        orderable: false,
                     }
                 ],
                 select: {

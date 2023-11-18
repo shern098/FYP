@@ -23,8 +23,7 @@ if (!$user) {
 
     <!-- Custom styles for this template-->
     <link href="css/style.css" rel="stylesheet">
-    <!-- Custom dt for this page -->
-    <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+
 
 </head>
 
@@ -122,57 +121,49 @@ if (!$user) {
                         <!--End Content Column -->
 
                         <!-- Content Column -->
-                        <div class="col-12 col-md-8">
 
-                            <div class=" card shadow container">
+                        <div class="col-xl-8 col-lg-5">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary"><span class="update-date"></span></h6>
 
-                                <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit</h6>
                                 </div>
+                                <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="table-responsive">
-                                        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-                                            <thead>
-                                                <tr>
-                                                    <th>JENIS WAD</th>
-                                                    <th>KOD DIET</th>
-                                                    <th>STATUS</th>
-                                                 
-
-
-                                                </tr>
-                                            </thead>
-
-                                            <tbody>
-
-
-                                            </tbody>
-
-                                            <tfoot>
-                                                <tr>
-
-                                                </tr>
-                                            </tfoot>
-                                        </table>
-
+                                    <div class="chart-pie pt-4 pb-2">
+                                        <canvas id="myPieChart"></canvas>
+                                        <!-- where piechart will be displayed -->
                                     </div>
-                                    <!-- end of table responsive -->
                                 </div>
-                                <!-- end of card body -->
+                                <div class="card-footer">
+                                    <?php
+                                    include 'TotalDietFunction.php';
+                                    $totalPatitent = 0;
+                                    while ($row = mysqli_fetch_assoc($displayTotalPatient)) {
+
+                                        $totalPatitent += $row['total_patient'];
+                                    }
+                                    ?>
+                                    <h6 class="m-0 font-weight-bold text-primary"> Jumlah Kesuluruhan Pesakit: <?php  echo $totalPatitent;  ?> </h6>
+                                </div>
                             </div>
-                            <!-- end of container card -->
                         </div>
-                        <!--End Content Column -->
+
+
+
                     </div>
-                    <!-- end of content row -->
+                    <!--End Content Column -->
                 </div>
-                <!-- /.container-fluid -->
+                <!-- end of content row -->
             </div>
-            <!-- End of Main Content -->
-
-
+            <!-- /.container-fluid -->
         </div>
-        <!-- End of Content Wrapper -->
+        <!-- End of Main Content -->
+
+
+    </div>
+    <!-- End of Content Wrapper -->
 
     </div>
     <!-- End of Page Wrapper -->
@@ -201,16 +192,83 @@ if (!$user) {
     <script src="js/sb-admin-2.min.js"></script>
 
     <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <?php
+
+    include 'TotalDietFunction.php';
+
+
+
+    $colour = array('#157A6E', '#F3A712', '#7B5E7B', '	#a200ff', '#772D8B', '#2A2A72', '#ff6289', '#ffbf6b', '#854442', '	#0057e7');
+
+    ?>
     <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-                "lengthChange": false, // Hide the "Show entries" dropdown
-                "searching": false, // Hide the search input field
-            });
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
+
+        // Pie Chart Example
+        var ctx = document.getElementById("myPieChart");
+        var myPieChart = new Chart(ctx, {
+            type: 'doughnut',
+            data: {
+                labels: [
+                    <?php
+                    include 'TotalDietFunction.php';
+
+                    while ($chart = mysqli_fetch_assoc($displayTotalPatient)) {
+                        echo   "\"" . $chart['wad'] . "\",";
+                    }
+
+                    mysqli_close($conn);
+                    ?>
+                ],
+
+                datasets: [{
+                    data: [
+                        <?php
+                        include 'TotalDietFunction.php';
+
+                        while ($chart = mysqli_fetch_assoc($displayTotalPatient)) {
+                            echo   "" . $chart['total_patient'] . ",";
+                        }
+
+                        ?>
+                    ],
+                    backgroundColor: [<?php
+
+
+                                        foreach ($colour as $colours) {
+
+                                            echo   "\"" . $colours . "\",";
+                                        }
+
+                                        ?>],
+
+                    hoverBorderColor: "rgba(234, 236, 244, 1)",
+                }],
+            },
+            options: {
+                maintainAspectRatio: false,
+                tooltips: {
+                    backgroundColor: "rgb(255,255,255)",
+                    bodyFontColor: "#858796",
+                    borderColor: '#dddfeb',
+                    borderWidth: 1,
+                    xPadding: 15,
+                    yPadding: 15,
+                    displayColors: false,
+                    caretPadding: 10,
+                },
+                legend: {
+                    display: true
+                },
+                cutoutPercentage: 80,
+            },
         });
     </script>
+
 </body>
 
 </html>
