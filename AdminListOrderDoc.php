@@ -1,9 +1,9 @@
 <?php
 session_start();
-$user  = $_SESSION["CurrentUser"]; 
+$user  = $_SESSION["CurrentUser"];
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
-  }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -27,6 +27,19 @@ if (!$user) {
     <!-- Custom styles for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
+    <!-- link checkbox datatable -->
+
+    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.bootstrap4.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
+
+  <style>
+        div.dtsp-searchPane div.dataTables_scrollBody {
+            height: 100px !important;
+        }
+         #dataTable tbody tr:hover {
+            background-color:  #C0C2CC; /* Change the background color as desired */
+        }
+    </style>
 </head>
 
 <body id="page-top">
@@ -44,7 +57,7 @@ if (!$user) {
 
             <!-- Main Content -->
             <div id="content">
-           
+
                 <!-- Topbar -->
                 <?php
 
@@ -92,17 +105,17 @@ if (!$user) {
                                             <th>Bil Order Lain-lain</th>
                                             <th>Catatan</th>
                                             <th>Tindakkan</th>
-                                            
+
                                         </tr>
                                     </thead>
-                                   
+
                                     <tbody>
 
                                         <?php
                                         //connect database
                                         include("db_connection.php");
                                         // select data
-                                        $getdata = "SELECT `ordderid`, `facility`, `totalnum`, `normalnum`, `othernum`,`notes` FROM `tbldocpro`";
+                                        $getdata = "SELECT * FROM `tbldocpro`";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
@@ -115,27 +128,27 @@ if (!$user) {
                                                 echo "<td>" . $data["othernum"] . "</td>";
                                                 echo "<td>" . $data["notes"] . "</td>";
                                                 echo '<td>
-                                                <a href="AdminEditOrderDoc.php?cmd=edit&id='.$data['ordderid'].'" class="btn btn-light btn-icon-split right">
+                                                <a href="AdminEditOrderDoc.php?cmd=edit&id=' . $data['ordderid'] . '" class="btn btn-light btn-icon-split right">
                                                         <span class="icon text-gray-600">
                                                             <i class="fas fa-pen"></i>
                                                         </span> 
                                                         </a>
-                                                        '?>
+                                                        ' ?>
 
-                                                <a onclick="return confirm('confirm delete?')"  <?php echo' href="AdminEditOrderDoc.php?cmd=del&id='.$data['ordderid'].'"'?> class="btn btn-light btn-icon-split right">
-                                                        <span class="icon text-gray-600">
-                                                            <i class="fas fa-trash"></i>
-                                                        </span> 
-                                                        </a>
+                                                <a onclick="return confirm('confirm delete?')" <?php echo ' href="AdminEditOrderDoc.php?cmd=del&id=' . $data['ordderid'] . '"' ?> class="btn btn-light btn-icon-split right">
+                                                    <span class="icon text-gray-600">
+                                                        <i class="fas fa-trash"></i>
+                                                    </span>
+                                                </a>
                                                 </td>
-                                                <?php
+                                        <?php
                                                 echo "</tr>";
                                             }
                                         }
 
                                         ?>
                                     </tbody>
-                                     <tfoot>
+                                    <tfoot>
                                         <tr>
                                             <th>Faciliti</th>
                                             <th>Bil Doc</th>
@@ -148,11 +161,17 @@ if (!$user) {
                                     </tfoot>
                                 </table>
                                 <!--Will Bring to Add Patient Page-->
-                                <a href="AdminAddOrderDoc.php" class="btn btn-light btn-icon-split right">
-                                    <span class="icon text-gray-600">
+                                <a href="AdminAddOrderDoc.php" class="btn btn-success btn-icon-split right">
+                                    <span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Tambah Order</span>
+                                </a>
+                                <a href="#" class=" btn btn-icon-split btn-md btn-primary ">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-download fa-sm "></i>
+                                    </span>
+                                    <span class="text">Generate Report </span>
                                 </a>
                             </div>
                         </div>
@@ -183,8 +202,8 @@ if (!$user) {
 
     ?>
 
-  <!-- Bootstrap core JavaScript-->
-  <script src="vendor/jquery/jquery.min.js"></script>
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
     <!-- Core plugin JavaScript-->
@@ -197,9 +216,23 @@ if (!$user) {
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- link checkboxes datatable -->
+
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+
+  
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable();
+
+            var table = $('#dataTable').DataTable({
+                dom: 'Pfrtip', // Add 'P' for search panes
+                searchPanes: {
+                },
+            });
+
         });
     </script>
 
