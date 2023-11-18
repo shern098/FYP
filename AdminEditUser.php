@@ -83,7 +83,7 @@ if (mysqli_num_rows($display) > 0) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"> Edit Pengguna </h1>
+                        <h1 class="h3 mb-0 text-white-600"> Edit Pengguna </h1>
 
                     </div>
 

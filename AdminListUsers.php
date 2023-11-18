@@ -112,21 +112,21 @@ if (!$user ) {
                                                 echo "<td>" . $data["username"] . "</td>";
                                                 echo '<td>
                                                 <a href="AdminEditUserPassword.php?cmd=repass&id=' . $data["idward"] . '" class="btn btn-light btn-icon-split right">
-                                                        <span class="icon text-gray-600">
+                                                        <span class="icon text-white-600">
                                                             Tetap Katalaluan Baharu
                                                         </span> 
                                                         </a>
                                                 </td>';
                                                 echo '<td>
                                                 <a href="AdminEditUser.php?cmd=edit&id='.$data['idward'].'" class="btn btn-light btn-icon-split right">
-                                                        <span class="icon text-gray-600">
+                                                        <span class="icon text-white-600">
                                                             <i class="fas fa-pen"></i>
                                                         </span> 
                                                         </a>
                                                         '?>
 
                                                 <a onclick="return confirm('confirm delete?')"  <?php echo' href="AdminEditUser.php?cmd=del&id='.$data['idward'].'"'?> class="btn btn-light btn-icon-split right">
-                                                        <span class="icon text-gray-600">
+                                                        <span class="icon text-white-600">
                                                             <i class="fas fa-trash"></i>
                                                         </span> 
                                                         </a>
@@ -150,7 +150,7 @@ if (!$user ) {
                                 </table>
                                 <!--Will Bring to Add Patient Page-->
                                 <a href="AdminAddUser.php" class="btn btn-light btn-icon-split right">
-                                    <span class="icon text-gray-600">
+                                    <span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Tambah Pengguna</span>

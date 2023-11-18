@@ -88,7 +88,7 @@ if (!$user ) {
                                 </div>
                                 <div class="card-body">
                                     <a href="AdminListOrderDoc.php" class="btn btn-primary btn-icon-split">
-                                        <span class="icon text-white-50">
+                                        <span class="icon text-white-600">
                                             <i class="fas fa-file"></i>
                                         </span>
                                         <span class="text">Senarai Order(DocPro)</span>
@@ -97,7 +97,7 @@ if (!$user ) {
                                     <div class="my-2"></div>
 
                                     <a href="AdminListUsers.php" class="btn btn-info btn-icon-split">
-                                        <span class="icon text-white-50">
+                                        <span class="icon text-white-600">
                                             <i class="fas fa-user-md "></i>
                                         </span>
                                         <span class="text">Urus Pengguna Sistem</span>
@@ -107,7 +107,7 @@ if (!$user ) {
 
 
                                     <a href="AdminViewReport.php" class="btn btn-info btn-icon-split">
-                                        <span class="icon text-white-50">
+                                        <span class="icon text-white-600">
                                             <i class="fas fa-folder-open"></i>
                                         </span>
                                         <span class="text">Semakan Laporan</span>
