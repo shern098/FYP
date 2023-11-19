@@ -63,7 +63,7 @@ if (!$user) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><?php echo $user; ?></h1>
+                        <h1 class="h3 mb-0 text-gray-800"><?php echo $user;   ?></h1>
 
                     </div>
 
@@ -106,8 +106,12 @@ if (!$user) {
                                         <?php
                                         //connect database
                                         include("db_connection.php");
+                                        if(isset($_GET["wad"])){
+                                            $wad = $_GET["wad"];
+                                        }
+                                
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient` where `status` = '1' ";
+                                        $getdata = "SELECT * FROM `tblpatient` where `status` = '1' and wad = '$wad' ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {

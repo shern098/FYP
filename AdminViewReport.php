@@ -1,6 +1,7 @@
 <?php
 session_start();
 $user = $_SESSION["CurrentUser"]; 
+
 if (!$user ) {
     echo "<script>window.location.href='index.php';</script>";
   }
@@ -104,10 +105,11 @@ if (!$user ) {
                                         if (mysqli_num_rows($display) > 0) {
 
                                             while ($data = mysqli_fetch_assoc($display)) {
+                                                $wad = $data["username"];
                                                 echo "<tr>";
-                                                echo "<td>" . $data["username"] . "</td>";
+                                                echo "<td>" .  $wad . "</td>";
                                                 echo "<td> status </td>";
-                                                echo "<td> <a href='AdminViewReportWad.php' class='btn btn-light btn-icon-split right'>
+                                                echo "<td> <a href='AdminViewReportWad.php?wad=".$wad."' class='btn btn-light btn-icon-split right'>
                                                 <span class='icon text-gray-600'>
                                                 <i class='fas fa-eye'></i>
                                             </span>
