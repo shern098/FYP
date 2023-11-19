@@ -43,11 +43,11 @@ function clock() {
 
     // Daytime: 7.30 AM - 12.00 PM
     if (totalMinutes24h >= 450 && totalMinutes24h <= 720) {
-      return "Pagi";
+      return "Shift: Pagi";
     }
     // Nighttime: 3.00 PM - 5.45 PM
     else if (totalMinutes24h >= 900 && totalMinutes24h <= 1065) {
-      return "Petang";
+      return "Shift: Petang";
     } else {
       return "Di luar waktu pesanan";
     }
@@ -56,25 +56,31 @@ function clock() {
   function getMealSession(hours, minutes, ampm) {
     var totalMinutes = hours * 60 + minutes;
     var totalMinutes24h = ampm === "PM" ? totalMinutes + 720 : totalMinutes; // Convert to 24-hour format for easier comparison
-
+  
     if (totalMinutes24h >= 450 && totalMinutes24h <= 480) {
       // 7.30 AM - 8.00 AM
       return "Sarapan Pagi";
-
+    } else if (totalMinutes24h > 480 && totalMinutes24h < 690) {
+      // After 8.00 AM but before 11.30 AM
+      return "Belum Makan Tengah Hari";
     } else if (totalMinutes24h >= 690 && totalMinutes24h <= 720) {
       // 11.30 AM - 12.00 PM
       return "Makan Tengahari";
-
+    } else if (totalMinutes24h > 720 && totalMinutes24h < 900) {
+      // After 12.00 PM but before 3.00 PM
+      return "Belum Minum Petang";
     } else if (totalMinutes24h >= 900 && totalMinutes24h <= 930) {
       // 3.00 PM - 3.30 PM
       return "Minum Petang";
-
+    } else if (totalMinutes24h > 930 && totalMinutes24h < 1050) {
+      // After 3.30 PM but before 5.30 PM
+      return "Belum Makan Malam";
     } else if (totalMinutes24h >= 1050 && totalMinutes24h <= 1065) {
       // 5.30 PM - 5.45 PM
       return "Makan Malam";
-      
     } else {
-      return "Belum waktu makan";
+      // After 5.45 PM
+      return "Belum Makan Pagi";
     }
   }
 }

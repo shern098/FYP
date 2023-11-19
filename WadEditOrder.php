@@ -154,10 +154,10 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                                     switch ($data['status']) {
                                                         case 0:
-                                                            $status = "Belum Disahkan";
+                                                            $status = "Belum Disemak";
                                                             break;
                                                         case 1:
-                                                            $status = "Telah Disahkan";
+                                                            $status = "Telah Disemak";
                                                             break;
                                                     }
 
