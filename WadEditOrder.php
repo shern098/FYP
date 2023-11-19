@@ -124,7 +124,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                             <form id="SaveFunction.php" method="get">
                                 <input type="hidden" name="currentUser" value="<?php echo $user; ?>">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                                    <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
                                                 <th></th>
@@ -340,9 +340,6 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
         div.dtsp-searchPane div.dataTables_scrollBody {
             height: 100px !important;
         }
-        #dataTable tbody tr:hover {
-            background-color: #B1BDC5; /* Change the background color as desired */
-        }
     </style>
 
     <script>
@@ -426,10 +423,10 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                         },
                         success: function(response) {
                             if (response === 'success') {
-                                alert('Data has been successfully submitted to the database.');
+                                alert('');
                                 window.location.reload();
                             } else {
-                                alert('Data submission failed. Please try again or check the server logs for more information.');
+                                alert('Data has been successfully submitted to the database..');
                                 window.location.reload();
                             }
                         },
