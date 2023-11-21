@@ -87,7 +87,7 @@ if (!$user) {
                             </div>
                               <form action="updatauser.php" method="get">
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="text" class="form-control" name="namewad" placeholder="Username (nama yang dipaparkan*)" required>
+                                    <input type="text" class="form-control" name="namewad" placeholder="Nama (nama yang dipaparkan*)" required>
                                 </div>
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="password" class="form-control" name="passwad" placeholder="Katalaluan" required>

@@ -25,7 +25,7 @@ $date = date("Y-m-d");
 $day=substr($date,8,2);
 $month=substr($date,5,2);
 $year=substr($date,2,2);
-$getnum="select count(*) as bil from tbldocpro where left(ordderid ,2)='04' ";
+$getnum="select count(*) as bil from tbldocpro where left(ordderid ,2)='$day' ";
 $data = mysqli_query($conn,$getnum);
 $num=mysqli_fetch_assoc($data);
 $bil=(int)$num["bil"];
