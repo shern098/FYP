@@ -5,6 +5,12 @@ $user = $_SESSION["CurrentUser"];
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
+if(isset($_GET["wad"])){
+    $wad = $_GET["wad"];
+
+
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -80,6 +86,9 @@ if (!$user) {
                         </div>
                     </div>
                     
+
+                    
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -106,9 +115,7 @@ if (!$user) {
                                         <?php
                                         //connect database
                                         include("db_connection.php");
-                                        if(isset($_GET["wad"])){
-                                            $wad = $_GET["wad"];
-                                        }
+                                        
                                 
                                         // select data
                                         $getdata = "SELECT * FROM `tblpatient` where `status` = '1' and wad = '$wad' ";
@@ -139,6 +146,7 @@ if (!$user) {
                                                 echo "</tr>";
                                             }
                                         }
+                                        mysqli_close($conn);
 
                                         ?>
                                     </tbody>
@@ -156,9 +164,88 @@ if (!$user) {
                                         </tr>
                                     </tfoot>
                                 </table>
+                                <a href="AdminViewReport.php" class="btn btn-light btn-icon-split right">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Kembali</span>
+                                </a>
                             </div>
                         </div>
                     </div>
+
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">  
+                                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <?php
+                                          include("db_connection.php");
+                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC";
+                                          $display = mysqli_query($conn, $getdata);
+                                          //display data
+                                          if (mysqli_num_rows($display) > 0) {
+  
+                                              while ($data = mysqli_fetch_assoc($display)) {
+                                                  echo "<th>" . $data["iddiet"] . "</th>";
+                                              }
+                                          }
+                                          ?>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php
+                                        include("db_connection.php");
+                                        $getdata = "SELECT * FROM `tblbilorder` ORDER BY `tblbilorder`.`idnum` ASC";
+                                        $display = mysqli_query($conn, $getdata);
+                                        //display data
+                                        if (mysqli_num_rows($display) > 0) {
+
+                                            while ($data = mysqli_fetch_assoc($display)) {
+                                                echo "<td>" . $data["bil"] . "</td>";
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                        <?php
+                                          include("db_connection.php");
+                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC";
+                                          $display = mysqli_query($conn, $getdata);
+                                          //display data
+                                          if (mysqli_num_rows($display) > 0) {
+  
+                                              while ($data = mysqli_fetch_assoc($display)) {
+                                                  echo "<th>" . $data["iddiet"] . "</th>";
+                                              }
+                                          }
+                                          ?>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <a href="AdminViewReport.php" class="btn btn-light btn-icon-split right">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Kembali</span>
+                                    <a href="CountOrder.php?wad=$wad" class="btn btn-light btn-icon-split right">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Kira</span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->

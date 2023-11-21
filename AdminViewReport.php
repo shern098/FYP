@@ -5,6 +5,10 @@ $user = $_SESSION["CurrentUser"];
 if (!$user ) {
     echo "<script>window.location.href='index.php';</script>";
   }
+
+
+
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -88,7 +92,6 @@ if (!$user ) {
                                     <thead>
                                         <tr>
                                             <th>Wad</th>
-                                            <th>Butiran</th>
                                             <th>Tindakkan</th>
                                         </tr>
                                     </thead>
@@ -108,7 +111,6 @@ if (!$user ) {
                                                 $wad = $data["username"];
                                                 echo "<tr>";
                                                 echo "<td>" .  $wad . "</td>";
-                                                echo "<td> status </td>";
                                                 echo "<td> <a href='AdminViewReportWad.php?wad=".$wad."' class='btn btn-light btn-icon-split right'>
                                                 <span class='icon text-gray-600'>
                                                 <i class='fas fa-eye'></i>
@@ -125,7 +127,6 @@ if (!$user ) {
                                     <tfoot>
                                         <tr>
                                             <th>Wad</th>
-                                            <th>Butiran</th>
                                             <th>Tindakkan</th>
                                         </tr>
                                     </tfoot>
