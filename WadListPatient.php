@@ -112,7 +112,7 @@ if (!$user) {
                                         include("db_connection.php");
                                         $tarikh =  date("Y-m-d");
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and  CURRENT_DATE() = $tarikh  ";
+                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and  DATE(masa_keyIn) = '$tarikh' ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
