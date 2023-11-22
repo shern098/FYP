@@ -10,14 +10,14 @@ if (isset($_GET["cmd"])) {
 $cmd=$_GET["cmd"];
 $idw=$_GET["id"];
 if($cmd == "del"){
-        $del = "DELETE FROM `tbluser` WHERE idward=$idw";
+        $del = "DELETE FROM `tbluser` WHERE idward='$idw'";
         mysqli_query($conn, $del);
         echo "<script>
 window.location.href = 'AdminListUsers.php';
 </script>";
     }
 elseif($cmd == "edit" || $cmd == "repass"){
-$getdata = "SELECT * FROM `tbluser` where idward=$idw";
+$getdata = "SELECT * FROM `tbluser` where idward='$idw'";
 $display = mysqli_query($conn, $getdata);
     //display data
 if (mysqli_num_rows($display) > 0) {
@@ -112,6 +112,7 @@ if (mysqli_num_rows($display) > 0) {
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
         <input name="idw"  style="display:none;" value=<?php echo $idw; ?>>
         <input name="cmd"  style="display:none;" value=<?php echo $cmd; ?>>
+        Nama Baru Wad
             <input type="text" class="form-control" name="newnamewad" value="<?php echo $username?>" required>
         </div>
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">

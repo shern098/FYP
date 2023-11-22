@@ -6,21 +6,11 @@ if (isset($_GET["btnhantar"])) {
 $username = $_GET["namewad"];
 $pass = hash("sha512",$_GET["passwad"]);
 $confpass = hash("sha512",$_GET["Kpasswad"]);
+//just take num from username 
+$usernum=substr($username,-1);
+$usernum=sprintf("%02s",$usernum);
 
-$getnum="SELECT `idward` FROM `tbluser`";
-$data = mysqli_query($conn,$getnum);
-if (mysqli_num_rows($data) > 0) {
-
-while($num=mysqli_fetch_assoc($data)){
-    $newnum=$num["idward"];
-};
-}
-else{
-    $newnum=0;
-}
-$newnum=sprintf("%02s",++$newnum);
-
-$id=$newnum;
+$id=$usernum;
 
 if($pass == $confpass){
     $getdata = "INSERT INTO `tbluser`(`username`, `idward`, `password`) VALUES ('$username','$id','$pass')";
