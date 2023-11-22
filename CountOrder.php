@@ -1,13 +1,14 @@
 
 <?php
+session_start();
 
 if(isset($_GET["wad"])){
 $wad=$_GET["wad"];
-
+$tarikh   = $_SESSION['date'];
 include("db_connection.php");
 $del = "DELETE FROM `tblbilorder` WHERE `groupid`='$wad'";
 mysqli_query($conn, $del);
-$tarikh =  date("Y-m-d");
+
 $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` = '1' ";
 $display = mysqli_query($conn, $getdata);
 $orderstore=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];

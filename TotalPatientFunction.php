@@ -2,7 +2,7 @@
 
  //connect database
  include("db_connection.php");
- $tarikh =  date("Y-m-d");
+ $tarikh   = $_SESSION['date'];
 
  // select data
  $getTotalPatient = "SELECT wad, COUNT(*) as total_patient, DATE(masa_keyIn) as submission_date

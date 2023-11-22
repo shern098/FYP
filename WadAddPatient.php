@@ -32,29 +32,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
 
     <title>Home</title>
-    <script>
-        function checkRadioButton() {
-            var currentTime = new Date();
-            var currentHour = currentTime.getHours();
-            var currentMinute = currentTime.getMinutes();
-
-            // Convert current time to minutes since midnight
-            var currentTimeInMinutes = currentHour * 60 + currentMinute;
-
-            // Define schedule times in minutes since midnight
-            var morningStartTime = 7 * 60 + 30; // 7:30 AM
-            var morningEndTime = 8 * 60; // 8:00 AM
-            var eveningStartTime = 15 * 60; // 3:00 PM
-            var eveningEndTime = 17 * 60 + 45; // 5:45 PM
-
-            // Check the appropriate radio button based on the current time
-            if (currentTimeInMinutes >= morningStartTime && currentTimeInMinutes <= morningEndTime) {
-                document.getElementById("Pagi").checked = true;
-            } else if (currentTimeInMinutes >= eveningStartTime && currentTimeInMinutes <= eveningEndTime) {
-                document.getElementById("Petang").checked = true;
-            }
-        }
-    </script>
+  
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
@@ -225,7 +203,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
                                         cancelButton.addEventListener('click', function() {
                                             // Use the history object to go back to the previous page
-                                            window.location.href = "WadEditOrder.php"
+                                            window.location.href = "WadEditOrder.php";
                                         });
                                     </script>
                                 </div>

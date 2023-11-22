@@ -1,7 +1,7 @@
 <?php
 session_start();
 $user = $_SESSION["CurrentUser"];
-
+$tarikh   = $_SESSION['date'];
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
@@ -115,7 +115,7 @@ if(isset($_GET["wad"])){
                                         <?php
                                         //connect database
                                         include("db_connection.php"); 
-                                        $tarikh =  date("Y-m-d");
+                            
                                         // select data
                                         $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` IN (1, 2, 3) ";
                                         $display = mysqli_query($conn, $getdata);

@@ -1,11 +1,11 @@
 <?php
 
 include("db_connection.php");
-
+session_start();
 if(isset($_GET["wad"]) &&isset($_GET["op"])){
     $op=$_GET["op"];
     $wad=$_GET["wad"];
-    $tarikh =  date("Y-m-d");
+    $tarikh   = $_SESSION['date'];
     if($op== "stat2"){
     // select data
     $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` = '1' ";

@@ -1,5 +1,8 @@
 <?php 
 session_start();
+date_default_timezone_set('Asia/Kuala_Lumpur');
+$_SESSION['date'] =  date("Y-m-d");
+
 //get login data
 if(isset($_GET["login"])){
     $loginuser =$_GET["username"];

@@ -1,5 +1,6 @@
 <?php
 session_start();
+$tarikh   = $_SESSION['date'];
 $user = $_SESSION["CurrentUser"];
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
@@ -99,7 +100,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800"><?php echo   $user; ?></h1>
+                        <h1 class="h3 mb-0 text-gray-800"><?php echo   $user;   ?></h1>
                     </div>
 
 
@@ -143,7 +144,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             <?php
                                             //connect database
                                             include("db_connection.php");
-                                            $tarikh = date("Y-m-d");
+                                      
                                             // select data
                                             $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyIn) = '$tarikh'";
 
@@ -161,8 +162,6 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                             $status = "Telah Disemak";
                                                             break;
                                                     }
-
-
 
                                             ?>
 
@@ -183,12 +182,16 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                             switch ($status) {
                                                                 case "Belum Disemak":
                                                             ?>
-                                                                    <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn-circle btn-info" style="text-decoration: none; ">
-                                                                        <i class='fas fa-edit'></i>
+                                                                    <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn btn-info btn-icon-split btn-lg" style="text-decoration: none; ">
+                                                                        <span class="icon text-white-600">
+                                                                            <i class="fas fa-pen"></i>
+                                                                        </span>
                                                                     </a> <!-- Edit icon -->
 
-                                                                    <a onclick="return confirm('Buang Pesanan nama: <?php echo $data['name']; ?> ')" href='DeleteFunction.php?id=<?php echo $data["rn"]; ?>' class="btn-circle btn-danger" style="text-decoration: none; ">
-                                                                        <i class='fas fa-trash'></i>
+                                                                    <a onclick="return confirm('Buang Pesanan nama: <?php echo $data['name']; ?> ')" href='DeleteFunction.php?id=<?php echo $data["rn"]; ?>' class="btn btn-danger btn-icon-split btn-lg" style="text-decoration: none; ">
+                                                                        <span class="icon text-white-600">
+                                                                            <i class="fas fa-trash"></i>
+                                                                        </span>
                                                                     </a> <!-- Delete icon -->
 
                                                                 <?php
@@ -197,7 +200,9 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                                 ?>
 
                                                                     <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn-circle btn-warning" style="text-decoration: none; ">
-                                                                        <i class='fas fa-ban'></i>
+                                                                        <span class="icon text-white-600">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </span>
                                                                     </a>
                                                             <?php
                                                                     break;
@@ -245,7 +250,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             </span>
                                             <span class="text">Tambah Pesanan</span>
                                         </a>
-                                     
+
 
                                         <!-- offset is padding right -->
                                         <select class="form-control col-3 offset-md-3" name="nurse" id="nurseSelect" style="display:inline-flex; ">
@@ -351,7 +356,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
 
                 searchPanes: {
-                    columns: [ 2, 3, 4, 5, 6], // Specify the column indices to include in the search panes
+                    columns: [2, 3, 4, 5, 6], // Specify the column indices to include in the search panes
 
                 },
                 scrollY: 400,
@@ -360,13 +365,12 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                 },
 
                 columnDefs: [{
-                        orderable: false,
-                        className: 'select-checkbox',
-                        
-                        targets: 0,
+                    orderable: false,
+                    className: 'select-checkbox',
 
-                    }
-                ],
+                    targets: 0,
+
+                }],
                 select: {
                     style: 'multi',
                     selector: 'td:first-child'
@@ -376,8 +380,8 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                     sSearch: "Carian:"
                 },
                 lengthMenu: [
-                    [ 10, 25, -1],
-                    [ 10, 25, "All"]
+                    [10, 25, -1],
+                    [10, 25, "All"]
                 ]
             });
 

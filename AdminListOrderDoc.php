@@ -1,6 +1,7 @@
 <?php
 session_start();
 $user  = $_SESSION["CurrentUser"];
+$tarikh   = $_SESSION['date'];
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
@@ -128,15 +129,15 @@ if (!$user) {
                                                 echo "<td>" . $data["othernum"] . "</td>";
                                                 echo "<td>" . $data["notes"] . "</td>";
                                                 echo '<td>
-                                                <a href="AdminEditOrderDoc.php?cmd=edit&id=' . $data['ordderid'] . '" class="btn btn-light btn-icon-split right">
-                                                        <span class="icon text-gray-600">
+                                                <a href="AdminEditOrderDoc.php?cmd=edit&id=' . $data['ordderid'] . '" class="btn btn-primary btn-icon-split btn-lg ">
+                                                        <span class="icon text-white-600">
                                                             <i class="fas fa-pen"></i>
                                                         </span> 
                                                         </a>
                                                         ' ?>
 
-                                                <a onclick="return confirm('confirm delete?')" <?php echo ' href="AdminEditOrderDoc.php?cmd=del&id=' . $data['ordderid'] . '"' ?> class="btn btn-light btn-icon-split right">
-                                                    <span class="icon text-gray-600">
+                                                <a onclick="return confirm('confirm delete?')" <?php echo ' href="AdminEditOrderDoc.php?cmd=del&id=' . $data['ordderid'] . '"' ?> class="btn btn-danger btn-icon-split btn-lg ">
+                                                    <span class="icon text-white-600">
                                                         <i class="fas fa-trash"></i>
                                                     </span>
                                                 </a>
