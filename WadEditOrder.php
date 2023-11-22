@@ -143,8 +143,9 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             <?php
                                             //connect database
                                             include("db_connection.php");
+                                            $tarikh = date("Y-m-d");
                                             // select data
-                                            $getdata = "SELECT * FROM `tblpatient` where wad = '$user'";
+                                            $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and CURRENT_DATE() = '$tarikh'";
 
                                             $display = mysqli_query($conn, $getdata);
                                             //display data
@@ -180,7 +181,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
 
                                                             switch ($status) {
-                                                                case "Belum Disahkan":
+                                                                case "Belum Disemak":
                                                             ?>
                                                                     <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn-circle btn-info" style="text-decoration: none; ">
                                                                         <i class='fas fa-edit'></i>
@@ -192,7 +193,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                                                 <?php
                                                                     break;
-                                                                case "Telah Disahkan":
+                                                                case "Telah Disemak":
                                                                 ?>
 
                                                                     <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn-circle btn-warning" style="text-decoration: none; ">
@@ -353,9 +354,15 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                     columns: [ 2, 3, 4, 5, 6], // Specify the column indices to include in the search panes
 
                 },
+                scrollY: 400,
+                scroller: {
+                    loadingIndicator: true
+                },
+
                 columnDefs: [{
                         orderable: false,
                         className: 'select-checkbox',
+                        
                         targets: 0,
 
                     }
@@ -369,8 +376,8 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                     sSearch: "Carian:"
                 },
                 lengthMenu: [
-                    [5, 10, 25, -1],
-                    [5, 10, 25, "All"]
+                    [ 10, 25, -1],
+                    [ 10, 25, "All"]
                 ]
             });
 
@@ -381,7 +388,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
             table.rows().every(function() {
                 var data = this.data();
                 var status = data[6]; // Assuming the status is in the 7th column (index 6).
-                var isCancel = status === "Telah Disahkan";
+                var isCancel = status === "Telah Disemak";
 
                 if (isCancel) {
                     // Hide the checkboxes by setting their display style'.

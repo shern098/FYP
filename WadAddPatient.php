@@ -130,15 +130,15 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                 <div class="card-body">
                                     <form action="AddDataPatient.php" method=get>
 
-                                        <div class="container form-group has-feedback">
+                                        <div  class="container form-group has-feedback" >
 
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="pagi" required>
+                                                <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="pagi" >
                                                 <label class="custom-control-label" for="Pagi">PAGI</label>
                                             </div>
 
-                                            <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="Petang" name="shift" class="custom-control-input" value="petang">
+                                            <div class="custom-control custom-radio custom-control-inline" >
+                                                <input type="radio" id="Petang" name="shift" class="custom-control-input"  value="petang" >
                                                 <label class="custom-control-label" for="Petang">PETANG</label>
                                             </div>
 
@@ -212,7 +212,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                         <div class="ln_solid"></div>
                                         <div class="form-group">
                                             <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                                <button type="button" class="btn btn-primary" id="cancelButton">Cancel</button>
+                                                <button type="button" class="btn btn-primary" id="backButton">Back</button>
                                                 <button type="submit" class="btn btn-success" id="submitButton">Submit</button>
                                             </div>
                                         </div>
@@ -220,7 +220,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
 
                                     <script>
-                                        const cancelButton = document.getElementById('cancelButton');
+                                        const cancelButton = document.getElementById('backButton');
                                         const submitButton = document.getElementById('submitButton');
 
                                         cancelButton.addEventListener('click', function() {

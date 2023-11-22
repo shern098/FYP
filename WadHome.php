@@ -81,7 +81,7 @@ if (!$user) {
                     <div class="row ">
 
                         <!-- Content Column -->
-                        <div class="col-6 col-md-4">
+                        <div class="col-6  ">
 
                             <div class="card shadow mb-4 ">
                                 <div class="card-header py-3">
@@ -122,33 +122,73 @@ if (!$user) {
 
                         <!-- Content Column -->
 
-                        <div class="col-xl-8 col-lg-5">
+                        <div class="col-xl-8">
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary"><span class="update-date"></span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Kod Ringkasan Diet di <?php echo $user?> pada: <span class="update-date"></span></h6>
+
+                                </div>
+                                <!-- Card Body -->
+                                <div class="card-body no-gutters">
+                                    <div class="chart-bar ">
+                                        <canvas id="totalDietChart"></canvas>
+                                        <!-- where piechart will be displayed -->
+                                    </div>
+                                </div>
+                                <div class="card-footer">
+
+                                    <?php
+
+                                    include 'TotalDietFunction.php';
+
+                                    while ($dietRow = mysqli_fetch_assoc($displayTotalDiet)) {
+                                        $dietType = $dietRow['iddiet'];
+                                        if (array_key_exists($dietType, $dietCounts)) {
+                                            $dietCounts[$dietType] = $dietRow['total_diet'];
+                                        }
+                                    }
+                                    $totalDiet = array_sum($dietCounts);
+
+                                    // Output the counts
+
+
+                                    ?>
+                                    <h6 class="m-0 font-weight-bold text-primary"> Jumlah Kesuluruhan Diet: <?php echo $totalDiet; ?>
+                                    </h6>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="col-xl-4 no-gutters ">
+                            <div class="card shadow mb-4">
+                                <!-- Card Header - Dropdown -->
+                                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+                                    <h6 class="m-0 font-weight-bold text-primary"> Keseluruhan Pesakit Disemua Wad: <br> <span class="update-date"></span></h6>
 
                                 </div>
                                 <!-- Card Body -->
                                 <div class="card-body">
-                                    <div class="chart-pie pt-4 pb-2">
-                                        <canvas id="myPieChart"></canvas>
+                                    <div class="chart-pie ">
+                                        <canvas id="totalPatientChart"></canvas>
                                         <!-- where piechart will be displayed -->
                                     </div>
                                 </div>
                                 <div class="card-footer">
                                     <?php
-                                    include 'TotalDietFunction.php';
+                                    include 'TotalPatientFunction.php';
                                     $totalPatitent = 0;
                                     while ($row = mysqli_fetch_assoc($displayTotalPatient)) {
 
                                         $totalPatitent += $row['total_patient'];
                                     }
                                     ?>
-                                    <h6 class="m-0 font-weight-bold text-primary"> Jumlah Kesuluruhan Pesakit: <?php  echo $totalPatitent;  ?> </h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"> Jumlah Kesuluruhan Pesakit: <?php echo $totalPatitent;  ?> </h6>
                                 </div>
                             </div>
                         </div>
+
 
 
 
@@ -196,7 +236,7 @@ if (!$user) {
 
     <?php
 
-    include 'TotalDietFunction.php';
+    include 'TotalPatientFunction.php';
 
 
 
@@ -209,13 +249,13 @@ if (!$user) {
         Chart.defaults.global.defaultFontColor = '#858796';
 
         // Pie Chart Example
-        var ctx = document.getElementById("myPieChart");
-        var myPieChart = new Chart(ctx, {
-            type: 'doughnut',
+        var ctx = document.getElementById("totalPatientChart");
+        var patientChart = new Chart(ctx, {
+            type: 'pie',
             data: {
                 labels: [
                     <?php
-                    include 'TotalDietFunction.php';
+                    include 'TotalPatientFunction.php';
 
                     while ($chart = mysqli_fetch_assoc($displayTotalPatient)) {
                         echo   "\"" . $chart['wad'] . "\",";
@@ -228,7 +268,7 @@ if (!$user) {
                 datasets: [{
                     data: [
                         <?php
-                        include 'TotalDietFunction.php';
+                        include 'TotalPatientFunction.php';
 
                         while ($chart = mysqli_fetch_assoc($displayTotalPatient)) {
                             echo   "" . $chart['total_patient'] . ",";
@@ -253,7 +293,7 @@ if (!$user) {
                 maintainAspectRatio: false,
                 tooltips: {
                     backgroundColor: "rgb(255,255,255)",
-                    bodyFontColor: "#858796",
+                    bodyFontColor: "#000000",
                     borderColor: '#dddfeb',
                     borderWidth: 1,
                     xPadding: 15,
@@ -261,13 +301,129 @@ if (!$user) {
                     displayColors: false,
                     caretPadding: 10,
                 },
+
                 legend: {
+                    labels: {
+                        fontColor: 'black', // Dark font for legend labels
+                        fontSize: 14,
+                    },
                     display: true
-                },
-                cutoutPercentage: 80,
+                }
             },
         });
     </script>
+
+
+    <!-- bar chart -->
+    <script>
+        // Set new default font family and font color to mimic Bootstrap's default styling
+        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
+        Chart.defaults.global.defaultFontColor = '#858796';
+
+
+        // Bar Chart Example
+        var ctx = document.getElementById("totalDietChart");
+        var dietChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: ["ND", "VEG", "CLD", "NLD", "SD", "DD", "HPD", "LPD", "LFD", "LSD",
+                    "HPTD", "LTPD", "LVKD", "LFRD", "LPND", "MAC", "LSD/DD", "PND", "LL",
+                ],
+                datasets: [{
+
+                    borderColor: "#4e73df",
+                    data: [
+                        <?php
+
+                        // Output the counts
+                        foreach ($dietCounts as $count) {
+                            echo $count . ",";
+                        }
+
+
+                        ?>
+                    ],
+                    backgroundColor: [
+                        'rgba(255, 51, 153, 0.2)', // Rose
+                        'rgba(51, 204, 255, 0.2)', // Light Blue
+                        'rgba(153, 255, 51, 0.2)', // Chartreuse
+                        'rgba(255, 102, 0, 0.2)', // Tangerine
+                        'rgba(102, 51, 255, 0.2)', // Lavender
+                        'rgba(255, 153, 0, 0.2)', // Gold
+                        'rgba(0, 255, 204, 0.2)', // Turquoise
+                        'rgba(204, 0, 102, 0.2)', // Magenta (dark)
+                        'rgba(255, 204, 204, 0.2)', // Pale Pink
+                        'rgba(204, 204, 0, 0.2)', // Olive (dark)
+                        'rgba(0, 102, 51, 0.2)', // Forest Green
+                        'rgba(255, 102, 102, 0.2)', // Salmon
+                        'rgba(51, 153, 102, 0.2)', // Jade
+                        'rgba(255, 51, 0, 0.2)', // Crimson
+                        'rgba(0, 204, 102, 0.2)', // Sea Green
+                        'rgba(102, 0, 51, 0.2)', // Burgundy
+                        'rgba(102, 255, 153, 0.2)', // Mint
+                        'rgba(0, 0, 204, 0.2)' // Royal Blue
+                    ],
+                    borderColor: [
+                        'rgba(255, 51, 153, 1)',
+                        'rgba(51, 204, 255, 1)',
+                        'rgba(153, 255, 51, 1)',
+                        'rgba(255, 102, 0, 1)',
+                        'rgba(102, 51, 255, 1)',
+                        'rgba(255, 153, 0, 1)',
+                        'rgba(0, 255, 204, 1)',
+                        'rgba(204, 0, 102, 1)',
+                        'rgba(255, 204, 204, 1)',
+                        'rgba(204, 204, 0, 1)',
+                        'rgba(0, 102, 51, 1)',
+                        'rgba(255, 102, 102, 1)',
+                        'rgba(51, 153, 102, 1)',
+                        'rgba(255, 51, 0, 1)',
+                        'rgba(0, 204, 102, 1)',
+                        'rgba(102, 0, 51, 1)',
+                        'rgba(102, 255, 153, 1)',
+                        'rgba(0, 0, 204, 1)'
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                maintainAspectRatio: false,
+
+                layout: {
+                    padding: {
+                        left: 0,
+                        right: 0,
+                        top: 0,
+                        bottom: 0
+                    }
+                },
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            fontColor: 'black',
+                            fontSize: 14
+                        }
+                    }],
+                    xAxes: [{
+                        gridLines: {
+                            display: false // This will disable the Y-axis grid lines
+                        },
+                        ticks: {
+                            fontColor: 'black',
+                            fontSize: 14
+                        }
+                    }]
+                },
+                legend: {
+                    display: false
+                },
+            },
+
+        });
+    </script>
+
+
+
 
 </body>
 

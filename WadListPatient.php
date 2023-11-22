@@ -28,7 +28,9 @@ if (!$user) {
 
     <!-- Custom dt for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <!-- link checkbox datatable -->
 
+    <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.bootstrap4.min.css">
 </head>
 
 <body id="page-top">
@@ -65,7 +67,7 @@ if (!$user) {
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800"><?php echo $user; ?> </h1>
-                       
+
                     </div>
 
 
@@ -80,7 +82,7 @@ if (!$user) {
                             </div>
                         </div>
                     </div>
-                    
+
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
@@ -91,13 +93,14 @@ if (!$user) {
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            
+
                                             <th>R/N PESAKIT</th>
                                             <th>NO. KATIL</th>
                                             <th>NAMA PESAKIT</th>
                                             <th>KELAS</th>
                                             <th>JENIS DIET</th>
                                             <th>CATATAN</th>
+                                            <th>TARIKH</th>
                                             <th>STATUS</th>
                                         </tr>
                                     </thead>
@@ -107,21 +110,22 @@ if (!$user) {
                                         <?php
                                         //connect database
                                         include("db_connection.php");
+                                        $tarikh =  date("Y-m-d");
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user'";
+                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and  CURRENT_DATE() = $tarikh  ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
 
                                             while ($data = mysqli_fetch_assoc($display)) {
-
+                                                $dateOnly = date("Y-m-d", strtotime($data["masa_keyIn"]));
 
                                                 switch ($data['status']) {
                                                     case 0:
-                                                        $status = "Belum Disahkan";
+                                                        $status = "Belum Disemak";
                                                         break;
                                                     case 1:
-                                                        $status = "Telah Disahkan";
+                                                        $status = "Telah Disemak";
                                                         break;
                                                 }
 
@@ -132,6 +136,7 @@ if (!$user) {
                                                 echo "<td>" . $data["kelas"] . "</td>";
                                                 echo "<td>" . $data["iddiet"] . "</td>";
                                                 echo "<td>" . $data["catatan"] . "</td>";
+                                                echo "<td>" . $dateOnly . "</td>";
                                                 echo "<td>" . $status . "</td>";
                                                 echo "</tr>";
                                             }
@@ -148,8 +153,9 @@ if (!$user) {
                                             <th>KELAS</th>
                                             <th>JENIS DIET</th>
                                             <th>CATATAN</th>
+                                            <th>TARIKH</th>
                                             <th>STATUS</th>
-                                            
+
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -194,6 +200,7 @@ if (!$user) {
     ?>
 
 
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -208,11 +215,50 @@ if (!$user) {
     <!-- Page level plugins -->
     <script src="vendor/datatables/jquery.dataTables.min.js"></script>
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- link checkboxes datatable -->
+
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+
+
+    <!-- untuk adjust tinggi filter active -->
+
+
+    <style>
+        div.dtsp-searchPane div.dataTables_scrollBody {
+            height: 100px !important;
+        }
+    </style>
     <script>
         $(document).ready(function() {
-            $('#dataTable').DataTable({
-              
+
+
+            var table = $('#dataTable').DataTable({
+
+                searchPanes: {
+                    columns: [1, 2, 3, 4, 5, 6, 7], // Specify the column indices to include in the search panes
+
+                },
+                scrollY: 400,
+                scroller: {
+                    loadingIndicator: true
+                },
+
+                oLanguage: {
+                    sLengthMenu: "Tunjuk _MENU_ rekod",
+                    sSearch: "Carian:"
+                },
+                lengthMenu: [
+                    [ 10, 25, -1],
+                    [ 10, 25, "All"]
+                ]
             });
+
+            table.searchPanes.container().prependTo(table.table().container());
+            table.searchPanes.resizePanes();
+
         });
     </script>
 
