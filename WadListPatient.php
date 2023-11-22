@@ -127,6 +127,15 @@ if (!$user) {
                                                     case 1:
                                                         $status = "Telah Disemak";
                                                         break;
+                                                    case 2:
+                                                        $status = "Sedang Disediakan";
+                                                        break;
+                                                     case 3:
+                                                        $status = "Teleh Sedia";
+                                                        break;   
+                                                    case 4:
+                                                            $status = "Teleh Diterima";
+                                                            break; 
                                                 }
 
                                                 echo "<tr>";

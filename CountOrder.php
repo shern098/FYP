@@ -6,13 +6,13 @@ $wad=$_GET["wad"];
 
 include("db_connection.php");
 $del = "DELETE FROM `tblbilorder` WHERE `groupid`='$wad'";
-$display = mysqli_query($conn, $del);
-
-$getdata = "SELECT * FROM `tblpatient` where `status` = '1' and wad = '$wad'";
+mysqli_query($conn, $del);
+$tarikh =  date("Y-m-d");
+$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` = '1' ";
 $display = mysqli_query($conn, $getdata);
 $orderstore=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 //display data
-if (mysqli_num_rows($display) > 0) {
+if (mysqli_num_rows($display) > 0) {    
 
 while ($data = mysqli_fetch_assoc($display)) {
 switch($data["iddiet"]) {
@@ -32,7 +32,7 @@ case "LVKD": $orderstore[]=13;break;
 case "LFRD": $orderstore[]=14;break;
 case "LPND": $orderstore[]=15;break;
 case "MAC": $orderstore[]=16;break;
-case "LSDD/DD": $orderstore[]=17;break;
+case "LSD/DD": $orderstore[]=17;break;
 case "PND": $orderstore[]=18;break;
 case "LL": $orderstore[]=19;break;
 }

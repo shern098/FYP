@@ -114,11 +114,10 @@ if(isset($_GET["wad"])){
 
                                         <?php
                                         //connect database
-                                        include("db_connection.php");
-                                        
+                                        include("db_connection.php"); 
                                         $tarikh =  date("Y-m-d");
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and  CURRENT_DATE() = $tarikh and `status` = '1' ";
+                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` IN (1, 2, 3) ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
@@ -128,11 +127,20 @@ if(isset($_GET["wad"])){
 
                                                 switch ($data['status']) {
                                                     case 0:
-                                                        $status = "Belum Disahkan";
+                                                        $status = "Belum Disemak";
                                                         break;
                                                     case 1:
-                                                        $status = "Telah Disahkan";
+                                                        $status = "Telah Disemak";
                                                         break;
+                                                    case 2:
+                                                        $status = "Sedang Disediakan";
+                                                        break;
+                                                     case 3:
+                                                        $status = "Teleh Sedia";
+                                                        break;   
+                                                    case 4:
+                                                            $status = "Teleh Diterima";
+                                                            break; 
                                                 }
 
                                                 echo "<tr>";
@@ -164,11 +172,23 @@ if(isset($_GET["wad"])){
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <a href="AdminViewReport.php" class="btn btn-light btn-icon-split right">
+                                <a href="UpStatus.php?wad=<?php echo $wad?>&op=stat2" class="btn btn-light btn-icon-split right">
                                     <span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
-                                    <span class="text">Kembali</span>
+                                    <span class="text">Sahkan</span>
+                                </a>
+                                <a href="UpStatus.php?wad=<?php echo $wad?>&op=stat3" class="btn btn-light btn-icon-split right">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Hantar</span>
+                                </a>
+                                <a href="UpStatus.php?wad=<?php echo $wad?>&op=remove" class="btn btn-light btn-icon-split right">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Batal Status</span>
                                 </a>
                             </div>
                         </div>
