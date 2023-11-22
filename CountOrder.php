@@ -5,9 +5,10 @@ if(isset($_GET["wad"])){
 $wad=$_GET["wad"];
 
 include("db_connection.php");
+$del = "DELETE FROM `tblbilorder` WHERE `groupid`='$wad'";
+$display = mysqli_query($conn, $del);
 
 $getdata = "SELECT * FROM `tblpatient` where `status` = '1' and wad = '$wad'";
-
 $display = mysqli_query($conn, $getdata);
 $orderstore=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 //display data
@@ -44,6 +45,6 @@ foreach ($count as $iddiet => $count) {
     $update=mysqli_query($conn,$insert);
 }
 }
-echo "<script>window.location.href='AdminViewReport.php';</script>";
+echo "<script>window.history.back();</script>";
 }
 ?>

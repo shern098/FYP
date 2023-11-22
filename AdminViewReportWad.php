@@ -116,9 +116,9 @@ if(isset($_GET["wad"])){
                                         //connect database
                                         include("db_connection.php");
                                         
-                                
+                                        $tarikh =  date("Y-m-d");
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient` where `status` = '1' and wad = '$wad' ";
+                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and  CURRENT_DATE() = $tarikh and `status` = '1' ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
@@ -202,7 +202,7 @@ if(isset($_GET["wad"])){
                                     <tbody>
                                         <?php
                                         include("db_connection.php");
-                                        $getdata = "SELECT * FROM `tblbilorder` ORDER BY `tblbilorder`.`idnum` ASC";
+                                        $getdata = "SELECT * FROM `tblbilorder`where groupid='$wad' ORDER BY `tblbilorder`.`idnum` ASC ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
@@ -218,7 +218,7 @@ if(isset($_GET["wad"])){
                                         <tr>
                                         <?php
                                           include("db_connection.php");
-                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC";
+                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC ";
                                           $display = mysqli_query($conn, $getdata);
                                           //display data
                                           if (mysqli_num_rows($display) > 0) {
@@ -236,7 +236,7 @@ if(isset($_GET["wad"])){
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Kembali</span>
-                                    <a href="CountOrder.php?wad=$wad" class="btn btn-light btn-icon-split right">
+                                    <a href="CountOrder.php?wad=<?php echo $wad?>" class="btn btn-light btn-icon-split right">
                                     <span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
