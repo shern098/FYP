@@ -33,7 +33,28 @@ if(isset($_GET["wad"])){
 
     <!-- Custom dt for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
+    <style>
+        .funcbtn:disabled {
+      background-color: grey;
+      color: black;
+    }
+    </style>
 
+        <script>
+            function checkSelection() {
+            var select = document.getElementById("adminSelect");
+            var buttons = document.getElementsByClassName("funcbtn");
+            if (select.value === "-1") {
+                for (var i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = true;
+                }
+            } else {
+                for (var i = 0; i < buttons.length; i++) {
+                buttons[i].disabled = false;
+                }
+            }
+            }
+        </script>
 </head>
 
 <body id="page-top">
@@ -172,29 +193,51 @@ if(isset($_GET["wad"])){
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <a href="UpStatus.php?wad=<?php echo $wad?>&op=stat2" class="btn btn-light btn-icon-split right">
-                                    <span class="icon text-white-600">
+                                <form action="UpStatus.php" method="get">
+                                     <input name="wad"  style="display:none;" value=<?php echo $wad; ?>>
+
+                                <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Sahkan" disabled><span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
-                                    <span class="text">Sahkan</span>
-                                </a>
-                                <a href="UpStatus.php?wad=<?php echo $wad?>&op=stat3" class="btn btn-light btn-icon-split right">
-                                    <span class="icon text-white-600">
+                                    <span class="text">Sahkan</span></button>
+
+                                    <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Hantar" disabled><span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
-                                    <span class="text">Hantar</span>
-                                </a>
-                                <a href="UpStatus.php?wad=<?php echo $wad?>&op=remove" class="btn btn-light btn-icon-split right">
-                                    <span class="icon text-white-600">
+                                    <span class="text">Hantar</span></button>
+                                    
+                                    <button type="submit" class="funcbtn btn btn-danger btn-icon-split right" name="Reset" disabled><span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
-                                    <span class="text">Batal Status</span>
-                                </a>
+                                    <span class="text">Batal Status</span></button>
+                                    
+
+                                <select class="form-control col-3 offset-md-3" name="admin" id="adminSelect" style="display:inline-flex; " onchange="checkSelection()">
+                                            <option class="dropdown-item col-md-4" value="-1">Pilih Pengesah</option>
+                                            <?php
+                                            // Include database connection
+                                            include("db_connection.php");
+
+                                            // Select data from the database
+                                            $getdata = "SELECT * FROM `tblunitdietik`";
+                                            $display = mysqli_query($conn, $getdata);
+
+
+                                            // Loop through diet options and mark the selected option based on $diet variable
+
+                                            while ($data = mysqli_fetch_assoc($display)) {
+
+                                                echo "<option value='" . $data["idunit"] . "' $selected>" . $data["Nama"] . "</option>";
+                                            }
+
+                                            mysqli_close($conn);
+
+                                            ?>
+                                        </select>
+                                </form>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
                             <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit</h6>
@@ -256,12 +299,14 @@ if(isset($_GET["wad"])){
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Kembali</span>
-                                    <a href="CountOrder.php?wad=<?php echo $wad?>" class="btn btn-light btn-icon-split right">
+                                    <a href="CountOrder.php?wad=<?php echo $wad?>" class="btn btn-primary btn-icon-split right">
                                     <span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Kira</span>
                                 </a>
+
+                                
                             </div>
                         </div>
                     </div>
