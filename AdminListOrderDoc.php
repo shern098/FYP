@@ -111,12 +111,14 @@ if (!$user) {
                                     </thead>
 
                                     <tbody>
-
+                                   
                                         <?php
+                                         $date = date("Y-m-d");
+                                         $day = substr($date, 8, 2);
                                         //connect database
                                         include("db_connection.php");
                                         // select data
-                                        $getdata = "SELECT * FROM `tbldocpro`";
+                                        $getdata = "SELECT * FROM `tbldocpro` where LEFT(ordderid, 2) = '$day' ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
