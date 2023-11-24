@@ -1,12 +1,15 @@
 <?php
 session_start();
 $user = $_SESSION["CurrentUser"]; 
-
+$tarikh   = $_SESSION['date'];
+$wadsemasa="0";
 if (!$user ) {
     echo "<script>window.location.href='index.php';</script>";
   }
 
-
+if(isset($_GET["Filter"])){
+    $tarikh = $_GET["historydate"];
+}
 
   
 ?>
@@ -84,10 +87,19 @@ if (!$user ) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Semak Report Pada <?php echo $tarikh;?></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                            <form action="" method="get">
+                                    <input type="date" name="historydate" id="date" required>
+                                    <button type="submit" class="btn btn-info btn-icon-split right" name="Filter">
+                                        <span class="icon text-white-600">
+                                            <i class="fas fa-search fa-sm "></i>
+                                        </span>
+                                        <span class="text">Tapisan</span>
+                                    </button>
+                                </form>
                                 <table class="table table-bordered table-hover"  id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -111,7 +123,7 @@ if (!$user ) {
                                                 $wad = $data["username"];
                                                 echo "<tr>";
                                                 echo "<td>" .  $wad . "</td>";
-                                                echo "<td> <a href='AdminViewReportWad.php?wad=".$wad."' class='btn btn-light btn-icon-split right'>
+                                                echo "<td> <a href='AdminViewReportWad.php?wad=".$wad."&tarikh=".$tarikh."' class='btn btn-light btn-icon-split right'>
                                                 <span class='icon text-gray-600'>
                                                 <i class='fas fa-eye'></i>
                                             </span>
@@ -131,6 +143,75 @@ if (!$user ) {
                                         </tr>
                                     </tfoot>
                                 </table>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Bilangan Pesanan Pesakit Pada <?php echo $tarikh;?></h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">  
+                                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <?php
+                                          include("db_connection.php");
+                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC";
+                                          $display = mysqli_query($conn, $getdata);
+                                          //display data
+                                          if (mysqli_num_rows($display) > 0) {
+  
+                                              while ($data = mysqli_fetch_assoc($display)) {
+                                                  echo "<th>" . $data["iddiet"] . "</th>";
+                                              }
+                                          }
+                                          ?>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php
+                                        include("db_connection.php");
+                                        $getdata = "SELECT * FROM `tblbilorder` ORDER BY `tblbilorder`.`idnum` ASC ";
+                                        $display = mysqli_query($conn, $getdata);
+                                        //display data
+                                        if (mysqli_num_rows($display) > 0) {
+
+                                            while ($data = mysqli_fetch_assoc($display)) {
+                                                echo "<td>" . $data["bil"] . "</td>";
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+
+                                    <tfoot>
+                                        <tr>
+                                        <?php
+                                          include("db_connection.php");
+                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC ";
+                                          $display = mysqli_query($conn, $getdata);
+                                          //display data
+                                          if (mysqli_num_rows($display) > 0) {
+  
+                                              while ($data = mysqli_fetch_assoc($display)) {
+                                                  echo "<th>" . $data["iddiet"] . "</th>";
+                                              }
+                                          }
+                                          ?>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                    <a href="CountOrder.php?wad=<?php echo $wadsemasa?>&tarikh=<?php echo $tarikh?>" class="btn btn-primary btn-icon-split right">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Kira</span>
+                                </a>
+
+                                
                             </div>
                         </div>
                     </div>

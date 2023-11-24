@@ -2,7 +2,13 @@
 
 include("db_connection.php");
 session_start();
-if(isset($_GET["Sahkan"])&&isset($_GET["wad"])){
+if (isset($_GET["wad"])) {
+     $wad=$_GET["wad"];
+    $tarikh   = $_SESSION['date'];
+    if(isset($_GET["tarikh"])){
+        $tarikh = $_GET["tarikh"];
+    }
+
     $admin=$_GET["admin"];
     $getdata = "SELECT * FROM `tblunitdietik` WHERE `idunit`='$admin'";
     $display = mysqli_query($conn, $getdata);
@@ -17,9 +23,11 @@ if(isset($_GET["Sahkan"])&&isset($_GET["wad"])){
                     case "$data[idunit]":$admin = $data["Nama"];break;
                 }
         }}
-    $wad=$_GET["wad"];
-    $tarikh   = $_SESSION['date'];
-    // select data
+
+
+}
+if(isset($_GET["Sahkan"])){
+
     $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` = '1' ";
     $display = mysqli_query($conn, $getdata);
     //display data
@@ -35,7 +43,7 @@ if(isset($_GET["Sahkan"])&&isset($_GET["wad"])){
     mysqli_query($conn, $updateQuery);
 } 
     mysqli_close($conn);
-}elseif(isset($_GET["Hantar"])){
+}}elseif(isset($_GET["Hantar"])){
     // select data
     $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` = '2' ";
     $display = mysqli_query($conn, $getdata);
@@ -70,7 +78,6 @@ if(isset($_GET["Sahkan"])&&isset($_GET["wad"])){
     mysqli_query($conn, $updateQuery);
 } 
     mysqli_close($conn);
-}
 }
 }
 echo "<script>window.history.back();</script>";

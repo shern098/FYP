@@ -2,8 +2,13 @@
 session_start();
 $user  = $_SESSION["CurrentUser"];
 $tarikh   = $_SESSION['date'];
+$wad="doc";
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
+}
+
+if(isset($_GET["Filter"])){
+    $tarikh = $_GET["historydate"];
 }
 ?>
 <!DOCTYPE html>
@@ -93,10 +98,22 @@ if (!$user) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Doc / Pro</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Doc / Pro Pada <?php echo $tarikh;?></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
+                                <!--set date-->
+                                <form action="" method="get">
+                                    <input type="date" name="historydate" id="date" required>
+                                    <button type="submit" class="btn btn-info btn-icon-split right" name="Filter">
+                                        <span class="icon text-white-600">
+                                            <i class="fas fa-search fa-sm "></i>
+                                        </span>
+                                        <span class="text">Tapisan</span>
+                                    </button>
+                                </form>
+
+
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -113,12 +130,11 @@ if (!$user) {
                                     <tbody>
                                    
                                         <?php
-                                         $date = date("Y-m-d");
-                                         $day = substr($date, 8, 2);
+                                        $tarikhsub=substr($tarikh,-2);//get date
                                         //connect database
                                         include("db_connection.php");
                                         // select data
-                                        $getdata = "SELECT * FROM `tbldocpro` where LEFT(ordderid, 2) = '$day' ";
+                                        $getdata = "SELECT * FROM `tbldocpro` where  left(ordderid,2) = '$tarikhsub'";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
@@ -170,15 +186,59 @@ if (!$user) {
                                     </span>
                                     <span class="text">Tambah Order</span>
                                 </a>
-                                <a href="#" class=" btn btn-icon-split btn-md btn-primary ">
-                                    <span class="icon text-white-600">
-                                        <i class="fas fa-download fa-sm "></i>
-                                    </span>
-                                    <span class="text">Generate Report </span>
-                                </a>
+                                
                             </div>
                         </div>
                     </div>
+
+                    <div class="card shadow mb-4">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Bilangan Pesanan Pesakit Pada <?php echo $tarikh;?></h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">  
+                                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
+                                    <thead>
+                                        <tr>
+                                        <th>Order Normal</th>
+                                        <th>Order Lain</th>
+                                        </tr>
+                                    </thead>
+
+                                    <tbody>
+                                        <?php
+                                        include("db_connection.php");
+                                        $getdata = "SELECT * FROM `tblbilorder`where groupid='$wad' ORDER BY `tblbilorder`.`idnum` ASC ";
+                                        $display = mysqli_query($conn, $getdata);
+                                        //display data
+                                        if (mysqli_num_rows($display) > 0) {
+
+                                            while ($data = mysqli_fetch_assoc($display)) {
+                                                echo "<td>" . $data["bil"] . "</td>";
+                                            }
+                                        }
+                                        ?>
+                                    </tbody>
+
+                                    <tfoot>
+                                    <tr>
+                                        <th>Order Normal</th>
+                                        <th>Order Lain</th>
+                                        </tr>
+                                    </tfoot>
+                                </table>
+                                <a href="CountOrderDoc.php?wad=<?php echo $wad?>&tarikh=<?php echo $tarikh?>" class="btn btn-primary btn-icon-split right">
+                                    <span class="icon text-white-600">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Kira</span>
+                                </a>
+                                
+
+                            </div>
+                        </div>
+                    </div>
+
 
                 </div>
                 <!-- /.container-fluid -->

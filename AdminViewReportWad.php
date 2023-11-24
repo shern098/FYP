@@ -7,10 +7,12 @@ if (!$user) {
 }
 if(isset($_GET["wad"])){
     $wad = $_GET["wad"];
-
-
+}
+if(isset($_GET["tarikh"])){
+    $tarikh = $_GET["tarikh"];
 }
 
+  
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,7 +115,7 @@ if(isset($_GET["wad"])){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit Pada <?php echo $tarikh;?></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">  
@@ -138,7 +140,7 @@ if(isset($_GET["wad"])){
                                         include("db_connection.php"); 
                             
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` IN (1, 2, 3) ";
+                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and DATE(masa_keyIn) = '$tarikh'  and `status` IN (1, 2, 3) ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
@@ -157,7 +159,7 @@ if(isset($_GET["wad"])){
                                                         $status = "Sedang Disediakan";
                                                         break;
                                                      case 3:
-                                                        $status = "Teleh Sedia";
+                                                        $status = "Telah Sedia";
                                                         break;   
                                                     case 4:
                                                             $status = "Teleh Diterima";
@@ -195,6 +197,7 @@ if(isset($_GET["wad"])){
                                 </table>
                                 <form action="UpStatus.php" method="get">
                                      <input name="wad"  style="display:none;" value=<?php echo $wad; ?>>
+                                     <input name="tarikh"  style="display:none;" value=<?php echo $tarikh; ?>>
 
                                 <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Sahkan" disabled><span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
@@ -240,7 +243,7 @@ if(isset($_GET["wad"])){
                     </div>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit</h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Bilangan Pesanan Pesakit Pada <?php echo $tarikh;?></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">  
@@ -299,7 +302,9 @@ if(isset($_GET["wad"])){
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Kembali</span>
-                                    <a href="CountOrder.php?wad=<?php echo $wad?>" class="btn btn-primary btn-icon-split right">
+                                </a>
+                                
+                                <a href="CountOrder.php?wad=<?php echo $wad?>&tarikh=<?php echo $tarikh?>" class="btn btn-primary btn-icon-split right">
                                     <span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>

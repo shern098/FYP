@@ -5,12 +5,26 @@ session_start();
 if(isset($_GET["wad"])){
 $wad=$_GET["wad"];
 $tarikh   = $_SESSION['date'];
-include("db_connection.php");
-$del = "DELETE FROM `tblbilorder` WHERE `groupid`='$wad'";
-mysqli_query($conn, $del);
+if(isset($_GET["tarikh"])){
+    $tarikh = $_GET["tarikh"];
+}
 
-$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` = '1' ";
+include("db_connection.php");
+
+
+if ($wad!="0"){
+    $del = "DELETE FROM `tblbilorder` WHERE `groupid`='$wad'";
+mysqli_query($conn, $del);
+$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` IN (1,2,3,4) ";
 $display = mysqli_query($conn, $getdata);
+}
+else{
+    $del = "DELETE FROM `tblbilorder`";
+mysqli_query($conn, $del);
+    $getdata = "SELECT * FROM `tblpatient` where  DATE(masa_keyIn) = '$tarikh'  and `status` IN (1,2,3,4) ";
+    $display = mysqli_query($conn, $getdata);
+}
+
 $orderstore=[1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19];
 //display data
 if (mysqli_num_rows($display) > 0) {    
@@ -45,7 +59,6 @@ foreach ($count as $iddiet => $count) {
     $insert="INSERT INTO `tblbilorder`(`groupid`, `idnum`, `bil`) VALUES ('$wad','$iddiet','$count')";
     $update=mysqli_query($conn,$insert);
 }
-}
+}}
 echo "<script>window.history.back();</script>";
-}
 ?>
