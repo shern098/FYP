@@ -10,7 +10,12 @@ if (!$user ) {
 if(isset($_GET["Filter"])){
     $tarikh = $_GET["historydate"];
 }
+if(!isset($_GET["Count"])){
+    echo "<script>window.location.href=
+    'CountOrder.php?wad=".$wadsemasa."&tarikh=".$tarikh."'
+    ;</script>";
 
+}
   
 ?>
 <!DOCTYPE html>
@@ -123,12 +128,12 @@ if(isset($_GET["Filter"])){
                                                 $wad = $data["username"];
                                                 echo "<tr>";
                                                 echo "<td>" .  $wad . "</td>";
-                                                echo "<td> <a href='AdminViewReportWad.php?wad=".$wad."&tarikh=".$tarikh."' class='btn btn-light btn-icon-split right'>
+                                                echo "<td> <a href='AdminViewReportWad.php?wad=".$wad."&tarikh=".$tarikh."&count=1' class='btn btn-light btn-icon-split right'>
                                                 <span class='icon text-gray-600'>
                                                 <i class='fas fa-eye'></i>
                                             </span>
                                                 <span class='text'>Lihat Laporan</span>
-                                            </a> </td>";
+                                            </a>";
                                                 echo "</tr>";
                                                 
                                             }
@@ -175,7 +180,7 @@ if(isset($_GET["Filter"])){
                                     <tbody>
                                         <?php
                                         include("db_connection.php");
-                                        $getdata = "SELECT * FROM `tblbilorder` ORDER BY `tblbilorder`.`idnum` ASC ";
+                                        $getdata = "SELECT * FROM `tblbilorder` where groupid = '0' ORDER BY `tblbilorder`.`idnum` ASC ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
@@ -183,7 +188,10 @@ if(isset($_GET["Filter"])){
                                             while ($data = mysqli_fetch_assoc($display)) {
                                                 echo "<td>" . $data["bil"] . "</td>";
                                             }
-                                        }
+                                        }else{
+                                            echo "<td colspan=19> Tiada Data </td>";
+
+                                          }
                                         ?>
                                     </tbody>
 
@@ -204,14 +212,6 @@ if(isset($_GET["Filter"])){
                                         </tr>
                                     </tfoot>
                                 </table>
-                                    <a href="CountOrder.php?wad=<?php echo $wadsemasa?>&tarikh=<?php echo $tarikh?>" class="btn btn-primary btn-icon-split right">
-                                    <span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Kira</span>
-                                </a>
-
-                                
                             </div>
                         </div>
                     </div>

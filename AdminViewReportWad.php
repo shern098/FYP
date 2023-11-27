@@ -5,6 +5,8 @@ $tarikh   = $_SESSION['date'];
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
+
+
 if(isset($_GET["wad"])){
     $wad = $_GET["wad"];
 }
@@ -12,7 +14,11 @@ if(isset($_GET["tarikh"])){
     $tarikh = $_GET["tarikh"];
 }
 
-  
+  if(isset($_GET["count"])){
+    echo "<script>window.location.href=
+    'CountOrder.php?wad=".$wad."&tarikh=".$tarikh."'
+    ;</script>";
+    }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -148,6 +154,7 @@ if(isset($_GET["tarikh"])){
                                             while ($data = mysqli_fetch_assoc($display)) {
 
 
+                                                
                                                 switch ($data['status']) {
                                                     case 0:
                                                         $status = "Belum Disemak";
@@ -297,21 +304,19 @@ if(isset($_GET["tarikh"])){
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <a href="AdminViewReport.php" class="btn btn-light btn-icon-split right">
+                                <a href='AdminViewReport.php?wad=0&historydate=<?php echo $tarikh?>&Filter=&Count=' class="btn btn-light btn-icon-split right">
                                     <span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Kembali</span>
                                 </a>
-                                
-                                <a href="CountOrder.php?wad=<?php echo $wad?>&tarikh=<?php echo $tarikh?>" class="btn btn-primary btn-icon-split right">
-                                    <span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Kira</span>
-                                </a>
-
-                                
+                                <a href='excel.php?wad=<?php echo $wad?>&tarikh=<?php echo $tarikh?>' class='btn btn-light btn-icon-split right'>
+                                                <span class='icon text-gray-600'>
+                                                <i class='fas fa-download'></i>
+                                            </span>
+                                                <span class='text'>Download Laporan</span>
+                                            </a>
+                                            </td>
                             </div>
                         </div>
                     </div>

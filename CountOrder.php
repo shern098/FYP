@@ -60,5 +60,13 @@ foreach ($count as $iddiet => $count) {
     $update=mysqli_query($conn,$insert);
 }
 }}
-echo "<script>window.history.back();</script>";
+
+if ($wad!="0"){
+    echo "<script>window.location.href='AdminViewReportWad.php?wad=".$wad."&tarikh=".$tarikh."';</script>";
+}
+else{
+echo "<script>window.location.href='AdminViewReport.php?wad=".$wad."&historydate=".$tarikh."&Filter=&Count=';</script>";
+  
+}
+
 ?>

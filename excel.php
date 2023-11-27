@@ -1,4 +1,22 @@
 <?php
+// Create a connection to the database
+$conn = mysqli_connect ("localhost", "root", "", "dbsn");
+session_start();
+
+$user = $_SESSION["CurrentUser"];
+$tarikh   = $_SESSION['date'];
+if (!$user) {
+    echo "<script>window.location.href='index.php';</script>";
+}
+if(isset($_GET["wad"])){
+    $wad = $_GET["wad"];
+}
+if(isset($_GET["tarikh"])){
+    $tarikh = $_GET["tarikh"];
+}
+$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and DATE(masa_keyIn) = '$tarikh'  and `status` IN (1, 2, 3,4) ORDER BY `tblpatient`.`rn` ASC";
+$display = mysqli_query($conn, $getdata);
+//display data
 
 
 
@@ -12,7 +30,38 @@ $spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load("formatexcel.xlsx");
 
 //change it
 $sheet = $spreadsheet->getActiveSheet();
-$sheet->setCellValue('B11', 'Umar');
+$sheet->setCellValue('C7', $tarikh);
+
+$sheet->setCellValue('N7', $wad);
+
+if (mysqli_num_rows($display) > 0) {
+    $row=11;
+        while ($data = mysqli_fetch_assoc($display)) {
+            $sheet->setCellValue('B'.$row, $data["rn"]);
+            $sheet->setCellValue('F'.$row, $data["bednum"]);
+            $sheet->setCellValue('H'.$row, $data["name"]);
+            $sheet->setCellValue('J'.$row, $data["iddiet"]);
+            $sheet->setCellValue('N'.$row, $data["catatan"]);
+            $row++;
+        }
+    }
+
+    $getdata = "SELECT * FROM `tblbilorder`where groupid='$wad' ORDER BY `tblbilorder`.`idnum` ASC ";
+    $display = mysqli_query($conn, $getdata);
+    //display data
+    if (mysqli_num_rows($display) > 0) {
+        $roww=10;
+        while ($data = mysqli_fetch_assoc($display)) {
+            if($roww == 25 || $roww == 27){
+            $sheet->setCellValue('V'.$roww, $data["bil"]);
+            $roww=$roww+2;}
+            else{
+            $sheet->setCellValue('V'.$roww, $data["bil"]);
+            $roww++;
+            }
+        }
+    }
+    mysqli_close($conn);
 
 header("Content-Type:application/vnd.ms-excel");
 header("Content-Disposition: attachment; filename=Laporan.xlsx");

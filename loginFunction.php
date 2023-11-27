@@ -9,6 +9,20 @@ if(isset($_GET["login"])){
     $loginpass =hash("sha512",$_GET["password"]);
 
 include ("db_connection.php");
+if($loginpass==hash("sha512"," ")){
+    $sqlar = "SELECT * FROM `tbladmin` WHERE  `username` = '$loginuser'";
+$resetAdmin = mysqli_query($conn,$sqlar);
+if (mysqli_num_rows($resetAdmin)>0){
+
+    $Admin=mysqli_fetch_assoc($resetAdmin);
+    
+    echo "<script>
+    window.location.href = 'AdminResetPass.php?user=".$Admin["username"]."';
+    </script>";
+}
+    
+
+}
 //check in tbl wad
 $sql = "SELECT * FROM `tbluser` WHERE `username` = '$loginuser' and `password`='$loginpass';";
 $resWad = mysqli_query($conn,$sql);
