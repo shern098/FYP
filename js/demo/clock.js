@@ -58,8 +58,8 @@ function clock() {
     // Nighttime: 3.00 PM - 5.45 PM
     else if (totalMinutes24h >= 900 && totalMinutes24h <= 1065) {
       if (typeof radioPetang != "undefined" && radioPetang != null) {
-        document.getElementById("Pagi").checked = true;
-        document.getElementById("Petang").disabled = true;
+        document.getElementById("Petang").checked = true;
+        document.getElementById("Pagi").disabled = true;
       }
 
       return "Shift: Petang";

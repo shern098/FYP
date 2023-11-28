@@ -24,6 +24,20 @@ if (!$user) {
     <!-- Custom styles for this template-->
     <link href="css/style.css" rel="stylesheet">
 
+       <!-- Bootstrap core JavaScript-->
+       <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/demo/clock.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
 
 </head>
 
@@ -126,7 +140,7 @@ if (!$user) {
                             <div class="card shadow mb-4">
                                 <!-- Card Header - Dropdown -->
                                 <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                                    <h6 class="m-0 font-weight-bold text-primary">Kod Ringkasan Diet di <?php echo $user?> pada: <span class="update-date"></span></h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Kod Ringkasan Diet di <?php echo $user ?> pada: <span class="update-date"></span></h6>
 
                                 </div>
                                 <!-- Card Body -->
@@ -220,20 +234,7 @@ if (!$user) {
 
     ?>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/demo/clock.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
+ 
     <?php
 
     include 'TotalPatientFunction.php';
@@ -243,10 +244,14 @@ if (!$user) {
     $colour = array('#157A6E', '#F3A712', '#7B5E7B', '	#a200ff', '#772D8B', '#2A2A72', '#ff6289', '#ffbf6b', '#854442', '	#0057e7');
 
     ?>
+
+
+    <!-- bar chart -->
     <script>
         // Set new default font family and font color to mimic Bootstrap's default styling
         Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
         Chart.defaults.global.defaultFontColor = '#858796';
+
 
         // Pie Chart Example
         var ctx = document.getElementById("totalPatientChart");
@@ -311,15 +316,6 @@ if (!$user) {
                 }
             },
         });
-    </script>
-
-
-    <!-- bar chart -->
-    <script>
-        // Set new default font family and font color to mimic Bootstrap's default styling
-        Chart.defaults.global.defaultFontFamily = 'Nunito', '-apple-system,system-ui,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif';
-        Chart.defaults.global.defaultFontColor = '#858796';
-
 
         // Bar Chart Example
         var ctx = document.getElementById("totalDietChart");

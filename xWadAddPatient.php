@@ -15,6 +15,7 @@ if (isset($_SESSION['add_success']) && $_SESSION['add_success']) {
 if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
     // Output JavaScript code to show an alert for duplicate 'rn' value
     echo "<script>alert('R\N Pesakit: " . $_SESSION['rn'] . " telah wujud. Sila masukkan RN lain.');</script>";
+
     // Unset the session variable to prevent it from appearing on reload
     unset($_SESSION['duplicate_data']);
 }
@@ -46,11 +47,8 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
 
-
     <!-- Custom styles for this template-->
     <link href="css/style.css" rel="stylesheet">
-
-
 
 </head>
 
@@ -73,6 +71,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
             <!-- Main Content -->
             <div id="content">
 
+
                 <!-- Topbar -->
                 <?php
 
@@ -82,12 +81,13 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                 <!-- End of Topbar -->
 
 
+
                 <!-- Begin Page Content -->
                 <div class="container-fluid">
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">Isi Maklumat Pesakit di <?php echo $_SESSION['CurrentUser'] ?></h1>
+                        <h1 class="h3 mb-0 text-gray-800"> Isi Maklumat Pesakit <?php echo $_SESSION['CurrentUser'] ?></h1>
 
 
                     </div>
@@ -115,10 +115,10 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
                             <div class="card shadow mb-4">
                                 <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary"> Masukkan Maklumat Pesakit </h6>
+                                    <h6 class="m-0 font-weight-bold text-primary">Masukkan Maklumat Pesakit</h6>
                                 </div>
                                 <div class="card-body">
-                                <form action="AddDataPatient.php" method=get>
+                                    <form id="data-patient" method=post>
 
                                         <div class="container form-group has-feedback">
 
@@ -169,7 +169,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
 
 
-                                        <select class="form-control" name="diet" onchange="DisplaytextArea(this.value)" id="dietSelect" required>
+                                            <select class="form-control" name="diet" id="dietSelect" required>
                                                 <option class="dropdown-item col-md-4" value="">Pilih Diet</option>
                                                 <?php
                                                 // Include database connection
@@ -217,6 +217,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                             // Use the history object to go back to the previous page
                                             window.location.href = "WadEditOrder.php";
                                         });
+                                      
                                     </script>
                                 </div>
                             </div>

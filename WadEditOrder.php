@@ -1,7 +1,8 @@
 <?php
 session_start();
-$tarikh   = $_SESSION['date'];
 $user = $_SESSION["CurrentUser"];
+$tarikh   = $_SESSION['date'];
+
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
@@ -66,6 +67,30 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
     <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
+
+    
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+    <script src="js/demo/clock.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- link checkboxes datatable -->
+
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
+    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap4.min.js"></script>
+    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+
+    
 </head>
 
 <body id="page-top">
@@ -146,7 +171,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             include("db_connection.php");
                                       
                                             // select data
-                                            $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyIn) = '$tarikh'";
+                                            $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyIn) ='$tarikh'";
 
                                             $display = mysqli_query($conn, $getdata);
                                             //display data
@@ -167,7 +192,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                                     <tr>
 
-                                                        <td><?php $data["rn"];         ?></td>
+                                                        <td> <?php $data["rn"];              ?> </td>
                                                         <td> <?php echo $data["rn"];         ?> </td>
                                                         <td> <?php echo $data["bednum"];     ?> </td>
                                                         <td> <?php echo $data["name"];       ?> </td>
@@ -320,27 +345,6 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
     ?>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-    <script src="js/demo/clock.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
-    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
-
-    <!-- link checkboxes datatable -->
-
-    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
-    <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap4.min.js"></script>
-    <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
-
     <!-- untuk adjust tinggi filter active -->
     <style>
         div.dtsp-searchPane div.dataTables_scrollBody {
@@ -367,10 +371,14 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                 columnDefs: [{
                     orderable: false,
                     className: 'select-checkbox',
-
                     targets: 0,
 
-                }],
+                },                    
+                {
+                        targets: 7, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        orderable: false,
+                    }
+            ],
                 select: {
                     style: 'multi',
                     selector: 'td:first-child'

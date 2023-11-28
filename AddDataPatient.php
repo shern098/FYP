@@ -1,51 +1,82 @@
 
-                <?php
+<?php
 
-                include("db_connection.php");
-                session_start();
-
-                $shift = $_GET["shift"];
-                $rn = $_GET['rn'];
-                $nokatil = $_GET['nokatil'];
-                $kelas = $_GET['kelas'];
-                $nama = $_GET['nama'];
-                $diet = $_GET['diet'];
-                $catatan = $_GET['txtcatatan'];
-                
-
-                
-                // Get the current user from the session
-                $user = $_SESSION['CurrentUser'];
-
-                // PROCEDURAL STYLE MYSQLI
-
-                // Use a try-catch block to catch unique constraint violation error
-                try {
-
-                    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `wad`, `shift`) VALUES (?,?,?,?,?,?,?,?)");
-                    $getdata->bind_param("ssssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan, $user, $shift);
+include("db_connection.php");
+session_start();
 
 
-                    if ($getdata->execute()) {
-                        $_SESSION['add_success'] = true;
+if (isset($_GET["shift"])) {
+    $shift =  $_GET["shift"];
+}
 
-                        // Display an alert with the values of the parameters
-                        echo "<script>alert('$rn $nokatil $kelas $nama $diet');</script>";
+if (isset($_GET['rn'])) {
 
-                        header("Location: WadAddPatient.php");
-                    } else {
-                        echo "Error inserting record: " . $getdata->error . "<br>";
-                    }
-                } catch (Exception $e) {
-                    $_SESSION['duplicate_data'] = true;
-                    $_SESSION['rn'] = $rn;
-                    // Handle the unique constraint violation (duplicate rn) error here
+    if (is_numeric($_GET['rn'])) {
+        $rn = mysqli_real_escape_string($conn, $_GET['rn']);
+    } else {
+        echo "<script>alert('R/N pesakit tidak boleh huruf/bersama huruf');</script>";
+        die("<script> window.history.back(); </script> ");
+    }
+}
 
-                    echo "<script> window.history.back(); </script> ";
-                } finally {
-                    $getdata->close(); // Close the prepared statement
-                    $conn->close(); // Close the database connection
-                }
 
-                ?>
-          
+if (isset($_GET['nokatil'])) {
+    if (is_numeric($_GET['nokatil'])) {
+        $nokatil = mysqli_real_escape_string($conn, $_GET['nokatil']);
+    } else {
+        echo "<script>alert('Nombor katil pesakit tidak boleh huruf/bersama huruf');</script>";
+        die("<script> window.history.back(); </script> ");
+    }
+}
+
+
+if (isset($_GET['kelas'])) {
+    $kelas = mysqli_real_escape_string($conn,  $_GET['kelas']);
+}
+
+if (isset($_GET['nama'])) {
+    $nama = mysqli_real_escape_string($conn, $_GET['nama']);
+}
+
+if (isset($_GET['diet'])) {
+    $diet = mysqli_real_escape_string($conn, $_GET['diet']);
+}
+
+if (isset($_GET['txtcatatan'])) {
+    $catatan = mysqli_real_escape_string($conn, $_GET['txtcatatan']);
+}
+
+// Get the current user from the session
+$user = $_SESSION['CurrentUser'];
+
+// PROCEDURAL STYLE MYSQLI
+
+// Use a try-catch block to catch unique constraint violation error
+try {
+
+    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `wad`, `shift`) VALUES (?,?,?,?,?,?,?,?)");
+    $getdata->bind_param("ssssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan, $user, $shift);
+
+
+    if ($getdata->execute()) {
+        $_SESSION['add_success'] = true;
+
+        // Display an alert with the values of the parameters
+        echo "<script>alert('$rn $nokatil $kelas $nama $diet');</script>";
+
+        header("Location: WadAddPatient.php");
+    } else {
+        echo "Error inserting record: " . $getdata->error . "<br>";
+    }
+} catch (Exception $e) {
+    $_SESSION['duplicate_data'] = true;
+    $_SESSION['rn'] = $rn;
+    // Handle the unique constraint violation (duplicate rn) error here
+    echo "console.log(Error: " . $e->getMessage() .")";
+    echo "<script> window.history.back(); </script> ";
+} finally {
+    $getdata->close(); // Close the prepared statement
+    $conn->close(); // Close the database connection
+}
+
+?>
