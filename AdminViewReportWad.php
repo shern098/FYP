@@ -283,7 +283,9 @@ if(isset($_GET["tarikh"])){
                                             while ($data = mysqli_fetch_assoc($display)) {
                                                 echo "<td>" . $data["bil"] . "</td>";
                                             }
-                                        }
+                                        }else{
+                                            echo "<td colspan=19> Tiada Data </td>";
+                                          }
                                         ?>
                                     </tbody>
 
