@@ -1,0 +1,35 @@
+<?php
+include ("db_connection.php");
+
+
+if (isset($_GET["btnhantar"])) {
+$username = $_GET["namenurse"];
+
+$getdata = "SELECT * FROM `tblnurse`";
+$display=mysqli_query($conn, $getdata);
+if (mysqli_num_rows($display) > 0) {
+    $i=1;
+    while($data = mysqli_fetch_assoc($display)){
+        if($i!=(int)$data["idnurse"]){
+            break;
+        }
+        $i++;
+        $id=$data["idnurse"];
+    };
+
+    
+}else{
+    $id=1;
+}
+
+$id=sprintf("%02s",++$id);
+    $getdata = "INSERT INTO `tblnurse`(`idnurse`, `nama`) VALUES ('$id','$username')";
+    mysqli_query($conn, $getdata);
+    echo' alert("Data Telah Disimpan.");
+        return false;';
+    echo "<script>
+    window.location.href ='AdminListNurses.php';
+    </script>";
+    }
+
+?>
