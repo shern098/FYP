@@ -89,6 +89,9 @@ if (!$user) {
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control" name="namenurse" placeholder="Nama" required>
                                 </div>
+                                <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
+                                    <input type="text" class="form-control" name="jawnurse" placeholder="Jawatan" required>
+                                </div>
                                 <!-- button submit dan cancel -->
                                 <div class="ln_solid"></div>
                                 <div class="form-group">

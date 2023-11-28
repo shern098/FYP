@@ -87,7 +87,8 @@ if (!$user ) {
                                     <thead>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Username</th>
+                                            <th>Nama</th>
+                                            <th>Jawatan</th>
                                             <th>Tindakkan</th>
                                         </tr>
                                     </thead>
@@ -109,6 +110,7 @@ if (!$user ) {
                                                 echo "<tr>";
                                                 echo "<td>" . $data["idunit"] . "</td>";
                                                 echo "<td>" . $data["Nama"] . "</td>";
+                                                echo "<td>" . $data["jawatan"] . "</td>";
                                                 echo '<td>
                                                 <a href="AdminEditAdmin.php?cmd=edit&id='.$data['idunit'].'" class="btn btn-light btn-icon-split right">
                                                         <span class="icon text-white-600">
@@ -134,7 +136,8 @@ if (!$user ) {
                                     <tfoot>
                                         <tr>
                                             <th>ID</th>
-                                            <th>Username</th>
+                                            <th>Nama</th>
+                                            <th>Jawatan</th>
                                             <th>Tindakkan</th>
                                         </tr>
                                     </tfoot>

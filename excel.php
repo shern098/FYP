@@ -37,15 +37,48 @@ $sheet->setCellValue('N7', $wad);
 if (mysqli_num_rows($display) > 0) {
     $row=11;
         while ($data = mysqli_fetch_assoc($display)) {
+            $nurse=$data["nama_nurse"];
+            $terima=$data["penerima"];
+            $serah=$data["penyerah"];
+            $masaterima=$data["masa_terima"];
+            $masaserah=$data["masa_serah"];
             $sheet->setCellValue('B'.$row, $data["rn"]);
             $sheet->setCellValue('F'.$row, $data["bednum"]);
             $sheet->setCellValue('H'.$row, $data["name"]);
             $sheet->setCellValue('J'.$row, $data["iddiet"]);
             $sheet->setCellValue('N'.$row, $data["catatan"]);
             $row++;
-        }
-    }
 
+        }
+        $sheet->setCellValue('F42',  $nurse);
+        $sheet->setCellValue('F52',  $terima);
+        $sheet->setCellValue('Q52',  $serah);
+        $sheet->setCellValue('F54',  $masaterima);
+        $sheet->setCellValue('Q54',  $masaserah);
+
+        $getdata = "SELECT `jawatan` FROM `tblnurse` WHERE  `nama`='$nurse'";
+    $display = mysqli_query($conn, $getdata);
+    //display data
+    if (mysqli_num_rows($display) > 0) {
+        while ($data = mysqli_fetch_assoc($display)) {
+        $sheet->setCellValue('F44',  $data['jawatan']);
+        }}
+        $getdata = "SELECT `jawatan` FROM `tblunitdietik` WHERE  `Nama`='$terima'";
+    $display = mysqli_query($conn, $getdata);
+    //display data
+    if (mysqli_num_rows($display) > 0) {
+        while ($data = mysqli_fetch_assoc($display)) {
+            $sheet->setCellValue('F53',  $data['jawatan']);
+        }}
+   
+    $getdata = "SELECT `jawatan` FROM `tblunitdietik` WHERE  `Nama`='$serah'";
+    $display = mysqli_query($conn, $getdata);
+    //display data
+    if (mysqli_num_rows($display) > 0) {
+        while ($data = mysqli_fetch_assoc($display)) {
+            $sheet->setCellValue('Q53',  $data['jawatan']);
+        }}
+ }
     $getdata = "SELECT * FROM `tblbilorder`where groupid='$wad' ORDER BY `tblbilorder`.`idnum` ASC ";
     $display = mysqli_query($conn, $getdata);
     //display data

@@ -24,6 +24,8 @@ if (mysqli_num_rows($display) > 0) {
 
         while ($data = mysqli_fetch_assoc($display)) {
             $nama = $data["nama"]; 
+            $jaw = $data["jawatan"]; 
+
         }
 }
 }
@@ -112,6 +114,10 @@ if (mysqli_num_rows($display) > 0) {
         <input name="idw"  style="display:none;" value=<?php echo $idw; ?>>
         Nama Nurse
             <input type="text" class="form-control" name="newnamenurse" value="<?php echo $nama?>" required>
+        </div>
+        <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
+        Jawatan Nurse
+            <input type="text" class="form-control" name="newjawnurse" value="<?php echo $jaw?>" required>
         </div>
         <!-- button submit dan cancel -->
         <div class="ln_solid"></div>

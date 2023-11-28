@@ -24,6 +24,7 @@ if (mysqli_num_rows($display) > 0) {
 
         while ($data = mysqli_fetch_assoc($display)) {
             $nama = $data["Nama"]; 
+            $jaw = $data["jawatan"]; 
         }
 }
 }
@@ -110,8 +111,13 @@ if (mysqli_num_rows($display) > 0) {
       <form action="updatedataAdmin.php" method="get">
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
         <input name="idw"  style="display:none;" value=<?php echo $idw; ?>>
-        Nama Pengurus
+        Nama Admin
             <input type="text" class="form-control" name="newnameadmin" value="<?php echo $nama?>" required>
+        </div>
+
+        <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
+        Jawatan Admin
+            <input type="text" class="form-control" name="newjawadmin" value="<?php echo $jaw?>" required>
         </div>
         <!-- button submit dan cancel -->
         <div class="ln_solid"></div>

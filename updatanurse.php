@@ -4,6 +4,7 @@ include ("db_connection.php");
 
 if (isset($_GET["btnhantar"])) {
 $username = $_GET["namenurse"];
+$jawatan = $_GET["jawnurse"];
 
 $getdata = "SELECT * FROM `tblnurse`";
 $display=mysqli_query($conn, $getdata);
@@ -23,7 +24,7 @@ if (mysqli_num_rows($display) > 0) {
 }
 
 $id=sprintf("%02s",++$id);
-    $getdata = "INSERT INTO `tblnurse`(`idnurse`, `nama`) VALUES ('$id','$username')";
+    $getdata = "INSERT INTO `tblnurse`(`idnurse`, `nama`,`jawatan`) VALUES ('$id','$username','$jawatan')";
     mysqli_query($conn, $getdata);
     echo' alert("Data Telah Disimpan.");
         return false;';
