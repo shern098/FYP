@@ -118,7 +118,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                     <h6 class="m-0 font-weight-bold text-primary"> Masukkan Maklumat Pesakit </h6>
                                 </div>
                                 <div class="card-body">
-                                <form action="AddDataPatient.php" method=get>
+                                <form action="AddDataPatient.php" method="get">
 
                                         <div class="container form-group has-feedback">
 
@@ -192,7 +192,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                             <br>
 
                                             <div id="lainlainTextarea">
-                                                <textarea placeholder="Catatan" id="catatan" class="form-control has-feedback-left" name="txtcatatan" rows="4" cols="25"></textarea>
+                                                <textarea placeholder="Catatan" id="catatan" class="form-control has-feedback-left" name="txtcatatan" rows="2" cols="25"></textarea>
                                             </div>
 
 

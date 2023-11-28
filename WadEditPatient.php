@@ -1,8 +1,9 @@
 <?php
 session_start();
-$user = $_SESSION["CurrentUser"]; 
 
-echo $tarikh;
+$user = $_SESSION["CurrentUser"];
+$tarikh   = $_SESSION['date'];
+
 if (!$user) {
   echo "<script>window.location.href='index.php';</script>";
 }
@@ -29,8 +30,8 @@ if (!$user) {
   <!-- Custom styles for this template-->
   <link href="css/style.css" rel="stylesheet">
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
+  <!-- Bootstrap core JavaScript-->
+  <script src="vendor/jquery/jquery.min.js"></script>
   <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
 
   <!-- Core plugin JavaScript-->
@@ -103,11 +104,11 @@ if (!$user) {
           <!-- Content Row -->
           <div class="row">
             <!-- Content Column -->
-            <div class="col-lg-8 mb-4">
+            <div class="col-6">
 
               <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                  <h6 class="m-0 font-weight-bold text-primary">Masukkan Maklumat Pesakit </h6>
+                  <h6 class="m-0 font-weight-bold text-primary">Kemaskini Maklumat Pesakit </h6>
                 </div>
                 <div class="card-body">
 
@@ -149,29 +150,52 @@ if (!$user) {
                     }
                   }
 
-                  
+
                   ?>
 
                   <form action="updateFunction.php" method="get">
-                    <div class="col-md-10 col-sm-10 col-xs-12 form-group has-feedback">
-                      <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="rn" placeholder="RN Pesakit" readonly  value="<?php echo isset($rn) ? $rn : ''; ?>">
+
+                    <div class="container form-group has-feedback">
+
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="pagi">
+                        <label class="custom-control-label" for="Pagi">PAGI</label>
+                      </div>
+
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="Petang" name="shift" class="custom-control-input" value="petang">
+                        <label class="custom-control-label" for="Petang">PETANG</label>
+                      </div>
+
                     </div>
-             
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+
+
+                    <div class="form-group has-feedback col">
+                      <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="rn" placeholder="RN Pesakit" readonly value="<?php echo isset($rn) ? $rn : ''; ?>">
+                    </div>
+
+                    <div class="form-group has-feedback col">
                       <input type="text" class="form-control has-feedback-left" id="inputSuccess4" name="nama" placeholder="Nama Pesakit" value="<?php echo isset($nama) ? $nama : ''; ?>">
                     </div>
-                    <div class="col-md-5 col-sm-5 col-xs-6 form-group has-feedback">
+                    <div class="form-group has-feedback col">
                       <input type="text" class="form-control" id="inputSuccess3" name="nokatil" placeholder="No Katil" value="<?php echo isset($nokatil) ? $nokatil : ''; ?>">
                     </div>
-                    <div class="container">
-                      <label class="radio-inline">
-                        <input type="radio" name="kelas" id="Kelas2" value="K2" <?php echo (isset($kelas) && $kelas == 'K2') ? 'checked' : ''; ?>> Kelas 2
-                      </label>
-                      <label class="radio-inline">
-                        <input type="radio" name="kelas" id="Kelas3" value="K3" <?php echo (isset($kelas) && $kelas == 'K3') ? 'checked' : ''; ?>> Kelas 3
-                      </label>
+                    <div class="form-group has-feedback col">
+
+                    
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="Kelas2" name="kelas" class="custom-control-input" value="K2" <?php echo ($kelas=='K2')?'checked':'' ?> required>
+                        <label class="custom-control-label" for="Kelas2" >Kelas 2</label>
+                      </div>
+
+                      <div class="custom-control custom-radio custom-control-inline">
+                        <input type="radio" id="Kelas3" name="kelas" class="custom-control-input" <?php echo ($kelas=='K3')?'checked':'' ?> value="K3">
+                        <label class="custom-control-label" for="Kelas3">Kelas 3</label>
+                      </div>
+
                     </div>
-                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback ">
+
+                    <div class="form-group has-feedback col">
                       <select class="form-control" name="diet" onchange="DisplaytextArea(this.value)" id="dietSelect">
                         <option class="dropdown-item col-md-4" value="">Pilih Diet</option>
                         <?php
@@ -180,7 +204,7 @@ if (!$user) {
                         $getdata = "SELECT `iddiet`,`name` FROM `tbldiet`";
                         $display = mysqli_query($conn, $getdata);
 
-                 
+
                         // Loop through diet options and mark the selected option based on $diet variable
                         if (isset($diet)) {
                           while ($data = mysqli_fetch_assoc($display)) {
@@ -191,11 +215,11 @@ if (!$user) {
                         ?>
                       </select>
                       <br>
-                      <div id="lainlainTextarea" >
+                      <div id="lainlainTextarea">
                         <textarea id="lainlainText" class="form-control has-feedback-left" name="catatan" rows="2" cols="25"><?php echo $catatan ?></textarea>
                       </div>
 
-                    
+
                     </div>
 
                     <div class="ln_solid"></div>

@@ -45,7 +45,7 @@
                     $(document).ready(function() {
                         function showUnreadNotifications(option = "") {
                             $.ajax({
-                                url: "xfetch.php",
+                                url: "FetchNoti.php",
                                 method: "POST",
                                 data: {
                                     option: option,
@@ -54,7 +54,7 @@
                                 success: function(data) {
                                     $("#noti-item ").html(data.notification);
                                     if (data.unreadNotications > 0) {
-                                        $(".count").html(data.unreadNotications);
+                                        $(".badge-counter").html(data.unreadNotications);
                                     }
                                 },
                             });
@@ -79,8 +79,8 @@
                             
                         });
                         
-                        $(document).on("click", ".dropdown-toggle", function() {
-                            $('.count').html('');
+                        $(document).on("click", "#notification", function() {
+                            $('.badge-counter').html('');
                         });
                         
                         setInterval(function() {

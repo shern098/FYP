@@ -192,7 +192,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                                     <tr>
 
-                                                        <td> <?php $data["rn"];              ?> </td>
+                                                        <td> <?php $data["rn"];              ?></td>
                                                         <td> <?php echo $data["rn"];         ?> </td>
                                                         <td> <?php echo $data["bednum"];     ?> </td>
                                                         <td> <?php echo $data["name"];       ?> </td>
@@ -207,13 +207,13 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                             switch ($status) {
                                                                 case "Belum Disemak":
                                                             ?>
-                                                                    <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn btn-info btn-icon-split btn-lg" style="text-decoration: none; ">
+                                                                    <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn btn-info  btn-lg" style="text-decoration: none; ">
                                                                         <span class="icon text-white-600">
                                                                             <i class="fas fa-pen"></i>
                                                                         </span>
                                                                     </a> <!-- Edit icon -->
 
-                                                                    <a onclick="return confirm('Buang Pesanan nama: <?php echo $data['name']; ?> ')" href='DeleteFunction.php?id=<?php echo $data["rn"]; ?>' class="btn btn-danger btn-icon-split btn-lg" style="text-decoration: none; ">
+                                                                    <a onclick="return confirm('Buang Pesanan nama: <?php echo $data['name']; ?> ')" href='DeleteFunction.php?id=<?php echo $data["rn"]; ?>' class="btn btn-danger btn-lg" style="text-decoration: none; ">
                                                                         <span class="icon text-white-600">
                                                                             <i class="fas fa-trash"></i>
                                                                         </span>
@@ -224,7 +224,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                                 case "Telah Disemak":
                                                                 ?>
 
-                                                                    <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn-circle btn-warning" style="text-decoration: none; ">
+                                                                    <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn btn-warning btn-lg" style="text-decoration: none; ">
                                                                         <span class="icon text-white-600">
                                                                             <i class="fas fa-ban"></i>
                                                                         </span>
