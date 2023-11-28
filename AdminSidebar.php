@@ -40,6 +40,8 @@
                 <h6 class="collapse-header">Admin </h6>
                 <a class="collapse-item" href="AdminListOrderDoc.php">Senarai Order(Doc/Pro)</a>
                 <a class="collapse-item" href="AdminListUsers.php">Urus Pengguna Sistem</a>
+                <a class="collapse-item" href="AdminListNurses.php">Urus Senarai Nurse</a>
+                <a class="collapse-item" href="AdminListAdmins.php">Urus Senarai Admin</a>
                 <a class="collapse-item" href="AdminViewReport.php">Semakan Laporan</a>
             </div>
         </div>

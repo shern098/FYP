@@ -16,18 +16,6 @@ if (mysqli_num_rows($data) > 0) {
         echo "<script>
         window.location.href ='AdminListUsers.php';
         </script>";
-     }
-     elseif($cmd == "repass"){
-        $idw=$_GET["idw"];
-        $newpas=hash("sha512",$_GET["newpass"]);
-        $getdata = "UPDATE `tbluser` SET `password`='$newpas'
-            WHERE idward=$idw";
-        mysqli_query($conn, $getdata);
-        echo "<script>
-        window.location.href ='AdminListUsers.php';
-        </script>";
-     }
-
 }else{
     echo' <script>alert("Kalalauan Admin Salah. Sila cuba lagi.");</script>';
         echo "<script>
@@ -37,5 +25,5 @@ if (mysqli_num_rows($data) > 0) {
 
     
 }
-
+}
 ?>
