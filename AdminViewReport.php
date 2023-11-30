@@ -212,6 +212,12 @@ if(!isset($_GET["Count"])){
                                         </tr>
                                     </tfoot>
                                 </table>
+                                <a href='excelall.php?&tarikh=<?php echo $tarikh?>' class='btn btn-light btn-icon-split right'>
+                                                <span class='icon text-gray-600'>
+                                                <i class='fas fa-download'></i>
+                                            </span>
+                                                <span class='text'>Download Laporan</span>
+                                            </a>
                             </div>
                         </div>
                     </div>

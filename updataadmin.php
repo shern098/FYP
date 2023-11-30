@@ -7,7 +7,7 @@ $username = $_GET["namaadmin"];
 
 $jawatan = $_GET["jawadmin"];
 
-$getdata = "SELECT * FROM `tblunitdietik`";
+$getdata = "SELECT * FROM `tblunitdietik` ORDER BY `tblunitdietik`.`idunit` ASC";
 $display=mysqli_query($conn, $getdata);
 if (mysqli_num_rows($display) > 0) {
     $i=1;
@@ -16,7 +16,7 @@ if (mysqli_num_rows($display) > 0) {
             break;
         }
         $i++;
-        $id=$data["idunit"];
+        $id=$i;
     };
 
     
@@ -24,14 +24,13 @@ if (mysqli_num_rows($display) > 0) {
     $id=1;
 }
 
-$id=sprintf("%03s",++$id);
+$id=sprintf("%02s",$id);
     $getdata = "INSERT INTO `tblunitdietik`(`idunit`, `Nama` , `jawatan`) VALUES ('$id','$username','$jawatan')";
     mysqli_query($conn, $getdata);
-    echo' alert("Data Telah Disimpan.");
-        return false;';
-    echo "<script>
-    window.location.href ='AdminListAdmins.php';
-    </script>";
+        echo "<script>
+        alert('Data Telah Disimpan.')
+        window.location.href ='AdminListAdmins.php';
+        </script>";
     }
 
 ?>
