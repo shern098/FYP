@@ -33,5 +33,8 @@ while ($data = mysqli_fetch_assoc($display)) {
     mysqli_query($conn,$insert);
     $insert="INSERT INTO `tblbilorder`(`groupid`, `idnum`, `bil`) VALUES ('$wad','2','$other')";
     mysqli_query($conn,$insert);
+
+echo "<script>window.location.href='AdminListOrderDoc.php?historydate=".$tarikh."&Filter=&Count=';</script>";
+
 }
 ?>

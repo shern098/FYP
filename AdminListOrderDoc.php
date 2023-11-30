@@ -10,6 +10,10 @@ if (!$user) {
 if(isset($_GET["Filter"])){
     $tarikh = $_GET["historydate"];
 }
+if(!isset($_GET["Count"])){
+    echo "<script>window.location.href='CountOrderDoc.php?wad=".$wad."&tarikh=".$tarikh."';</script>";
+
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -227,13 +231,7 @@ if(isset($_GET["Filter"])){
                                         </tr>
                                     </tfoot>
                                 </table>
-                                <a href="CountOrderDoc.php?wad=<?php echo $wad?>&tarikh=<?php echo $tarikh?>" class="btn btn-primary btn-icon-split right">
-                                    <span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Kira</span>
-                                </a>
-                                
+                              
 
                             </div>
                         </div>
