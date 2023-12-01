@@ -140,14 +140,14 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                             <input type="text" class="form-control " id="inputSuccess2" name="rn" placeholder="RN Pesakit" required>
                                         </div>
 
-                                        <div class="form-group has-feedback col">
-                                            <input type="text" class="form-control " id="inputSuccess4" name="nama" placeholder="Nama Pesakit" required>
-                                        </div>
-
+                                        
                                         <div class=" form-group has-feedback col">
                                             <input type="text" class="form-control" id="inputSuccess3" name="nokatil" placeholder="No Katil" required>
                                         </div>
-
+                                        
+                                        <div class="form-group has-feedback col">
+                                            <input type="text" class="form-control " id="inputSuccess4" name="nama" placeholder="Nama Pesakit" required>
+                                        </div>
 
                                         <div class="form-group has-feedback col">
 

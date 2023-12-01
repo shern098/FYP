@@ -171,18 +171,20 @@ if (!$user) {
 
 
                     <div class="form-group has-feedback col">
-                      <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="rn" placeholder="RN Pesakit" readonly value="<?php echo isset($rn) ? $rn : ''; ?>">
+                      <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="rn" placeholder="RN Pesakit"  value="<?php echo isset($rn) ? $rn : ''; ?>">
                     </div>
+
+                    <div class="form-group has-feedback col">
+                      <input type="text" class="form-control" id="inputSuccess3" name="nokatil" placeholder="No Katil" value="<?php echo isset($nokatil) ? $nokatil : ''; ?>">
+                    </div>
+                    
 
                     <div class="form-group has-feedback col">
                       <input type="text" class="form-control has-feedback-left" id="inputSuccess4" name="nama" placeholder="Nama Pesakit" value="<?php echo isset($nama) ? $nama : ''; ?>">
                     </div>
-                    <div class="form-group has-feedback col">
-                      <input type="text" class="form-control" id="inputSuccess3" name="nokatil" placeholder="No Katil" value="<?php echo isset($nokatil) ? $nokatil : ''; ?>">
-                    </div>
-                    <div class="form-group has-feedback col">
-
+                 
                     
+                    <div class="form-group has-feedback col">
                       <div class="custom-control custom-radio custom-control-inline">
                         <input type="radio" id="Kelas2" name="kelas" class="custom-control-input" value="K2" <?php echo ($kelas=='K2')?'checked':'' ?> required>
                         <label class="custom-control-label" for="Kelas2" >Kelas 2</label>

@@ -68,7 +68,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
     <link rel="stylesheet" href="https://cdn.datatables.net/searchpanes/2.2.0/css/searchPanes.bootstrap4.min.css">
     <link rel="stylesheet" href="https://cdn.datatables.net/select/1.7.0/css/select.dataTables.min.css">
 
-    
+
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
     <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
@@ -90,7 +90,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
     <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
 
-    
+
 </head>
 
 <body id="page-top">
@@ -159,6 +159,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                 <th>NAMA PESAKIT</th>
                                                 <th>KELAS</th>
                                                 <th>JENIS DIET</th>
+                                                <th>CATATAN</th>
                                                 <th>STATUS</th>
                                                 <th>OPERASI</th>
                                             </tr>
@@ -169,7 +170,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             <?php
                                             //connect database
                                             include("db_connection.php");
-                                      
+
                                             // select data
                                             $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyIn) ='$tarikh'";
 
@@ -181,10 +182,10 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                                     switch ($data['status']) {
                                                         case 0:
-                                                            $status = "Belum Disemak";
+                                                            $status = "Belum Dipesan";
                                                             break;
                                                         case 1:
-                                                            $status = "Telah Disemak";
+                                                            $status = "Telah Dipesan";
                                                             break;
                                                     }
 
@@ -198,6 +199,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                         <td> <?php echo $data["name"];       ?> </td>
                                                         <td> <?php echo $data["kelas"];      ?> </td>
                                                         <td> <?php echo $data["iddiet"];     ?> </td>
+                                                        <td> <?php echo $data["catatan"];     ?> </td>
                                                         <td> <?php echo $status              ?> </td>
                                                         <td class="text-center">
 
@@ -205,7 +207,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
 
                                                             switch ($status) {
-                                                                case "Belum Disemak":
+                                                                case "Belum Dipesan":
                                                             ?>
                                                                     <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn btn-info  btn-lg" style="text-decoration: none; ">
                                                                         <span class="icon text-white-600">
@@ -221,7 +223,17 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                                                 <?php
                                                                     break;
-                                                                case "Telah Disemak":
+                                                                case "Telah Dipesan":
+                                                                ?>
+
+                                                                    <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn btn-warning btn-lg" style="text-decoration: none; ">
+                                                                        <span class="icon text-white-600">
+                                                                            <i class="fas fa-ban"></i>
+                                                                        </span>
+                                                                    </a>
+                                                                <?php
+                                                                    break;
+                                                                case "Telah Diterima":
                                                                 ?>
 
                                                                     <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn btn-warning btn-lg" style="text-decoration: none; ">
@@ -247,6 +259,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th></th>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
@@ -360,7 +373,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
 
                 searchPanes: {
-                    columns: [2, 3, 4, 5, 6], // Specify the column indices to include in the search panes
+                    columns: [2, 3, 4, 5, 6, 7], // Specify the column indices to include in the search panes
 
                 },
                 scrollY: 400,
@@ -369,16 +382,32 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                 },
 
                 columnDefs: [{
-                    orderable: false,
-                    className: 'select-checkbox',
-                    targets: 0,
+                        orderable: false,
+                        className: 'select-checkbox',
+                        targets: 0,
 
-                },                    
-                {
+                    },
+                    {
+                        targets: 2, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        width: "5%",
+                    },
+                    {
+                        targets: 5, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        width: "5%",
+                    },
+                    {
+                        targets: 6, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        width: "20%",
+                    },
+                    {
                         targets: 7, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        width: "5%",
+                    },
+                    {
+                        targets: 8, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
                         orderable: false,
                     }
-            ],
+                ],
                 select: {
                     style: 'multi',
                     selector: 'td:first-child'
@@ -399,7 +428,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
             // Hide checkboxes for rows with "Telah Disahkan" status.
             table.rows().every(function() {
                 var data = this.data();
-                var status = data[6]; // Assuming the status is in the 7th column (index 6).
+                var status = data[7]; // Assuming the status is in the 7th column (index 6).
                 var isCancel = status === "Telah Disemak";
 
                 if (isCancel) {

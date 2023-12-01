@@ -20,7 +20,7 @@ if (isset($_POST['option'])) {
   if (mysqli_num_rows($resWad) > 0) {
 
     // Construct the SQL query to update the record
-    $updateQuery = "SELECT * FROM tblpatient where status = 3  ORDER BY rn ASC LIMIT 4";
+    $updateQuery = "SELECT * FROM tblpatient where status = 3  ORDER BY rn DESC LIMIT 4";
     $result = mysqli_query($conn, $updateQuery);
     $output = '';
 
@@ -31,7 +31,7 @@ if (isset($_POST['option'])) {
 
       <a class='dropdown-item d-flex align-items-center'>
       <div>
-      <div class='small text-gray-500'>" . $row['wad'] . "</div>
+      <div class='small text-gray-500'>" . $row["status"] . "</div>
       <span class='font-weight-bold'>" . $row['name'] . "</span>
       </div>
       </a>
@@ -65,7 +65,7 @@ if (isset($_POST['option'])) {
   elseif (mysqli_num_rows($resAdmin) > 0) {
 
     // Construct the SQL query to update the record
-    $updateQuery = "SELECT * FROM tblpatient where status = 1 ORDER BY rn ASC LIMIT 4";
+    $updateQuery = "SELECT * FROM tblpatient where status = 1 ORDER BY rn DESC LIMIT 4";
     $result = mysqli_query($conn, $updateQuery);
     $output = '';
 
@@ -76,7 +76,7 @@ if (isset($_POST['option'])) {
      
            <a class='dropdown-item d-flex align-items-center'>
            <div>
-           <div class='small text-gray-500'>" . $row['wad'] . "</div>
+           <div class='small text-gray-500'>" . $row["status"]  . "</div>
            <span class='font-weight-bold'>" . $row['name'] . "</span>
            </div>
            </a>

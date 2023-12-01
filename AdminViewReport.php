@@ -1,22 +1,21 @@
 <?php
 session_start();
-$user = $_SESSION["CurrentUser"]; 
+$user = $_SESSION["CurrentUser"];
 $tarikh   = $_SESSION['date'];
-$wadsemasa="0";
-if (!$user ) {
+$wadsemasa = "0";
+if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
-  }
+}
 
-if(isset($_GET["Filter"])){
+if (isset($_GET["Filter"])) {
     $tarikh = $_GET["historydate"];
 }
-if(!isset($_GET["Count"])){
+if (!isset($_GET["Count"])) {
     echo "<script>window.location.href=
-    'CountOrder.php?wad=".$wadsemasa."&tarikh=".$tarikh."'
+    'CountOrder.php?wad=" . $wadsemasa . "&tarikh=" . $tarikh . "'
     ;</script>";
-
 }
-  
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +56,7 @@ if(!isset($_GET["Count"])){
 
             <!-- Main Content -->
             <div id="content">
-                
+
                 <!-- Topbar -->
                 <?php
 
@@ -92,27 +91,31 @@ if(!isset($_GET["Count"])){
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Semak Report Pada <?php echo $tarikh;?></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Semak Report Pada <?php echo $tarikh; ?></h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                            <form action="" method="get">
-                                    <input type="date" name="historydate" id="date" required>
-                                    <button type="submit" class="btn btn-info btn-icon-split right" name="Filter">
+                                <form action="" method="get" class="form-inline mb-2">
+
+
+                                    <input type="date" name="historydate" id="date" class="form-control mr-2" required>
+                                    <button type="submit" class="btn btn-info btn-icon-split right " name="Filter">
                                         <span class="icon text-white-600">
                                             <i class="fas fa-search fa-sm "></i>
                                         </span>
                                         <span class="text">Tapisan</span>
                                     </button>
+
+
                                 </form>
-                                <table class="table table-bordered table-hover"  id="dataTable" width="100%" cellspacing="0">
+                                <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
                                             <th>Wad</th>
                                             <th>Tindakkan</th>
                                         </tr>
                                     </thead>
-                                    
+
                                     <tbody>
 
                                         <?php
@@ -128,14 +131,13 @@ if(!isset($_GET["Count"])){
                                                 $wad = $data["username"];
                                                 echo "<tr>";
                                                 echo "<td>" .  $wad . "</td>";
-                                                echo "<td> <a href='AdminViewReportWad.php?wad=".$wad."&tarikh=".$tarikh."&count=1' class='btn btn-light btn-icon-split right'>
+                                                echo "<td> <a href='AdminViewReportWad.php?wad=" . $wad . "&tarikh=" . $tarikh . "&count=1' class='btn btn-light btn-icon-split right'>
                                                 <span class='icon text-gray-600'>
                                                 <i class='fas fa-eye'></i>
                                             </span>
                                                 <span class='text'>Lihat Laporan</span>
                                             </a>";
                                                 echo "</tr>";
-                                                
                                             }
                                         }
 
@@ -155,25 +157,25 @@ if(!isset($_GET["Count"])){
 
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Bilangan Pesanan Pesakit Pada <?php echo $tarikh;?></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Bilangan Pesanan Pesakit Pada <?php echo $tarikh; ?></h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">  
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        <?php
-                                          include("db_connection.php");
-                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC";
-                                          $display = mysqli_query($conn, $getdata);
-                                          //display data
-                                          if (mysqli_num_rows($display) > 0) {
-  
-                                              while ($data = mysqli_fetch_assoc($display)) {
-                                                  echo "<th>" . $data["iddiet"] . "</th>";
-                                              }
-                                          }
-                                          ?>
+                                            <?php
+                                            include("db_connection.php");
+                                            $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC";
+                                            $display = mysqli_query($conn, $getdata);
+                                            //display data
+                                            if (mysqli_num_rows($display) > 0) {
+
+                                                while ($data = mysqli_fetch_assoc($display)) {
+                                                    echo "<th>" . $data["iddiet"] . "</th>";
+                                                }
+                                            }
+                                            ?>
                                         </tr>
                                     </thead>
 
@@ -188,27 +190,26 @@ if(!isset($_GET["Count"])){
                                             while ($data = mysqli_fetch_assoc($display)) {
                                                 echo "<td>" . $data["bil"] . "</td>";
                                             }
-                                        }else{
+                                        } else {
                                             echo "<td colspan=19> Tiada Data </td>";
-
-                                          }
+                                        }
                                         ?>
                                     </tbody>
 
                                     <tfoot>
                                         <tr>
-                                        <?php
-                                          include("db_connection.php");
-                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC ";
-                                          $display = mysqli_query($conn, $getdata);
-                                          //display data
-                                          if (mysqli_num_rows($display) > 0) {
-  
-                                              while ($data = mysqli_fetch_assoc($display)) {
-                                                  echo "<th>" . $data["iddiet"] . "</th>";
-                                              }
-                                          }
-                                          ?>
+                                            <?php
+                                            include("db_connection.php");
+                                            $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC ";
+                                            $display = mysqli_query($conn, $getdata);
+                                            //display data
+                                            if (mysqli_num_rows($display) > 0) {
+
+                                                while ($data = mysqli_fetch_assoc($display)) {
+                                                    echo "<th>" . $data["iddiet"] . "</th>";
+                                                }
+                                            }
+                                            ?>
                                         </tr>
                                     </tfoot>
                                 </table>
@@ -262,7 +263,7 @@ if(!isset($_GET["Count"])){
     <script>
         $(document).ready(function() {
             $('#dataTable').DataTable({
-              
+          
             });
         });
     </script>

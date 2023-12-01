@@ -62,30 +62,9 @@
 
                         showUnreadNotifications();
 
-                        $("#data-patient").on("submit", function(event) {
-                            var formData = $(this).serialize();
-                            event.preventDefault();
-
-                            $.ajax({
-                                url: "xAddDataPatient.php",
-                                method: "POST",
-                                data: formData,
-                                success: function(data) {
-                                    $("#data-patient")[0].reset();
-                                    showUnreadNotifications();
-                                },
-                            });
-
-                            
-                        });
-                        
-                        $(document).on("click", "#notification", function() {
-                            $('.badge-counter').html('');
-                        });
-                        
-                        setInterval(function() {
-                            showUnreadNotifications();
-                        }, 5000);
+                       
+                
                     });
-                </script>
+       
+                    </script>
                 <!-- End of Topbar -->
