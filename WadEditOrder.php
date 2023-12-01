@@ -242,16 +242,8 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                                     </a>
                                                                 <?php
                                                                     break;
-                                                                case "Telah Diterima":
-                                                                ?>
+                                             
 
-                                                                    <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn btn-warning btn-lg" style="text-decoration: none; ">
-                                                                        <span class="icon text-white-600">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </span>
-                                                                    </a>
-                                                            <?php
-                                                                    break;
 
                                                                     mysqli_close($conn);
                                                             }

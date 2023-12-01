@@ -202,7 +202,7 @@ if (!$user) {
                                 </a>
 
                                 
-                                <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Hantar" disabled><span class="icon text-white-600">
+                                <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Terima" disabled><span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Pesanan Diterima</span></button>
@@ -231,13 +231,6 @@ if (!$user) {
 
                                             ?>
                                         </select>
-
-                                        <button type="button" class=" btn btn-icon-split btn-sm btn-primary" id="submit">
-                                            <span class="icon text-white-600">
-                                                <i class="fas fa-download fa-sm text-white-50"></i>
-                                            </span>
-                                            <span class="text ">Hantar Pesanan</span>
-                                        </button>
 
                             </div>
                         </div>
