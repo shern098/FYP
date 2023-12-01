@@ -108,16 +108,6 @@ if (!$user) {
                                         </span>
                                         <span class="text">Senarai Pesanan Terkini</span>
                                     </a>
-                                    <div class="my-2"></div>
-
-
-                                    <a href="WadListPatientHistory.php" class="btn btn-secondary btn-icon-split">
-                                        <span class="icon text-white-50 ">
-                                            <i class="fas fa-file"></i>
-                                        </span>
-                                        <span class="text">Pesanan Lepas</span>
-                                    </a>
-
 
                                     <div class="my-2"></div>
 

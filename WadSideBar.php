@@ -40,7 +40,6 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header"> Pilihan Pesanan :</h6>
                         <a class="collapse-item" href="WadListPatient.php">Senarai Pesanan</a>
-                        <a class="collapse-item" href="WadListPatientHistory.php">Pesanan Lepas</a>
                         <a class="collapse-item" href="WadAddPatient.php">Tambah Pesanan</a>
                         <a class="collapse-item" href="WadEditOrder.php">Edit Pesanan</a>
                     </div>

@@ -112,7 +112,7 @@ if (!isset($_GET["Count"])) {
                                     <thead>
                                         <tr>
                                             <th>Wad</th>
-                                            <th>Tindakkan</th>
+                                            <th>Tindakan</th>
                                         </tr>
                                     </thead>
 
@@ -136,7 +136,8 @@ if (!isset($_GET["Count"])) {
                                                 <i class='fas fa-eye'></i>
                                             </span>
                                                 <span class='text'>Lihat Laporan</span>
-                                            </a>";
+                                            </a></td>";
+
                                                 echo "</tr>";
                                             }
                                         }
@@ -146,7 +147,7 @@ if (!isset($_GET["Count"])) {
                                     <tfoot>
                                         <tr>
                                             <th>Wad</th>
-                                            <th>Tindakkan</th>
+                                            <th>Tindakan</th>
                                         </tr>
                                     </tfoot>
                                 </table>
