@@ -5,9 +5,9 @@
  $tarikh   = $_SESSION['date'];
 
  // select data
- $getTotalPatient = "SELECT wad, COUNT(*) as total_patient, DATE(masa_keyIn) as submission_date
+ $getTotalPatient = "SELECT wad, COUNT(*) as total_patient, DATE(masa_keyin_nurse) as submission_date
  FROM tblpatient
- WHERE status = 1 AND DATE(masa_keyIn) = '$tarikh'
+ WHERE status = 1 AND DATE(masa_keyin_nurse) = '$tarikh'
  GROUP BY wad, submission_date;";
 
  $displayTotalPatient = mysqli_query($conn, $getTotalPatient);

@@ -6,9 +6,9 @@ $user = $_SESSION["CurrentUser"];
 
 $today =  date("Y-m-d");
 
-$getTotalDiet = "SELECT masa_keyIn, iddiet, COUNT(*) as total_diet FROM 
+$getTotalDiet = "SELECT masa_keyin_nurse, iddiet, COUNT(*) as total_diet FROM 
 tblpatient   WHERE wad = '$user' AND  status = 1
- AND DATE(masa_keyIn) = '$today' GROUP BY iddiet";
+ AND DATE(masa_keyin_nurse) = '$today' GROUP BY iddiet";
 
 // Initialize an array to hold diet counts
 $dietCounts = [

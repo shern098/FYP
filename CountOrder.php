@@ -15,13 +15,13 @@ include("db_connection.php");
 if ($wad!="0"){
     $del = "DELETE FROM `tblbilorder` WHERE `groupid`='$wad'";
 mysqli_query($conn, $del);
-$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyIn) = '$tarikh'  and `status` IN (1,2,3,4) ";
+$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1,2,3,4) ";
 $display = mysqli_query($conn, $getdata);
 }
 else{
     $del = "DELETE FROM `tblbilorder`";
 mysqli_query($conn, $del);
-    $getdata = "SELECT * FROM `tblpatient` where  DATE(masa_keyIn) = '$tarikh'  and `status` IN (1,2,3,4) ";
+    $getdata = "SELECT * FROM `tblpatient` where  DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1,2,3,4) ";
     $display = mysqli_query($conn, $getdata);
 }
 

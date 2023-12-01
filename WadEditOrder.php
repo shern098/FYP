@@ -172,7 +172,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             include("db_connection.php");
 
                                             // select data
-                                            $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyIn) ='$tarikh'";
+                                            $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyin_nurse) ='$tarikh'";
 
                                             $display = mysqli_query($conn, $getdata);
                                             //display data
@@ -180,14 +180,23 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                                 while ($data = mysqli_fetch_assoc($display)) {
 
-                                                    switch ($data['status']) {
-                                                        case 0:
-                                                            $status = "Belum Dipesan";
-                                                            break;
-                                                        case 1:
-                                                            $status = "Telah Dipesan";
-                                                            break;
-                                                    }
+                                                   switch ($data['status']) {
+                                                    case 0:
+                                                        $status = "Belum Disemak";
+                                                        break;
+                                                    case 1:
+                                                        $status = "Telah Disemak";
+                                                        break;
+                                                    case 2:
+                                                        $status = "Sedang Disediakan";
+                                                        break;
+                                                     case 3:
+                                                        $status = "Telah Sedia";
+                                                        break;   
+                                                    case 4:
+                                                            $status = "Telah Diterima";
+                                                            break; 
+                                                }
 
                                             ?>
 
@@ -385,7 +394,12 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                         orderable: false,
                         className: 'select-checkbox',
                         targets: 0,
+                        width: "5%",
 
+                    },
+                    {
+                        targets: 1, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        width: "5%",
                     },
                     {
                         targets: 2, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
@@ -474,7 +488,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                 alert('');
                                 window.location.reload();
                             } else {
-                                alert('Data has been successfully submitted to the database..');
+                                alert('Data Berjaya Dihantar');
                                 window.location.reload();
                             }
                         },

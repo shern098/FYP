@@ -146,7 +146,7 @@ if(isset($_GET["tarikh"])){
                                         include("db_connection.php"); 
                             
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and DATE(masa_keyIn) = '$tarikh'  and `status` IN (1, 2, 3) ";
+                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1, 2, 3) ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
@@ -169,7 +169,7 @@ if(isset($_GET["tarikh"])){
                                                         $status = "Telah Sedia";
                                                         break;   
                                                     case 4:
-                                                            $status = "Teleh Diterima";
+                                                            $status = "Telah Diterima";
                                                             break; 
                                                 }
 

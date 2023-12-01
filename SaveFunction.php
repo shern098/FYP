@@ -10,7 +10,7 @@ if (isset($_GET['nurseId']) && isset($_GET['nurseName']) && isset($_GET['rnList'
 
   
     // Update the status of selected rows in the database and set the nurse name and currentUser.
-    $updateQuery = "UPDATE tblpatient SET status = 1, nama_nurse = ?, masa_keyIn = CURRENT_TIMESTAMP, wad = ? WHERE rn IN (" . implode(',', $rnList) . ")";
+    $updateQuery = "UPDATE tblpatient SET status = 1, nurse_penghantar = ?, masa_keyin_nurse = CURRENT_TIMESTAMP, wad = ? WHERE rn IN (" . implode(',', $rnList) . ")";
 
     $stmt = mysqli_prepare($conn, $updateQuery);
     mysqli_stmt_bind_param($stmt, "ss" ,$nurseName,$currentUser); // Bind nurse name and currentUser as parameters.

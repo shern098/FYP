@@ -137,29 +137,29 @@ if (!$user) {
                                         include("db_connection.php");
                                   
                                         // select data
-                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and  DATE(masa_keyIn) = '$tarikh' ";
+                                        $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and  DATE(masa_keyin_nurse) = '$tarikh' ";
                                         $display = mysqli_query($conn, $getdata);
                                         //display data
                                         if (mysqli_num_rows($display) > 0) {
 
                                             while ($data = mysqli_fetch_assoc($display)) {
-                                                $dateOnly = date("Y-m-d", strtotime($data["masa_keyIn"]));
+                                                $dateOnly = date("Y-m-d", strtotime($data["masa_keyin_nurse"]));
 
                                                 switch ($data['status']) {
                                                     case 0:
-                                                        $status = "Belum Disemak";
+                                                        $status = "Belum Dipesan";
                                                         break;
                                                     case 1:
-                                                        $status = "Telah Disemak";
+                                                        $status = "Telah Dipesan";
                                                         break;
                                                     case 2:
                                                         $status = "Sedang Disediakan";
                                                         break;
                                                      case 3:
-                                                        $status = "Teleh Sedia";
+                                                        $status = "Telah Sedia";
                                                         break;   
                                                     case 4:
-                                                            $status = "Teleh Diterima";
+                                                            $status = "Telah Diterima";
                                                             break; 
                                                 }
 
@@ -201,8 +201,43 @@ if (!$user) {
                                     <span class="text">Edit Pesanan Masuk</span>
                                 </a>
 
+                                
+                                <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Hantar" disabled><span class="icon text-white-600">
+                                        <i class="fas fa-arrow-right"></i>
+                                    </span>
+                                    <span class="text">Pesanan Diterima</span></button>
+                                    
+
+                                 <!-- offset is padding right -->
+                                 <select class="form-control col-3 offset-md-3" name="nurse" id="nurseSelect" style="display:inline-flex; ">
+                                            <option class="dropdown-item col-md-4" value="">Pilih Jururawat</option>
+                                            <?php
+                                            // Include database connection
+                                            include("db_connection.php");
+
+                                            // Select data from the database
+                                            $getdata = "SELECT * FROM `tblnurse`";
+                                            $display = mysqli_query($conn, $getdata);
 
 
+                                            // Loop through diet options and mark the selected option based on $diet variable
+
+                                            while ($data = mysqli_fetch_assoc($display)) {
+
+                                                echo "<option value='" . $data["idnurse"] . "' $selected>" . $data["nama"] . "</option>";
+                                            }
+
+                                            mysqli_close($conn);
+
+                                            ?>
+                                        </select>
+
+                                        <button type="button" class=" btn btn-icon-split btn-sm btn-primary" id="submit">
+                                            <span class="icon text-white-600">
+                                                <i class="fas fa-download fa-sm text-white-50"></i>
+                                            </span>
+                                            <span class="text ">Hantar Pesanan</span>
+                                        </button>
 
                             </div>
                         </div>

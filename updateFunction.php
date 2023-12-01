@@ -13,7 +13,7 @@ if (isset($_GET['rn'])) {
     $catatan = mysqli_real_escape_string($conn, $_GET['catatan']); 
 
     // Construct the SQL query to update the record
-    $updateQuery = "UPDATE tblpatient SET rn='$rn', name='$nama', bednum='$nokatil', kelas='$kelas', iddiet='$diet',catatan='$catatan' ,`masa_keyIn`=CURRENT_TIMESTAMP WHERE rn='$id'";
+    $updateQuery = "UPDATE tblpatient SET rn='$rn', name='$nama', bednum='$nokatil', kelas='$kelas', iddiet='$diet',catatan='$catatan' ,`masa_keyin_nurse`=CURRENT_TIMESTAMP WHERE rn='$id'";
 
    // Execute the update query
    if (mysqli_query($conn, $updateQuery)) {

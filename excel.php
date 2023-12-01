@@ -14,7 +14,7 @@ if(isset($_GET["wad"])){
 if(isset($_GET["tarikh"])){
     $tarikh = $_GET["tarikh"];
 }
-$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and DATE(masa_keyIn) = '$tarikh'  and `status` IN (1, 2, 3,4) ORDER BY `tblpatient`.`rn` ASC";
+$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1, 2, 3,4) ORDER BY `tblpatient`.`rn` ASC";
 $display = mysqli_query($conn, $getdata);
 //display data
 
@@ -37,9 +37,9 @@ $sheet->setCellValue('N7', $wad);
 if (mysqli_num_rows($display) > 0) {
     $row=11;
         while ($data = mysqli_fetch_assoc($display)) {
-            $nurse=$data["nama_nurse"];
-            $terima=$data["penerima"];
-            $serah=$data["penyerah"];
+            $nurse=$data["nurse_penghantar"];
+            $terima=$data["unit_penerima"];
+            $serah=$data["unit_penyerah"];
             $masaterima=$data["masa_terima"];
             $masaserah=$data["masa_serah"];
             $sheet->setCellValue('B'.$row, $data["rn"]);
