@@ -54,8 +54,28 @@ if (!$user) {
     <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/dataTables.searchPanes.min.js"></script>
     <script src="https://cdn.datatables.net/searchpanes/2.2.0/js/searchPanes.bootstrap4.min.js"></script>
     <script src="https://cdn.datatables.net/select/1.7.0/js/dataTables.select.min.js"></script>
+    <style>
+        .funcbtn:disabled {
+            background-color: grey;
+            color: black;
+        }
+    </style>
 
-
+    <script>
+        function checkSelection() {
+            var select = document.getElementById("nurseSelect");
+            var buttons = document.getElementsByClassName("funcbtn");
+            if (select.value === "-1") {
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].disabled = true;
+                }
+            } else {
+                for (var i = 0; i < buttons.length; i++) {
+                    buttons[i].disabled = false;
+                }
+            }
+        }
+    </script>
 </head>
 
 <body id="page-top">
@@ -135,7 +155,7 @@ if (!$user) {
                                         <?php
                                         //connect database
                                         include("db_connection.php");
-                                  
+
                                         // select data
                                         $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and  DATE(masa_keyin_nurse) = '$tarikh' ";
                                         $display = mysqli_query($conn, $getdata);
@@ -155,12 +175,12 @@ if (!$user) {
                                                     case 2:
                                                         $status = "Sedang Disediakan";
                                                         break;
-                                                     case 3:
+                                                    case 3:
                                                         $status = "Telah Sedia";
-                                                        break;   
+                                                        break;
                                                     case 4:
-                                                            $status = "Telah Diterima";
-                                                            break; 
+                                                        $status = "Telah Diterima";
+                                                        break;
                                                 }
 
                                                 echo "<tr>";
@@ -194,23 +214,27 @@ if (!$user) {
                                     </tfoot>
                                 </table>
 
-                                <a href="WadEditOrder.php" class="btn btn-primary btn-icon-split">
-                                    <span class="icon text-white-50">
-                                        <i class="fas fa-pencil-alt"></i>
-                                    </span>
-                                    <span class="text">Edit Pesanan Masuk</span>
-                                </a>
+                                <div class="form-inline">
+                                    <a href="WadEditOrder.php" class="btn btn-primary btn-icon-split mr-2">
 
-                                
-                                <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Terima" disabled><span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Pesanan Diterima</span></button>
-                                    
+                                        <span class="icon text-white-50">
+                                            <i class="fas fa-pencil-alt"></i>
+                                        </span>
+                                        <span class="text">Edit Pesanan Masuk</span>
+                                    </a>
+                                    <form action="UpStatus.php" method="get">
+                                        <input name="wad" style="display:none;" value=<?php echo $user; ?>>
+                                        <input name="tarikh" style="display:none;" value=<?php echo $tarikh; ?>>
 
-                                 <!-- offset is padding right -->
-                                 <select class="form-control col-3 offset-md-3" name="nurse" id="nurseSelect" style="display:inline-flex; ">
-                                            <option class="dropdown-item col-md-4" value="">Pilih Jururawat</option>
+                                        <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Terima" disabled><span class="icon text-white-600">
+                                                <i class="fas fa-arrow-right"></i>
+                                            </span>
+                                            <span class="text">Pesanan Diterima</span></button>
+
+
+                                        <!-- offset is padding right -->
+                                        <select class="form-control col-5 offset-md-3" name="nurse" id="nurseSelect" style="display:inline-flex;" onchange="checkSelection()">
+                                            <option class="dropdown-item col-md-4" value="" selected>Pilih Jururawat</option>
                                             <?php
                                             // Include database connection
                                             include("db_connection.php");
@@ -231,6 +255,9 @@ if (!$user) {
 
                                             ?>
                                         </select>
+                                    </form>
+
+                                </div>
 
                             </div>
                         </div>
@@ -290,8 +317,8 @@ if (!$user) {
                     sSearch: "Carian:"
                 },
                 lengthMenu: [
-                    [ 10, 25, -1],
-                    [ 10, 25, "All"]
+                    [10, 25, -1],
+                    [10, 25, "All"]
                 ]
             });
 

@@ -15,8 +15,9 @@ if (isset($_GET["wad"])) {
     }
 
     $current_time = date("h:i:s a");
-
+    if(isset($_GET["admin"])){
     $admin=$_GET["admin"];
+    }
     $getdata = "SELECT * FROM `tblunitdietik` WHERE `idunit`='$admin'";
     $display = mysqli_query($conn, $getdata);
     //display data
@@ -80,7 +81,7 @@ if(isset($_GET["Sahkan"])){
             
         
     // Update the status of selected rows in the database and set the nurse name and currentUser.
-    $updateQuery = "UPDATE tblpatient SET status = '1', `unit_penerima`='',`unit_penyerah`='',`masa_terima`='',`masa_serah`='' WHERE rn = '$data[rn]' ";
+    $updateQuery = "UPDATE tblpatient SET status = '1', `unit_penerima`='',`unit_penyerah`='',`masa_terima`='',`masa_serah`='' WHERE rn = '$data[rn]'  ";
 
     mysqli_query($conn, $updateQuery);
 } 
@@ -88,7 +89,7 @@ if(isset($_GET["Sahkan"])){
 }
 }elseif(isset($_GET["Terima"])){
     // select data
-    $getdata = "SELECT * FROM `tblpatient` ";
+    $getdata = "SELECT * FROM `tblpatient` WHERE  wad = '$wad' and  DATE(masa_keyin_nurse) = '$tarikh'  AND status = 3 ";
     $display = mysqli_query($conn, $getdata);
     //display data
   
@@ -98,7 +99,7 @@ if(isset($_GET["Sahkan"])){
             
         
     // Update the status of selected rows in the database and set the nurse name and currentUser.
-    $updateQuery = "UPDATE tblpatient SET status = '1', `unit_penerima`='',`unit_penyerah`='',`masa_terima`='',`masa_serah`='' WHERE rn = '$data[rn]' ";
+    $updateQuery = "UPDATE tblpatient SET status = '4', `nurse_penerima`='$nurse',`masa_terima_nurse`='$current_time' WHERE rn = '$data[rn]' ";
 
     mysqli_query($conn, $updateQuery);
 } 

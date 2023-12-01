@@ -216,7 +216,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
 
                                                             switch ($status) {
-                                                                case "Belum Dipesan":
+                                                                case "Belum Disemak":
                                                             ?>
                                                                     <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn btn-info  btn-lg" style="text-decoration: none; ">
                                                                         <span class="icon text-white-600">
@@ -232,7 +232,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                                                 <?php
                                                                     break;
-                                                                case "Telah Dipesan":
+                                                                case "Telah Disemak":
                                                                 ?>
 
                                                                     <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn btn-warning btn-lg" style="text-decoration: none; ">
