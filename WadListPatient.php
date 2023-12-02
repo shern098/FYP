@@ -222,15 +222,16 @@ if (!$user) {
                                         </span>
                                         <span class="text">Edit Pesanan Masuk</span>
                                     </a>
-                                    <form action="UpStatus.php" method="get">
-                                        <input name="wad" style="display:none;" value=<?php echo $user; ?>>
+                                    <form action="TerimaFunction.php" method="get">
                                         <input name="tarikh" style="display:none;" value=<?php echo $tarikh; ?>>
+                                        <input name="wad" style="display:none;" value=<?php echo $user; ?>>
 
-                                        <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Terima" disabled><span class="icon text-white-600">
+                                        <button type="submit" class="funcbtn btn btn-success btn-icon-split right" name="Terima" disabled><span class="icon text-white-600">
                                                 <i class="fas fa-arrow-right"></i>
                                             </span>
                                             <span class="text">Pesanan Diterima</span></button>
 
+                                            
 
                                         <!-- offset is padding right -->
                                         <select class="form-control col-5 offset-md-3" name="nurse" id="nurseSelect" style="display:inline-flex;" onchange="checkSelection()">
