@@ -37,7 +37,10 @@ $sheet->setCellValue('N7', $wad);
 if (mysqli_num_rows($display) > 0) {
     $row=11;
         while ($data = mysqli_fetch_assoc($display)) {
-            $nurse=$data["nurse_penghantar"];
+            $nurseh=$data["nurse_penghantar"];
+            $nurset=$data["nurse_penerima"];
+            $shift=$data["shift"];
+           
             $terima=$data["unit_penerima"];
             $serah=$data["unit_penyerah"];
             $masaterima=$data["masa_terima"];
@@ -50,13 +53,13 @@ if (mysqli_num_rows($display) > 0) {
             $row++;
 
         }
-        $sheet->setCellValue('F42',  $nurse);
+        $sheet->setCellValue('F42',  $nurseh);
         $sheet->setCellValue('F52',  $terima);
         $sheet->setCellValue('Q52',  $serah);
         $sheet->setCellValue('F54',  $masaterima);
         $sheet->setCellValue('Q54',  $masaserah);
 
-        $getdata = "SELECT `jawatan` FROM `tblnurse` WHERE  `nama`='$nurse'";
+        $getdata = "SELECT `jawatan` FROM `tblnurse` WHERE  `nama`='$nurseh'";
     $display = mysqli_query($conn, $getdata);
     //display data
     if (mysqli_num_rows($display) > 0) {
@@ -94,6 +97,25 @@ if (mysqli_num_rows($display) > 0) {
             }
         }
     }
+
+    $getdata = "SELECT * FROM `tblnurse` WHERE  `nama`='$nurset'";
+    $display = mysqli_query($conn, $getdata);
+    //display data
+    if (mysqli_num_rows($display) > 0) {
+        while ($data = mysqli_fetch_assoc($display)) {
+        $sheet->setCellValue('N45',  $data['jawatan']);
+        $sheet->setCellValue('N43',  $data['nama']);
+        $sheet->setCellValue('P45',  $data['jawatan']);
+        $sheet->setCellValue('P43',  $data['nama']);
+        }}
+
+
+        if ($shift == 'pagi') {
+            $sheet->setCellValue('S7',  "WAKTU : PAGI");
+            }else{
+            $sheet->setCellValue('S7',  "WAKTU : PETANG");
+
+            }
     mysqli_close($conn);
 
 header("Content-Type:application/vnd.ms-excel");

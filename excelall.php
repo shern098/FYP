@@ -15,7 +15,7 @@ $getdata = "SELECT * FROM `tblpatient` where DATE(masa_keyin_nurse) = '$tarikh' 
 $display = mysqli_query($conn, $getdata);
 //display data
 
-
+//NO WORK
 
 require 'vendor/autoload.php';
 
