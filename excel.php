@@ -40,6 +40,7 @@ if (mysqli_num_rows($display) > 0) {
             $nurseh=$data["nurse_penghantar"];
             $nurset=$data["nurse_penerima"];
             $shift=$data["shift"];
+            $masateriman=$data["masa_terima_nurse"];
            
             $terima=$data["unit_penerima"];
             $serah=$data["unit_penyerah"];
@@ -102,12 +103,28 @@ if (mysqli_num_rows($display) > 0) {
     $display = mysqli_query($conn, $getdata);
     //display data
     if (mysqli_num_rows($display) > 0) {
+        if ($shift == 'pagi') {
         while ($data = mysqli_fetch_assoc($display)) {
         $sheet->setCellValue('N45',  $data['jawatan']);
         $sheet->setCellValue('N43',  $data['nama']);
+        $sheet->setCellValue('N46', $masateriman);
+
         $sheet->setCellValue('P45',  $data['jawatan']);
         $sheet->setCellValue('P43',  $data['nama']);
-        }}
+        $sheet->setCellValue('P46',  $masateriman);
+
+        }}else{
+        while ($data = mysqli_fetch_assoc($display)) {
+            $sheet->setCellValue('T45',  $data['jawatan']);
+            $sheet->setCellValue('T43',  $data['nama']);
+        $sheet->setCellValue('T46', $masateriman);
+
+            $sheet->setCellValue('U45',  $data['jawatan']);
+            $sheet->setCellValue('U43',  $data['nama']);
+        $sheet->setCellValue('U46', $masateriman);
+
+            }}
+        }
 
 
         if ($shift == 'pagi') {
