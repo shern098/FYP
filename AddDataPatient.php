@@ -54,9 +54,9 @@ $user = $_SESSION['CurrentUser'];
 // Use a try-catch block to catch unique constraint violation error
 try {
 
-    $status = 0;
-    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `status`, `wad`, `shift`) VALUES (?,?,?,?,?,?,?,?,?)");
-    $getdata->bind_param("sssssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan,$status ,$user, $shift);
+  
+    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `wad`, `shift`) VALUES (?,?,?,?,?,?,?,?)");
+    $getdata->bind_param("ssssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan,$user, $shift);
 
 
     if ($getdata->execute()) {

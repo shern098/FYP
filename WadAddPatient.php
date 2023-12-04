@@ -30,7 +30,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-    <title>Home</title>
+    <title>Tambah Pesakit</title>
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
