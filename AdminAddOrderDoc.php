@@ -1,9 +1,9 @@
 <?php
 session_start();
-$user = $_SESSION["CurrentUser"]; 
+$user = $_SESSION["CurrentUser"];
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
-  }
+}
 
 
 ?>
@@ -25,6 +25,25 @@ if (!$user) {
 
     <!-- Custom styles for this template-->
     <link href="css/style.css" rel="stylesheet">
+
+    <!-- Bootstrap core JavaScript-->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <script src="js/demo/clock.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/chart.js/Chart.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/chart-area-demo.js"></script>
+    <script src="js/demo/chart-pie-demo.js"></script>
 
 </head>
 
@@ -82,118 +101,128 @@ if (!$user) {
                     <div class="row">
                         <!-- Content Column -->
                         <div class="col-lg-6 mb-4">
-                            <div>
+                            <div class="card shadow mb-4">
 
-                            </div>
-                              <form action="AddDataDocPro.php" method="get">
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback ">
-                                    <select class="form-control" name="fasiliti" id="fasiliti" required>
-                                        <option class="dropdown-item col-md-4" value="">Pilih Fasiliti</option>
-                                        <option class="dropdown-item col-md-4" value="KP">Klinik Pakar</option>
-                                        <option class="dropdown-item col-md-4" value="DB">Dewan Bedah</option>
-                                       
-                                    </select>
+                            <div class="card-header py-3">
+                                    <h6 class="m-0 font-weight-bold text-primary"> Masukkan Maklumat Pesakit </h6>
                                 </div>
+                                <div class="card-body">
+                                    <form action="AddDataDocPro.php" method="get">
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback ">
+                                            <select class="form-control" name="fasiliti" id="fasiliti" required>
+                                                <option class="dropdown-item col-md-4" value="">Pilih Fasiliti</option>
+                                                <option class="dropdown-item col-md-4" value="KP">Klinik Pakar</option>
+                                                <option class="dropdown-item col-md-4" value="DB">Dewan Bedah</option>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="number" class="form-control" name="BilDoc" placeholder="Bilangan Doc" required>
-                                </div>
+                                            </select>
+                                        </div>
 
-                                <!-- Pilihan normal diet dan lain2 -->
-                                <div class="container">
-                                         
-                                        <input type="checkbox" id="DN" name="DietNormalCB" onclick="showTextarea()">
-                                        <label for="DN">Diet Normal</label>
-                                    <br>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <input type="number" class="form-control" id="DNTextarea" name="BilDN" style="display:none" placeholder="Bilangan Pesanan">
-                                    </div>
-                                   <br>
+                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <input type="number" class="form-control" name="BilDoc" placeholder="Bilangan Doc" required>
+                                        </div>
+
+                                        <!-- Pilihan normal diet dan lain2 -->
+                                        <div class="container">
+
+                                            <input type="checkbox" id="DN" name="DietNormalCB" onclick="showTextarea()">
+                                            <label for="DN">Diet Normal</label>
+                                            <br>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                <input type="number" class="form-control" id="DNTextarea" name="BilDN" style="display:none" placeholder="Bilangan Pesanan">
+                                            </div>
+                                            <br>
 
 
-                                        <input type="checkbox" id="LL" name="LainLainCB" onclick="showTextarea()">
-                                        <label for="LL">Lain-Lain</label>
-                                    <br>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
-                                        <input type="number" class="form-control" id="LLBilTextarea" name="BilLL" style="display:none" placeholder="Bilangan Pesanan">
+                                            <input type="checkbox" id="LL" name="LainLainCB" onclick="showTextarea()">
+                                            <label for="LL">Lain-Lain</label>
+                                            <br>
+                                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                                <input type="number" class="form-control" id="LLBilTextarea" name="BilLL" style="display:none" placeholder="Bilangan Pesanan">
+                                                <br>
+                                                <textarea id="LLTextarea" class="form-control" name="extra" style="display:none"></textarea>
+                                            </div>
+                                        </div>
                                         <br>
-                                        <textarea id="LLTextarea" class="form-control" name="extra" style="display:none"></textarea>
-                                    </div>
+                                        <script>
+                                            function showTextarea() {
+                                                var DNCB = document.getElementById("DN");
+                                                var LLCB = document.getElementById("LL");
+                                                var DNtxt = document.getElementById("DNTextarea");
+                                                var LLtxt = document.getElementById("LLTextarea");
+                                                var LLbil = document.getElementById("LLBilTextarea");
+
+                                                if (DNCB.checked) {
+                                                    DNtxt.style.display = "block";
+                                                } else {
+                                                    DNtxt.style.display = "none";
+                                                }
+
+                                                if (LLCB.checked) {
+                                                    LLtxt.style.display = "block";
+                                                    LLbil.style.display = "block";
+                                                } else {
+                                                    LLtxt.style.display = "none";
+                                                    LLbil.style.display = "none";
+                                                }
+                                            }
+
+                                            function validateForm() {
+
+                                                var DNCB = document.getElementById("DN");
+                                                var LLCB = document.getElementById("LL");
+                                                var DNtxt = document.getElementById("DNTextarea");
+                                                var LLtxt = document.getElementById("LLTextarea");
+                                                var LLbil = document.getElementById("LLBilTextarea");
+                                                var DNcheck = false;
+                                                var LLcheck = false;
+
+                                                var BilDN = parseInt(document.getElementById("DNTextarea"));
+                                                var BilLL = parseInt(document.getElementById("LLBilTextarea"));
+                                                var BilDoc = parseInt(document.getElementById("BilDoc"));
+
+                                                if (!DNCB.checked && !LLCB.checked) {
+                                                    alert("Sila Chek Sekurang-kurangnya 1 Jenis Diet.");
+                                                    return false;
+                                                }
+
+                                                if (DNCB.checked) {
+                                                    if (DNtxt.value == '') {
+                                                        alert("Sila Isi Bilangan Diet Normal.");
+                                                        return false;
+                                                    }
+                                                }
+
+
+                                                if (LLCB.checked) {
+                                                    if (LLbil.value == '') {
+                                                        alert("Sila Isi Bilangan Lain-Lain.");
+                                                        return false;
+                                                    } else if (LLtxt.value == '') {
+                                                        alert("Sila Isi Catatan Lain-Lain.");
+                                                        return false;
+                                                    }
+                                                }
+
+                                                if (confirm('Confirm Simpan Data?')) {} else {
+                                                    return false;
+                                                }
+                                            }
+                                        </script>
+                                        <!-- button submit dan cancel -->
+                                        <div class="ln_solid"></div>
+                                        <div class="form-group">
+                                            <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+                                                <a href="AdminListOrderDoc.php">
+                                                    <button type="button" class="btn btn-primary" name="btncancel">Batal</button>
+                                                </a>
+                                                <button type="submit" class="btn btn-success" onclick="return validateForm()" name="btnhantar">Hantar</button>
+                                            </div>
+                                        </div>
+                                    </form>
+
                                 </div>
-                                <br>
-                                <script>
-                                    function showTextarea() {
-                                        var DNCB = document.getElementById("DN");
-                                        var LLCB = document.getElementById("LL");
-                                        var DNtxt = document.getElementById("DNTextarea");
-                                        var LLtxt = document.getElementById("LLTextarea");
-                                        var LLbil = document.getElementById("LLBilTextarea");
+                            </div>
 
-                                        if (DNCB.checked) {
-                                            DNtxt.style.display = "block";
-                                        } else {
-                                            DNtxt.style.display = "none";
-                                        }
-
-                                        if (LLCB.checked) {
-                                            LLtxt.style.display = "block";
-                                            LLbil.style.display = "block";
-                                        } else {
-                                            LLtxt.style.display = "none";
-                                            LLbil.style.display = "none";
-                                        }
-                                    }
-
-                                    function validateForm() {
-                                        
-                                        var DNCB = document.getElementById("DN");
-                                        var LLCB = document.getElementById("LL");
-                                        var DNtxt = document.getElementById("DNTextarea");
-                                        var LLtxt = document.getElementById("LLTextarea");
-                                        var LLbil = document.getElementById("LLBilTextarea");
-                                        var DNcheck = false;
-                                        var LLcheck = false;
-
-                                        var BilDN = parseInt(document.getElementById("DNTextarea"));
-                                        var BilLL = parseInt(document.getElementById("LLBilTextarea"));
-                                        var BilDoc = parseInt(document.getElementById("BilDoc"));
-
-                                        if (!DNCB.checked && !LLCB.checked) {
-                                            alert("Sila Chek Sekurang-kurangnya 1 Jenis Diet.");
-                                            return false;
-                                        }
-
-                                         if(DNCB.checked){
-                                            if(DNtxt.value == ''){
-                                            alert("Sila Isi Bilangan Diet Normal.");
-                                            return false;}
-                                        }
-                                        
-
-                                         if(LLCB.checked){
-                                            if(LLbil.value == ''){
-                                            alert("Sila Isi Bilangan Lain-Lain.");
-                                            return false;}
-                                            else if(LLtxt.value == ''){
-                                            alert("Sila Isi Catatan Lain-Lain.");
-                                            return false;}
-                                        }
-                                        
-                                        if(confirm('Confirm Simpan Data?')){
-                                        }else{return false;}
-                                    }
-                                </script>
-                                <!-- button submit dan cancel -->
-                                <div class="ln_solid"></div>
-                                <div class="form-group">
-                                    <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
-                                        <a href="AdminListOrderDoc.php">
-                                            <button type="button" class="btn btn-primary" name="btncancel">Batal</button>
-                                        </a>
-                                        <button type="submit" class="btn btn-success" onclick="return validateForm()" name="btnhantar">Hantar</button>
-                                    </div>
-                                </div>
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -233,24 +262,6 @@ if (!$user) {
 
     ?>
 
-    <!-- Bootstrap core JavaScript-->
-    <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
-
-    <script src="js/demo/clock.js"></script>
-
-    <!-- Custom scripts for all pages-->
-    <script src="js/sb-admin-2.min.js"></script>
-
-    <!-- Page level plugins -->
-    <script src="vendor/chart.js/Chart.min.js"></script>
-
-    <!-- Page level custom scripts -->
-    <script src="js/demo/chart-area-demo.js"></script>
-    <script src="js/demo/chart-pie-demo.js"></script>
 
 </body>
 

@@ -65,8 +65,10 @@
                                 },
                             });
                         }
-
-                        showUnreadNotifications();
+                        setInterval(function(){
+                            showUnreadNotifications();
+                        },5000)
+                    
 
                        
                 

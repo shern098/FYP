@@ -179,27 +179,27 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             if (mysqli_num_rows($display) > 0) {
 
                                                 while ($data = mysqli_fetch_assoc($display)) {
-
-                                                   switch ($data['status']) {
-                                                    case 0:
-                                                        $status = "Belum Disemak";
-                                                        break;
-                                                    case 1:
-                                                        $status = "Telah Disemak";
-                                                        break;
-                                                    case 2:
-                                                        $status = "Sedang Disediakan";
-                                                        break;
-                                                     case 3:
-                                                        $status = "Telah Sedia";
-                                                        break;   
-                                                    case 4:
+                                                  
+                                                    switch ($data['status']) {
+                                                        case 0:
+                                                            $status = "Belum Disemak";
+                                                            break;
+                                                        case 1:
+                                                            $status = "Telah Disemak";
+                                                            break;
+                                                        case 2:
+                                                            $status = "Sedang Disediakan";
+                                                            break;
+                                                        case 3:
+                                                            $status = "Telah Sedia";
+                                                            break;
+                                                        case 4:
                                                             $status = "Telah Diterima";
-                                                            break; 
-                                                }
+                                                            break;
+                                                    }
 
+                                                    if( $status == "Belum Disemak")  {
                                             ?>
-
                                                     <tr>
 
                                                         <td> <?php $data["rn"];              ?></td>
@@ -240,9 +240,9 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                                             <i class="fas fa-ban"></i>
                                                                         </span>
                                                                     </a>
-                                                                <?php
+                                                            <?php
                                                                     break;
-                                             
+
 
 
                                                                     mysqli_close($conn);
@@ -251,8 +251,8 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                         </td>
 
                                                     </tr>
-
-                                            <?php
+                                                    <?php
+                                                }
                                                 } // end while loop
                                             } // end if 
                                             ?>
@@ -435,9 +435,9 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
             table.rows().every(function() {
                 var data = this.data();
                 var status = data[7]; // Assuming the status is in the 7th column (index 6).
-                var isCancel = status === "Telah Disemak";
+                var belumSemak = status === "Belum Disemak";
 
-                if (isCancel) {
+                if (!belumSemak) {
                     // Hide the checkboxes by setting their display style'.
                     $(this.node()).find("td.select-checkbox").css('visibility', 'hidden');
                 }
