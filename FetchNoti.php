@@ -20,18 +20,39 @@ if (isset($_POST['option'])) {
   if (mysqli_num_rows($resWad) > 0) {
 
     // Construct the SQL query to update the record
-    $updateQuery = "SELECT * FROM tblpatient where status = 3  ORDER BY rn DESC LIMIT 4";
+    $updateQuery = "SELECT * FROM tblpatient where  status IN ( 2, 3) AND wad = '$user'  AND DATE(masa_keyin_nurse) = '$tarikh'  ORDER BY rn DESC LIMIT 4";
     $result = mysqli_query($conn, $updateQuery);
     $output = '';
 
     if (mysqli_num_rows($result) > 0) {
 
       while ($row = mysqli_fetch_array($result)) {
+
+                               
+        switch ($row['status']) {
+          case 0:
+              $status = "Belum Disemak";
+              break;
+          case 1:
+              $status = "Telah Disemak";
+              break;
+          case 2:
+              $status = "Sedang Disediakan";
+              break;
+           case 3:
+              $status = "Telah Sedia";
+              break;   
+          case 4:
+                  $status = "Telah Diterima";
+                  break; 
+      }
+
+
         $output .= "
 
       <a class='dropdown-item d-flex align-items-center'>
       <div>
-      <div class='small text-gray-500'>" . $row["status"] . "</div>
+      <div class='small font-weight-bold'>"  . $status   ." - " . $row["unit_penerima"]. "</div>
       <span class='font-weight-bold'>" . $row['name'] . "</span>
       </div>
       </a>
@@ -49,7 +70,7 @@ if (isset($_POST['option'])) {
       ";
     }
 
-    $status_queery = "select * from tblpatient where status = 3";
+    $status_queery = "select * from tblpatient where   status IN ( 2, 3) AND wad = '$user'  AND DATE(masa_keyin_nurse) = '$tarikh'";
     $result_query = mysqli_query($conn, $status_queery);
     $count = mysqli_num_rows($result_query);
     $data = array(
@@ -65,18 +86,37 @@ if (isset($_POST['option'])) {
   elseif (mysqli_num_rows($resAdmin) > 0) {
 
     // Construct the SQL query to update the record
-    $updateQuery = "SELECT * FROM tblpatient where status = 1 ORDER BY rn DESC LIMIT 4";
+    $updateQuery = "SELECT * FROM tblpatient where  status IN  (1,4) AND DATE(masa_keyin_nurse) = '$tarikh' ORDER BY rn DESC LIMIT 4";
     $result = mysqli_query($conn, $updateQuery);
     $output = '';
 
     if (mysqli_num_rows($result) > 0) {
 
       while ($row = mysqli_fetch_array($result)) {
+                          
+        switch ($row['status']) {
+          case 0:
+              $status = "Belum Disemak";
+              break;
+          case 1:
+              $status = "Telah Disemak";
+              break;
+          case 2:
+              $status = "Sedang Disediakan";
+              break;
+           case 3:
+              $status = "Telah Sedia";
+              break;   
+          case 4:
+                  $status = "Telah Diterima";
+                  break; 
+      }
+
         $output .= "
      
            <a class='dropdown-item d-flex align-items-center'>
            <div>
-           <div class='small text-gray-500'>" . $row["status"]  . "</div>
+           <div class='small font-weight-bold'>" . $status   ." - " . $row["wad"]. " </div>
            <span class='font-weight-bold'>" . $row['name'] . "</span>
            </div>
            </a>
@@ -94,7 +134,7 @@ if (isset($_POST['option'])) {
            ";
     }
 
-    $status_queery = "select * from tblpatient where status = 1";
+    $status_queery = "select * from tblpatient where status IN (1,4)  AND DATE(masa_keyin_nurse) = '$tarikh'";
     $result_query = mysqli_query($conn, $status_queery);
     $count = mysqli_num_rows($result_query);
     $data = array(

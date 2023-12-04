@@ -54,17 +54,16 @@ $user = $_SESSION['CurrentUser'];
 // Use a try-catch block to catch unique constraint violation error
 try {
 
-    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `wad`, `shift`) VALUES (?,?,?,?,?,?,?,?)");
-    $getdata->bind_param("ssssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan, $user, $shift);
+    $status = 0;
+    $getdata = $conn->prepare("INSERT INTO `tblpatient`(`rn`, `bednum`, `name`, `kelas`, `iddiet`, `catatan`, `status`, `wad`, `shift`) VALUES (?,?,?,?,?,?,?,?,?)");
+    $getdata->bind_param("sssssssss", $rn, $nokatil, $nama, $kelas, $diet, $catatan,$status ,$user, $shift);
 
 
     if ($getdata->execute()) {
         $_SESSION['add_success'] = true;
 
-        // Display an alert with the values of the parameters
-        echo "<script>alert('$rn $nokatil $kelas $nama $diet');</script>";
-
-        header("Location: WadAddPatient.php");
+        echo "<script> window.location.href = 'WadAddPatient.php'; </script> ";
+  
     } else {
         echo "Error inserting record: " . $getdata->error . "<br>";
     }

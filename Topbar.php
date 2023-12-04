@@ -53,8 +53,14 @@
                                 dataType: "json",
                                 success: function(data) {
                                     $("#noti-item ").html(data.notification);
-                                    if (data.unreadNotications > 0) {
+                                    if (data.unreadNotications > 0 && data.unreadNotications <= 4) {
                                         $(".badge-counter").html(data.unreadNotications);
+                                    }else if (data.unreadNotications >= 4){
+                                        $(".badge-counter").html("4+");
+                                    }
+                                    else if (data.unreadNotications == 0 ){
+                                        $(".badge-counter").html("");
+
                                     }
                                 },
                             });

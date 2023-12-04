@@ -162,6 +162,7 @@ if (!$user) {
                                             $dietCounts[$dietType] = $dietRow['total_diet'];
                                         }
                                     }
+                             
                                     $totalDiet = array_sum($dietCounts);
 
                                     // Output the counts
@@ -192,11 +193,15 @@ if (!$user) {
                                 <div class="card-footer">
                                     <?php
                                     include 'TotalPatientFunction.php';
-                                    $totalPatitent = 0;
+                                    $totalPatitent = array();
                                     while ($row = mysqli_fetch_assoc($displayTotalPatient)) {
 
-                                        $totalPatitent += $row['total_patient'];
+                                        $patientCounts[] = $row['total_patient'];
                                     }
+                               
+
+                                    $totalPatitent = array_sum($patientCounts);
+                                    
                                     ?>
                                     <h6 class="m-0 font-weight-bold text-primary"> Jumlah Kesuluruhan Pesakit: <?php echo $totalPatitent;  ?> </h6>
                                 </div>
