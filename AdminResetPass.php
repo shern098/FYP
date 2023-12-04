@@ -68,11 +68,13 @@ if(isset($_GET["btnhantar"]))
             <div id="content">
 
                 <!-- Topbar -->
-                <?php
-
-                include("Topbar.php");
-
-                ?>
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+                    <div class="clock  mb-0 text-gray-800"> </div>
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button id="sidebarToggleTop" class="btn btn-link d-md-none rounded-circle mr-3">
+                        <i class="fa fa-bars"></i>
+                    </button>
+                </nav>
                 <!-- End of Topbar -->
 
 
@@ -81,7 +83,7 @@ if(isset($_GET["btnhantar"]))
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-white-600"> Edit Admin </h1>
+                        <h1 class="h3 mb-0 text-white-600"> Reset Password Admin </h1>
 
                     </div>
 
@@ -106,14 +108,53 @@ if(isset($_GET["btnhantar"]))
     <div>
 
     </div>
-      <form action="" method="get">
+      <form action="" method="get" onsubmit="return checkpass()">
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
             <input type="text" class="form-control"  name="namaadmin" value="<?php echo $user ?>" readonly required>
         </div>
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
-            <input type="password" class="form-control" name="passadmin" placeholder="Katalaluan Baru" required>
+            <input type="password" class="form-control" name="passadmin" id="passadmin" placeholder="Katalaluan Baru" required>
+            <h6>   Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>)
+      </h6>
         </div>
+
         <br>
+        <script>
+                                            function checkpass() {
+                                                var password = document.getElementById("passadmin").value;
+
+                                                if (password.length < 12) {
+                                                    alert("Katalaluan terlalu pendek.");
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one uppercase letter
+                                                if (!/[A-Z]/.test(password)) {
+                                                    alert("Katalaluan perlu mempunyai huruf besar.");
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one lowercase letter
+                                                if (!/[a-z]/.test(password)) {
+                                                    alert("Katalaluan perlu mempunyai huruf kecil.");
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one symbol
+                                                if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                                                    alert("Katalaluan perlu mempunyai simbol.");
+                                                    return false;
+                                                }
+
+                                                if (!/\d/.test(password)) {
+                                                    alert("Katalaluan perlu mempunyai nombor.");
+                                                    return false;
+                                                    }
+
+                                                    return true;
+                                                }
+                                                                                            
+                                            </script>
         <!-- button submit dan cancel -->
         <div class="ln_solid"></div>
         <div class="form-group">

@@ -120,16 +120,56 @@ if (mysqli_num_rows($display) > 0) {
     <div>
 
     </div>
-      <form action="updatedataUser.php" method="get">
+      <form action="updatedataUser.php" method="get" onsubmit="return checkpass()">
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
         <input name="idw"  style="display:none;" value=<?php echo $idw; ?>>
         <input name="cmd"  style="display:none;" value=<?php echo $cmd; ?>>
-            <input type="text" class="form-control" name="newpass" placeholder="Masukkan Katalaluan Baharu" required>
+            <input type="text" class="form-control" name="newpass" id="newpass" placeholder="Masukkan Katalaluan Baharu" required>
+           <h6>   Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>)
+      </h6>
         </div>
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
             <input type="password" class="form-control" name="passadmin" placeholder="Katalaluan Admin Semasa" required>
         </div>
         <br>
+
+
+        <script>
+                                            function checkpass() {
+                                                var password = document.getElementById("newpass").value;
+
+                                                if (password.length < 12) {
+                                                    alert("Katalaluan terlalu pendek.");
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one uppercase letter
+                                                if (!/[A-Z]/.test(password)) {
+                                                    alert("Katalaluan perlu mempunyai huruf besar.");
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one lowercase letter
+                                                if (!/[a-z]/.test(password)) {
+                                                    alert("Katalaluan perlu mempunyai huruf kecil.");
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one symbol
+                                                if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+                                                    alert("Katalaluan perlu mempunyai simbol.");
+                                                    return false;
+                                                }
+
+                                                if (!/\d/.test(password)) {
+                                                    alert("Katalaluan perlu mempunyai nombor.");
+                                                    return false;
+                                                    }
+
+                                                    return true;
+                                                }
+                                                                                            
+                                            </script>
         <!-- button submit dan cancel -->
         <div class="ln_solid"></div>
         <div class="form-group">
