@@ -113,6 +113,8 @@ if (!$user) {
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="password" class="form-control" name="Kpasswad" id="Kpasswad" placeholder="Pasti Katalaluan" required>
                                 </div>
+                                <h6>   Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>)
+      </h6>
                                 <br>
 
                                 <script>
