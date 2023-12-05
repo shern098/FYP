@@ -103,17 +103,59 @@ if (!$user) {
                             <div>
 
                             </div>
-                              <form action="updatauser.php" method="get">
+                              <form action="updatauser.php" method="get" onsubmit="return checkpass()">
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="text" class="form-control" name="namewad" placeholder="Nama (nama yang dipaparkan*)" required>
                                 </div>
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="password" class="form-control" name="passwad" placeholder="Katalaluan" required>
+                                    <input type="password" class="form-control" name="passwad"  id="passwad" placeholder="Katalaluan" required>
                                 </div>
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="password" class="form-control" name="Kpasswad" placeholder="Pasti Katalaluan" required>
+                                    <input type="password" class="form-control" name="Kpasswad" id="Kpasswad" placeholder="Pasti Katalaluan" required>
                                 </div>
                                 <br>
+
+                                <script>
+                                            function checkpass() {
+                                                var password1 = document.getElementById("passwad").value;
+                                                var password2 = document.getElementById("Kpasswad").value;
+
+                                                if (password1.length < 12 || password2.length < 12) {
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one uppercase letter
+                                                if (!/[A-Z]/.test(password1) || !/[A-Z]/.test(password2) ) {
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one lowercase letter
+                                                if (!/[a-z]/.test(password1) || !/[a-z]/.test(password2) ) {
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+
+                                                    return false;
+                                                }
+
+                                                // Check if password contains at least one symbol
+                                                if (!/[!@#$%^&*(),.?":{}|<>]/.test(password1) || !/[!@#$%^&*(),.?":{}|<>]/.test(password2)) {
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+
+                                                    return false;
+                                                }
+
+                                                if (!/\d/.test(password1) || !/\d/.test(password2)) {
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+
+                                                    return false;
+                                                    }
+
+                                                    return true;
+                                                }
+                                                                                            
+                                            </script>
                                 <!-- button submit dan cancel -->
                                 <div class="ln_solid"></div>
                                 <div class="form-group">

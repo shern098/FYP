@@ -7,10 +7,25 @@ $username = $_GET["namewad"];
 $pass = hash("sha512",$_GET["passwad"]);
 $confpass = hash("sha512",$_GET["Kpasswad"]);
 //just take num from username 
-$usernum=substr($username,-1);
-$usernum=sprintf("%02s",$usernum);
+$getdata = "SELECT * FROM `tbluser` ORDER BY `tbluser`.`idward` ASC";
+$display=mysqli_query($conn, $getdata);
+if (mysqli_num_rows($display) > 0) {
+    $i=1;
+    while($data = mysqli_fetch_assoc($display)){
+        if($i!=(int)$data["idward"]){
+            break;
+        }
+        $i++;
+        $id=$i;
+    };
 
-$id=$usernum;
+    
+}else{
+    $id=1;
+}
+
+$id=sprintf("%02s",$id);
+
 
 if($pass == $confpass){
     $getdata = "INSERT INTO `tbluser`(`username`, `idward`, `password`) VALUES ('$username','$id','$pass')";

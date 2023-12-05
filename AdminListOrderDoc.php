@@ -286,17 +286,7 @@ if(!isset($_GET["Count"])){
     ?>
 
     
-    <script>
-        $(document).ready(function() {
 
-            var table = $('#dataTable').DataTable({
-                dom: 'Pfrtip', // Add 'P' for search panes
-                searchPanes: {
-                },
-            });
-
-        });
-    </script>
 
 </body>
 

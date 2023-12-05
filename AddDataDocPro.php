@@ -37,8 +37,8 @@ if (isset($_GET["btnhantar"])) {
         $getdata = "INSERT INTO `tbldocpro`(`ordderid`, `facility`, `totalnum`, `normalnum`, `othernum`, `notes`) 
 VALUES ('$orderid','$fas','$Bildoc','$DN','$LL','$cttn')";
         mysqli_query($conn, $getdata);
-        echo ' alert("Data Telah Disimpan .");
-    return false;';
+        echo '<script> alert("Data Telah Disimpan .");
+    </script>';
         echo "<script>
 window.location.href = 'AdminListOrderDoc.php';
 </script>";

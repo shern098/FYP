@@ -124,30 +124,34 @@ if(isset($_GET["btnhantar"]))
                                                 var password = document.getElementById("passadmin").value;
 
                                                 if (password.length < 12) {
-                                                    alert("Katalaluan terlalu pendek.");
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
                                                     return false;
                                                 }
 
                                                 // Check if password contains at least one uppercase letter
                                                 if (!/[A-Z]/.test(password)) {
-                                                    alert("Katalaluan perlu mempunyai huruf besar.");
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+
                                                     return false;
                                                 }
 
                                                 // Check if password contains at least one lowercase letter
                                                 if (!/[a-z]/.test(password)) {
-                                                    alert("Katalaluan perlu mempunyai huruf kecil.");
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+
                                                     return false;
                                                 }
 
                                                 // Check if password contains at least one symbol
                                                 if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-                                                    alert("Katalaluan perlu mempunyai simbol.");
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+
                                                     return false;
                                                 }
 
                                                 if (!/\d/.test(password)) {
-                                                    alert("Katalaluan perlu mempunyai nombor.");
+                                                    alert('Katalaluan Sekurang-kurangnya 12 aksara , 1 huruf besar , 1 huruf kecil , 1 nombor dan 1 simbol (!@#$%^&*(),.?":{}|<>).');
+
                                                     return false;
                                                     }
 
