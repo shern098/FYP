@@ -30,8 +30,7 @@ $id=sprintf("%02s",$id);
 if($pass == $confpass){
     $getdata = "INSERT INTO `tbluser`(`username`, `idward`, `password`) VALUES ('$username','$id','$pass')";
     mysqli_query($conn, $getdata);
-    echo' alert("Data Telah Disimpan.");
-        return false;';
+    echo' <script>alert("Data Telah Disimpan.");</script>';
     echo "<script>
     window.location.href ='AdminListUsers.php';
     </script>";
@@ -41,6 +40,7 @@ if($pass == $confpass){
     window.location.href = 'AdminAddUser.php';
     </script>";
     }
+    mysqli_close($conn);
     
 }
 ?>

@@ -127,17 +127,34 @@ if (mysqli_num_rows($display) > 0) {
     <div>
 
     </div>
-      <form action="updatedataUser.php" method="get">
+      <form action="updatedataUser.php" method="get" onsubmit="return checkname()">
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
         <input name="idw"  style="display:none;" value=<?php echo $idw; ?>>
         <input name="cmd"  style="display:none;" value=<?php echo $cmd; ?>>
         Nama Baru Wad
-            <input type="text" class="form-control" name="newnamewad" value="<?php echo $username?>" required>
+            <input type="text" class="form-control" name="newnamewad" id="newnamewad" value="<?php echo $username?>" required>
         </div>
         <div class="col-md-9 col-sm-6 col-xs-12 form-group has-feedback">
             <input type="password" class="form-control" name="passadmin" placeholder="Katalaluan Admin Semasa" required>
         </div>
         <br>
+
+        <script>
+                                            function checkname() {
+                                                // Get the text value
+                                                var textValue = document.getElementById('newnamewad').value;
+
+                                                // Check if the text contains white spaces
+                                                if (textValue.includes(' ')) {
+                                                    // Show an alert if there are white spaces
+                                                    alert('Nama tidak boleh ada spaceabar');
+                                                    return false; // Prevent form submission
+                                                }
+
+                                                return true; // Allow form submission
+                                            }
+
+                                            </script>
         <!-- button submit dan cancel -->
         <div class="ln_solid"></div>
         <div class="form-group">

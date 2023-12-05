@@ -225,7 +225,7 @@ if(isset($_GET["tarikh"])){
 
                                 <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Sahkan" disabled><span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
-                                    </span>
+                                   </span>
                                     <span class="text">Sahkan</span></button>
 
                                     <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Hantar" disabled><span class="icon text-white-600">

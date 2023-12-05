@@ -105,7 +105,7 @@ if (!$user) {
                             </div>
                               <form action="updatauser.php" method="get" onsubmit="return checkpass()">
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
-                                    <input type="text" class="form-control" name="namewad" placeholder="Nama (nama yang dipaparkan*)" required>
+                                    <input type="text" class="form-control" name="namewad" id="namawad" placeholder="Nama (nama yang dipaparkan*)" required>
                                 </div>
                                 <div class="col-md-7 col-sm-6 col-xs-12 form-group has-feedback">
                                     <input type="password" class="form-control" name="passwad"  id="passwad" placeholder="Katalaluan" required>
@@ -153,10 +153,22 @@ if (!$user) {
 
                                                     return false;
                                                     }
+                                                
+                                                        
+                        
+                                                // Get the text value
+                                                var textValue = document.getElementById('namawad').value;
 
-                                                    return true;
+                                                // Check if the text contains white spaces
+                                                if (textValue.includes(' ')) {
+                                                    // Show an alert if there are white spaces
+                                                    alert('Nama tidak boleh ada spaceabar');
+                                                    return false; // Prevent form submission
                                                 }
-                                                                                            
+
+                                                return true; // Allow form submission
+                                            }
+
                                             </script>
                                 <!-- button submit dan cancel -->
                                 <div class="ln_solid"></div>

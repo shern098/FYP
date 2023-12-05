@@ -26,8 +26,8 @@ if (mysqli_num_rows($display) > 0) {
 $id=sprintf("%02s",$id);
     $getdata = "INSERT INTO `tblnurse`(`idnurse`, `nama`,`jawatan`) VALUES ('$id','$username','$jawatan')";
     mysqli_query($conn, $getdata);
-    echo' alert("Data Telah Disimpan.");
-        return false;';
+    echo' <script> alert("Data Telah Disimpan.");
+    </script>';
     echo "<script>
     window.location.href ='AdminListNurses.php';
     </script>";

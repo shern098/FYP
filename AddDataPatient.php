@@ -21,12 +21,9 @@ if (isset($_GET['rn'])) {
 
 
 if (isset($_GET['nokatil'])) {
-    if (is_numeric($_GET['nokatil'])) {
+
         $nokatil = mysqli_real_escape_string($conn, $_GET['nokatil']);
-    } else {
-        echo "<script>alert('Nombor katil pesakit tidak boleh huruf/bersama huruf');</script>";
-        die("<script> window.history.back(); </script> ");
-    }
+
 }
 
 
@@ -47,8 +44,9 @@ if (isset($_GET['txtcatatan'])) {
 }
 
 // Get the current user from the session
-$user = $_SESSION['CurrentUser'];
-
+if (isset($_GET['currentuser'])) {
+    $user = mysqli_real_escape_string($conn, $_GET['currentuser']);
+}
 // PROCEDURAL STYLE MYSQLI
 
 // Use a try-catch block to catch unique constraint violation error

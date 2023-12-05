@@ -214,15 +214,15 @@ if (!$user) {
                                     </tfoot>
                                 </table>
 
-                                <div class="form-inline">
-                                    <a href="WadEditOrder.php" class="btn btn-primary btn-icon-split mr-2">
+                                <div class="">
+                                    <a href="WadEditOrder.php" class="btn btn-primary btn-md btn-icon-split  ">
 
                                         <span class="icon text-white-50">
                                             <i class="fas fa-pencil-alt"></i>
                                         </span>
                                         <span class="text">Edit Pesanan Masuk</span>
                                     </a>
-                                    <form action="TerimaFunction.php" method="get">
+                                    <form action="TerimaFunction.php" method="get" class="form-inline">
                                         <input name="tarikh" style="display:none;" value=<?php echo $tarikh; ?>>
                                         <input name="wad" style="display:none;" value=<?php echo $user; ?>>
 

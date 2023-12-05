@@ -194,9 +194,10 @@ if (!$user) {
                                     <?php
                                     include 'TotalPatientFunction.php';
                                     $totalPatitent = array();
+                                    $patientCounts = array();
                                     while ($row = mysqli_fetch_assoc($displayTotalPatient)) {
 
-                                        $patientCounts[] = $row['total_patient'];
+                                        $patientCounts = $row['total_patient'];
                                     }
                                
 

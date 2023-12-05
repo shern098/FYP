@@ -122,6 +122,11 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
                                         <div class="container form-group has-feedback">
 
+                                        <div class="form-group has-feedback col" style="display: none;">
+                                            <input type="text" class="form-control " id="inputSuccess2" name="currentuser" value="<?php echo $_SESSION['CurrentUser'] ?>" required>
+                                        </div>
+
+
                                             <div class="custom-control custom-radio custom-control-inline">
                                                 <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="pagi">
                                                 <label class="custom-control-label" for="Pagi">PAGI</label>
@@ -192,7 +197,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                             <br>
 
                                             <div id="lainlainTextarea">
-                                                <textarea placeholder="Catatan" id="catatan" class="form-control has-feedback-left" name="txtcatatan" rows="2" cols="25"></textarea>
+                                                <input type="text" placeholder="Catatan" id="catatan" class="form-control has-feedback-left" name="txtcatatan" rows="2" cols="25"></input>
                                             </div>
 
 
