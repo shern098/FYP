@@ -193,15 +193,15 @@ if (!$user) {
                                 <div class="card-footer">
                                     <?php
                                     include 'TotalPatientFunction.php';
-                                    $totalPatitent = array();
-                                    $patientCounts = array();
+                                    $totalPatitent = 0;
+                                   
                                     while ($row = mysqli_fetch_assoc($displayTotalPatient)) {
 
-                                        $patientCounts = $row['total_patient'];
+                                        $totalPatitent += $row['total_patient'];
                                     }
                                
 
-                                    $totalPatitent = array_sum($patientCounts);
+                                 
                                     
                                     ?>
                                     <h6 class="m-0 font-weight-bold text-primary"> Jumlah Kesuluruhan Pesakit: <?php echo $totalPatitent;  ?> </h6>

@@ -7,7 +7,7 @@ $user = $_SESSION["CurrentUser"];
 $tarikh   = $_SESSION['date'];
 
 $getTotalDiet = "SELECT masa_keyin_nurse, iddiet, COUNT(*) as total_diet FROM 
-tblpatient   WHERE wad = '$user' AND status IN (1,2,3,4)
+tblpatient   WHERE wad = '$user'
  AND DATE(masa_keyin_nurse) = '$tarikh' GROUP BY iddiet";
 
 // Initialize an array to hold diet counts
