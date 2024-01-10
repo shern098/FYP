@@ -46,7 +46,7 @@ include("LoginFunction.php");
                             <div class="col-lg-6">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <h1 class="h4 text-gray-900 mb-4">Welcome to Smart Nutrition System!</h1>
+                                        <h1 class="h4 text-gray-900 mb-4">Welcome to DBES Ordering Online!</h1>
                                     </div>
 
                                     <form class="user" method="get" action="">
