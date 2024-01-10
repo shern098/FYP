@@ -7,7 +7,7 @@
                 <div class="sidebar-brand-icon">
                     <img src="images/hosbeslogo.png" class="img-thumbnail" alt="">
                 </div>
-                <div class="sidebar-brand-text mx-3">Hosbes</div>
+                <div class="sidebar-brand-text mx-3">DbeS</div>
             </a>
 
             <!-- Divider -->
@@ -50,11 +50,5 @@
             <hr class="sidebar-divider">
 
 
-            <!-- Sidebar Toggler (Sidebar) -->
-            <div class="text-center d-none d-md-inline">
-                <button class="rounded-circle border-0" id="sidebarToggle"></button>
-            </div>
-
-        
 
 </ul>
