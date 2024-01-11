@@ -27,7 +27,7 @@ if (isset($_GET["btnhantar"])) {
  `facility`='$fas',`totalnum`='$Bildoc',
  `normalnum`='$DN',`othernum`='$LL',`notes`='$cttn' WHERE ordderid=$id";
         mysqli_query($conn, $getdata);
-        echo ' alert("Data Telah Disimpan .");
+        echo '<script> alert("Data Telah Disimpan .");</script>
     return false;';
         echo "<script>
 window.location.href = 'AdminListOrderDoc.php';

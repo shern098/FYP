@@ -72,6 +72,7 @@ if(!isset($_GET["Count"])){
             background-color:  #C0C2CC; /* Change the background color as desired */
         }
     </style>
+    
 </head>
 
 <body id="page-top">
@@ -286,6 +287,7 @@ if(!isset($_GET["Count"])){
     ?>
 
     
+
 
 
 </body>

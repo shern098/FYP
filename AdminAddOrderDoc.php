@@ -104,11 +104,11 @@ if (!$user) {
                             <div class="card shadow mb-4">
 
                             <div class="card-header py-3">
-                                    <h6 class="m-0 font-weight-bold text-primary"> Masukkan Maklumat Pesakit </h6>
+                                    <h6 class="m-0 font-weight-bold text-primary"> Masukkan Maklumat Doktor </h6>
                                 </div>
                                 <div class="card-body">
                                     <form action="AddDataDocPro.php" method="get">
-                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback ">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback ">
                                             <select class="form-control" name="fasiliti" id="fasiliti" required>
                                                 <option class="dropdown-item col-md-4" value="">Pilih Fasiliti</option>
                                                 <option class="dropdown-item col-md-4" value="KP">Klinik Pakar</option>
@@ -117,7 +117,7 @@ if (!$user) {
                                             </select>
                                         </div>
 
-                                        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                        <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                             <input type="number" class="form-control" name="BilDoc" placeholder="Bilangan Doc" required>
                                         </div>
 
@@ -127,7 +127,7 @@ if (!$user) {
                                             <input type="checkbox" id="DN" name="DietNormalCB" onclick="showTextarea()">
                                             <label for="DN">Diet Normal</label>
                                             <br>
-                                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                                 <input type="number" class="form-control" id="DNTextarea" name="BilDN" style="display:none" placeholder="Bilangan Pesanan">
                                             </div>
                                             <br>
@@ -136,7 +136,7 @@ if (!$user) {
                                             <input type="checkbox" id="LL" name="LainLainCB" onclick="showTextarea()">
                                             <label for="LL">Lain-Lain</label>
                                             <br>
-                                            <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                            <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                                 <input type="number" class="form-control" id="LLBilTextarea" name="BilLL" style="display:none" placeholder="Bilangan Pesanan">
                                                 <br>
                                                 <textarea id="LLTextarea" class="form-control" name="extra" style="display:none"></textarea>

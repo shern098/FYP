@@ -130,11 +130,11 @@ window.location.href = 'AdminListOrderDoc.php';
                     <!-- Content Row -->
                     <div class="row">
                         <!-- Content Column -->
-                        <div class="col-lg-6 mb-4">
-                            <div>
-                            </div>
+                         <div class="col-lg-6 mb-4">
+                            <div class="card shadow mb-4">
+                                <br><br>
                               <form action="updatedataDocPro.php" method="get">
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback ">
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback ">
                                     <input name="id" id="idorder" style="display:none;" value=<?php echo $id; ?>>
                                     <select class="form-control" name="fasiliti" id="fasiliti" required>
                                         <option class="dropdown-item col-md-4" value="">Pilih Fasiliti</option>
@@ -156,7 +156,7 @@ window.location.href = 'AdminListOrderDoc.php';
                                     </select>
                                 </div>
 
-                                <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                     <input type="number" class="form-control" name="BilDoc" placeholder="Bilangan Doc" value = "<?php echo $ttl?>"required>
                                 </div>
 
@@ -166,7 +166,7 @@ window.location.href = 'AdminListOrderDoc.php';
                                         <input type="checkbox" id="DN" name="DietNormalCB" onclick="showTextarea()">
                                         <label for="DN">Diet Normal</label>
                                     <br>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input type="number" class="form-control" id="DNTextarea" name="BilDN" style="display:none" value = "<?php echo $dn?>" placeholder="Bilangan Pesanan">
                                     </div>
                                    <br>
@@ -175,7 +175,7 @@ window.location.href = 'AdminListOrderDoc.php';
                                         <input type="checkbox" id="LL" name="LainLainCB" onclick="showTextarea()">
                                         <label for="LL">Lain-Lain</label>
                                     <br>
-                                    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+                                    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
                                         <input type="number" class="form-control" id="LLBilTextarea" name="BilLL" style="display:none" value = "<?php echo $ll?>" placeholder="Bilangan Pesanan">
                                         <br>
                                         <textarea id="LLTextarea" class="form-control" name="extra" style="display:none"><?php echo $cttn ?></textarea>
