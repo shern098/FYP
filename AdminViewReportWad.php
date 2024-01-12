@@ -366,14 +366,6 @@ if(isset($_GET["tarikh"])){
 
     ?>
 
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-              
-            });
-        });
-    </script>
-
 </body>
 
 </html>

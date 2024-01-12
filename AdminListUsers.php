@@ -199,11 +199,7 @@ if (!$user ) {
 
     ?>
 
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable();
-        });
-    </script>
+ 
 </body>
 
 </html>

@@ -261,14 +261,6 @@ if (!isset($_GET["Count"])) {
     ?>
 
 
-    <script>
-        $(document).ready(function() {
-            $('#dataTable').DataTable({
-          
-            });
-        });
-    </script>
-
 </body>
 
 </html>

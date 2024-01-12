@@ -12,23 +12,6 @@
                     <ul class="navbar-nav ml-auto">
 
 
-                        <!-- Nav Item - Alerts -->
-                        <li class="nav-item dropdown no-arrow mx-1">
-                        <a class="nav-link dropdown-toggle" id="notification" role="button" data-toggle="dropdown">
-                                <i class="fas fa-bell fa-fw"></i>
-                                <!-- Counter - Alerts -->
-                                <span class="badge badge-danger badge-counter"></span>
-                            </a>
-                            <!-- Dropdown - Alerts -->
-                            <div class="dropdown-list dropdown-menu dropdown-menu-right shadow animated--grow-in">
-                            <h6 class="dropdown-header">
-                                    Notification
-                            </h6>
-                                <span id="noti-item" ></span>
-                            </div>
-                        </li>
-
-
                     </ul>
                         <div class="topbar-divider d-none d-sm-block"></div>
 
