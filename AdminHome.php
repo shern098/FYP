@@ -18,6 +18,7 @@ if (!$user) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="shortcut icon" href="images/hospitalicon.ico" type="image/x-icon">
 
     <title> Admin </title>
 
@@ -195,7 +196,7 @@ if (!$user) {
 
 
                                     ?>
-                                    <h6 class="m-0 font-weight-bold text-primary"> Jumlah Kesuluruhan Diet: <?php echo $totalDiet; ?>
+                                    <h6 class="m-0 font-weight-bold text-primary"> Jumlah Keseluruhan Diet: <?php echo $totalDiet; ?>
                                     </h6>
                                 </div>
                             </div>

@@ -50,6 +50,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="shortcut icon" href="images/hospitalicon.ico" type="image/x-icon">
 
     <title>Edit Senarai </title>
 

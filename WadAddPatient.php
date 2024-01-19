@@ -29,6 +29,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
+    <link rel="shortcut icon" href="images/hospitalicon.ico" type="image/x-icon">
 
     <title>Tambah Pesakit</title>
 
