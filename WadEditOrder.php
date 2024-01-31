@@ -174,13 +174,14 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                             // select data
                                             $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyin_nurse) ='$tarikh'";
-
+                                            echo $tarikh;
                                             $display = mysqli_query($conn, $getdata);
                                             //display data
                                             if (mysqli_num_rows($display) > 0) {
 
                                                 while ($data = mysqli_fetch_assoc($display)) {
-                                                  
+                                                    $id_patient = $data["id_patient"];
+
                                                     switch ($data['status']) {
                                                         case 0:
                                                             $status = "Belum Disemak";
@@ -199,61 +200,61 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                             break;
                                                     }
 
-                                                    if( $status == "Belum Disemak")  {
+                                                    if ($status == "Belum Disemak") {
                                             ?>
-                                                    <tr>
+                                                        <tr>
 
-                                                        <td> <?php $data["rn"];              ?></td>
-                                                        <td> <?php echo $data["rn"];         ?> </td>
-                                                        <td> <?php echo $data["bednum"];     ?> </td>
-                                                        <td> <?php echo $data["name"];       ?> </td>
-                                                        <td> <?php echo $data["kelas"];      ?> </td>
-                                                        <td> <?php echo $data["iddiet"];     ?> </td>
-                                                        <td> <?php echo $data["catatan"];     ?> </td>
-                                                        <td> <?php echo $status              ?> </td>
-                                                        <td class="text-center">
-
-                                                            <?php
-
-
-                                                            switch ($status) {
-                                                                case "Belum Disemak":
-                                                            ?>
-                                                                    <a href='WadEditPatient.php?id=<?php echo $data["rn"]; ?>' class="btn btn-info  btn-lg" style="text-decoration: none; ">
-                                                                        <span class="icon text-white-600">
-                                                                            <i class="fas fa-pen"></i>
-                                                                        </span>
-                                                                    </a> <!-- Edit icon -->
-
-                                                                    <a onclick="return confirm('Buang Pesanan nama: <?php echo $data['name']; ?> ')" href='DeleteFunction.php?id=<?php echo $data["rn"]; ?>' class="btn btn-danger btn-lg" style="text-decoration: none; ">
-                                                                        <span class="icon text-white-600">
-                                                                            <i class="fas fa-trash"></i>
-                                                                        </span>
-                                                                    </a> <!-- Delete icon -->
+                                                            <td> <?php $id_patient               ?> </td>
+                                                            <td> <?php echo $data["rn"];         ?> </td>
+                                                            <td> <?php echo $data["bednum"];     ?> </td>
+                                                            <td> <?php echo $data["name"];       ?> </td>
+                                                            <td> <?php echo $data["kelas"];      ?> </td>
+                                                            <td> <?php echo $data["iddiet"];     ?> </td>
+                                                            <td> <?php echo $data["catatan"];    ?> </td>
+                                                            <td> <?php echo $status              ?> </td>
+                                                            <td class="text-center">
 
                                                                 <?php
-                                                                    break;
-                                                                case "Telah Disemak":
+
+
+                                                                switch ($status) {
+                                                                    case "Belum Disemak":
                                                                 ?>
+                                                                        <a href='WadEditPatient.php?id=<?php echo $id_patient; ?>' class="btn btn-info  btn-lg" style="text-decoration: none; ">
+                                                                            <span class="icon text-white-600">
+                                                                                <i class="fas fa-pen"></i>
+                                                                            </span>
+                                                                        </a> <!-- Edit icon -->
 
-                                                                    <a href='CancelFunction.php?id=<?php echo $data["rn"]; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn btn-warning btn-lg" style="text-decoration: none; ">
-                                                                        <span class="icon text-white-600">
-                                                                            <i class="fas fa-ban"></i>
-                                                                        </span>
-                                                                    </a>
-                                                            <?php
-                                                                    break;
+                                                                        <a onclick="return confirm('Buang Pesanan nama: <?php echo $data['name'] ?> ')" href='DeleteFunction.php?id=<?php echo $id_patient; ?>' class="btn btn-danger btn-lg" style="text-decoration: none; ">
+                                                                            <span class="icon text-white-600">
+                                                                                <i class="fas fa-trash"></i>
+                                                                            </span>
+                                                                        </a> <!-- Delete icon -->
+
+                                                                    <?php
+                                                                        break;
+                                                                    case "Telah Disemak":
+                                                                    ?>
+
+                                                                        <a href='CancelFunction.php?id=<?php echo $id_patient; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn btn-warning btn-lg" style="text-decoration: none; ">
+                                                                            <span class="icon text-white-600">
+                                                                                <i class="fas fa-ban"></i>
+                                                                            </span>
+                                                                        </a>
+                                                                <?php
+                                                                        break;
 
 
 
-                                                                    mysqli_close($conn);
-                                                            }
-                                                            ?>
-                                                        </td>
+                                                                        mysqli_close($conn);
+                                                                }
+                                                                ?>
+                                                            </td>
 
-                                                    </tr>
-                                                    <?php
-                                                }
+                                                        </tr>
+                                            <?php
+                                                    }
                                                 } // end while loop
                                             } // end if 
                                             ?>
