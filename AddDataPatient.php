@@ -59,8 +59,14 @@ $bulan = substr($tarikh, 5,2);
 $hari = substr($tarikh, 8,2);
 $kelasnum = substr($kelas, 1,strlen($kelas));
 
+// combination of
+//  2 last digit of year
+//  2 digit of month
+//  2 digit of date
+//  shift 
+//  number of class
+//  rn 
 $idpatient = $tahun.$bulan.$hari.$id_shift.$kelasnum.$rn;
-
 // Use a try-catch block to catch unique constraint violation error
 try {
 
