@@ -324,19 +324,34 @@ if(isset($_GET["tarikh"])){
                                         </tr>
                                     </tfoot>
                                 </table>
+                                <form action="setdateexcel.php" method="get" id="formgetshift">
+                                      <label >Pilih Shift Untuk Download Laporan</label>
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="Pagi2" name="shift2" class="custom-control-input" value="pagi2" onclick="showaccept('R')"> 
+                                            <label class="custom-control-label" for="Pagi2">PAGI</label>
+                                        </div>
+
+                                        <div class="custom-control custom-radio custom-control-inline">
+                                            <input type="radio" id="Petang2" name="shift2" class="custom-control-input" value="petang2" onclick="showaccept('R')">
+                                            <label class="custom-control-label" for="Petang2">PETANG</label>
+                                        </div>
+                                        </div>
                                 <a href='AdminViewReport.php?wad=0&historydate=<?php echo $tarikh?>&Filter=&Count=' class="btn btn-light btn-icon-split right">
                                     <span class="icon text-white-600">
                                         <i class="fas fa-arrow-right"></i>
                                     </span>
                                     <span class="text">Kembali</span>
                                 </a>
-                                <a href='excel.php?wad=<?php echo $wad?>&tarikh=<?php echo $tarikh?>' class='btn btn-light btn-icon-split right'>
-                                                <span class='icon text-gray-600'>
-                                                <i class='fas fa-download'></i>
-                                            </span>
-                                                <span class='text'>Download Laporan</span>
-                                            </a>
+                                <input name="wad"  style="display:none;" value=<?php echo $wad; ?>>
+                                     <input name="tarikh"  style="display:none;" value=<?php echo $tarikh; ?>>
+                                <button type="submit" class="funcbtn btn btn-grey btn-icon-split right" name="Laporan"><span class="icon text-white-600">
+                                        <i class="fas fa-download"></i>
+                                    </span>
+                                    <span class="text">Download Laporan</span></button>
                                             </td>
+
+                                             <div class="container form-group has-feedback">
+</form>
                             </div>
                         </div>
                     </div>

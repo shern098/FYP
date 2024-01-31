@@ -14,7 +14,16 @@ if(isset($_GET["wad"])){
 if(isset($_GET["tarikh"])){
     $tarikh = $_GET["tarikh"];
 }
-$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1, 2, 3,4) ORDER BY `tblpatient`.`rn` ASC";
+
+if(isset($_GET["shift"])){
+$shift = $_GET["shift"];
+if($shift=="pagi"){
+    $shift="M";
+}else{
+    $shift="E";
+}
+}
+$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and LOCATE('$shift',`id_patient`) and DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1, 2, 3,4) ORDER BY `tblpatient`.`rn` ASC";
 $display = mysqli_query($conn, $getdata);
 //display data
 
