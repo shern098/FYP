@@ -10,11 +10,11 @@ $tarikh = $_SESSION["date"];
 
 if (isset($_GET["shift"])) {
     $shift =  $_GET["shift"];
-    if ($shift == "PAGI"){
+    if ($shift = "pagi"){
     $id_shift = "M";
-    }elseif ($shift == "PETANG") {
+    }elseif ($shift = "petang") {
         $id_shift = "E";
-    }
+    } 
 }
 
 if (isset($_GET['rn'])) {
