@@ -146,7 +146,7 @@ if (!$user) {
                                             <th>KELAS</th>
                                             <th>JENIS DIET</th>
                                             <th>CATATAN</th>
-                                            <th>TARIKH</th>
+                                            <th>SHIFT ORDER</th>
                                             <th>STATUS</th>
                                         </tr>
                                     </thead>
@@ -191,7 +191,7 @@ if (!$user) {
                                                 echo "<td>" . $data["kelas"] . "</td>";
                                                 echo "<td>" . $data["iddiet"] . "</td>";
                                                 echo "<td>" . $data["catatan"] . "</td>";
-                                                echo "<td>" . $dateOnly . "</td>";
+                                                echo "<td>" . $data["shift"] . "</td>";
                                                 echo "<td>" . $status . "</td>";
                                                 echo "</tr>";
                                             }
@@ -208,7 +208,7 @@ if (!$user) {
                                             <th>KELAS</th>
                                             <th>JENIS DIET</th>
                                             <th>CATATAN</th>
-                                            <th>TARIKH</th>
+                                            <th>SHIFT</th>
                                             <th>STATUS</th>
 
                                         </tr>
