@@ -3,19 +3,21 @@ session_start();
 $user = $_SESSION["CurrentUser"];
 $tarikh   = $_SESSION['date'];
 $wadsemasa = "0";
+$shift="";
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
 
 if (isset($_GET["Filter"])) {
     $tarikh = $_GET["historydate"];
+    $shift = $_GET["shifts"];
+
 }
 if (!isset($_GET["Count"])) {
     echo "<script>window.location.href=
-    'CountOrder.php?wad=" . $wadsemasa . "&tarikh=" . $tarikh . "'
+    'CountOrder.php?wad=" . $wadsemasa . "&tarikh=" . $tarikh . "&shifts=" . $shift . "'
     ;</script>";
 }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -113,19 +115,27 @@ if (!isset($_GET["Count"])) {
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
-                                <form action="" method="get" class="form-inline mb-2">
+                            <form action="" method="get" class="form-inline mb-2">
 
+                            <label>Pilih Shift</label>
+                            <div class="custom-control custom-radio custom-control-inline" >
+                                <input type="radio" id="pagi" name="shifts" class="custom-control-input" value="M" required >
+                                <label class="custom-control-label" for="pagi">pagi</label>
+                            </div>
 
-                                    <input type="date" name="historydate" id="date" class="form-control mr-2" required>
-                                    <button type="submit" class="btn btn-info btn-icon-split right " name="Filter">
+                            <div class="custom-control custom-radio custom-control-inline">
+                                <input type="radio" id="petang" name="shifts" class="custom-control-input" value="E" >
+                                <label class="custom-control-label" for="petang">petang</label>
+                            </div>
+                            <input type="date" name="historydate" id="date" class="form-control mr-2" required>
+                            <button type="submit" class="btn btn-info btn-icon-split right " name="Filter">
+
                                         <span class="icon text-white-600">
                                             <i class="fas fa-search fa-sm "></i>
                                         </span>
                                         <span class="text">Tapisan</span>
                                     </button>
-
-
-                                </form>
+                            </form>
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
@@ -149,7 +159,7 @@ if (!isset($_GET["Count"])) {
                                                 $wad = $data["username"];
                                                 echo "<tr>";
                                                 echo "<td>" .  $wad . "</td>";
-                                                echo "<td> <a href='AdminViewReportWad.php?wad=" . $wad . "&tarikh=" . $tarikh . "&count=1' class='btn btn-light btn-icon-split right'>
+                                                echo "<td> <a href='AdminViewReportWad.php?wad=" . $wad . "&tarikh=" . $tarikh . "&count=1&shifts=" . $shift . "' class='btn btn-light btn-icon-split right'>
                                                 <span class='icon text-gray-600'>
                                                 <i class='fas fa-eye'></i>
                                             </span>

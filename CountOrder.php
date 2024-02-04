@@ -7,6 +7,8 @@ $wad=$_GET["wad"];
 $tarikh   = $_SESSION['date'];
 if(isset($_GET["tarikh"])){
     $tarikh = $_GET["tarikh"];
+    $shift = $_GET["shifts"];
+
 }
 
 include("db_connection.php");
@@ -15,13 +17,13 @@ include("db_connection.php");
 if ($wad!="0"){
     $del = "DELETE FROM `tblbilorder` WHERE `groupid`='$wad'";
 mysqli_query($conn, $del);
-$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and  DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1,2,3,4) ";
+$getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and LOCATE('$shift',`id_patient`) and  DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1,2,3,4) ";
 $display = mysqli_query($conn, $getdata);
 }
 else{
     $del = "DELETE FROM `tblbilorder`";
 mysqli_query($conn, $del);
-    $getdata = "SELECT * FROM `tblpatient` where  DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1,2,3,4) ";
+    $getdata = "SELECT * FROM `tblpatient` where  DATE(masa_keyin_nurse) = '$tarikh' and LOCATE('$shift',`id_patient`) and `status` IN (1,2,3,4) ";
     $display = mysqli_query($conn, $getdata);
 }
 
@@ -62,10 +64,10 @@ foreach ($count as $iddiet => $count) {
 }}
 
 if ($wad!="0"){
-    echo "<script>window.location.href='AdminViewReportWad.php?wad=".$wad."&tarikh=".$tarikh."';</script>";
+    echo "<script>window.location.href='AdminViewReportWad.php?wad=".$wad."&tarikh=".$tarikh."&shifts=" . $shift . "';</script>";
 }
 else{
-echo "<script>window.location.href='AdminViewReport.php?wad=".$wad."&historydate=".$tarikh."&Filter=&Count=';</script>";
+echo "<script>window.location.href='AdminViewReport.php?wad=".$wad."&historydate=".$tarikh."&Filter=&Count=&shifts=" . $shift . "';</script>";
   
 }
 

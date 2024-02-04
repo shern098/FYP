@@ -8,6 +8,7 @@ $tarikh   = $_SESSION['date'];
 if (!$user) {
     echo "<script>window.location.href='index.php';</script>";
 }
+
 if(isset($_GET["wad"])){
     $wad = $_GET["wad"];
 }
@@ -15,13 +16,8 @@ if(isset($_GET["tarikh"])){
     $tarikh = $_GET["tarikh"];
 }
 
-if(isset($_GET["shift"])){
-$shift = $_GET["shift"];
-if($shift=="pagi"){
-    $shift="M";
-}else{
-    $shift="E";
-}
+if(isset($_GET["shifts"])){
+$shift = $_GET["shifts"];
 }
 $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and LOCATE('$shift',`id_patient`) and DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1, 2, 3,4) ORDER BY `tblpatient`.`rn` ASC";
 $display = mysqli_query($conn, $getdata);
@@ -48,7 +44,6 @@ if (mysqli_num_rows($display) > 0) {
         while ($data = mysqli_fetch_assoc($display)) {
             $nurseh=$data["nurse_penghantar"];
             $nurset=$data["nurse_penerima"];
-            $shift=$data["shift"];
             $masateriman=$data["masa_terima_nurse"];
            
             $terima=$data["unit_penerima"];
@@ -112,7 +107,7 @@ if (mysqli_num_rows($display) > 0) {
     $display = mysqli_query($conn, $getdata);
     //display data
     if (mysqli_num_rows($display) > 0) {
-        if ($shift == 'pagi') {
+        if ($shift == 'M') {
         while ($data = mysqli_fetch_assoc($display)) {
         $sheet->setCellValue('N45',  $data['jawatan']);
         $sheet->setCellValue('N43',  $data['nama']);
@@ -136,7 +131,7 @@ if (mysqli_num_rows($display) > 0) {
         }
 
 
-        if ($shift == 'pagi') {
+        if ($shift == 'M') {
             $sheet->setCellValue('S7',  "WAKTU : PAGI");
             }else{
             $sheet->setCellValue('S7',  "WAKTU : PETANG");
@@ -145,10 +140,9 @@ if (mysqli_num_rows($display) > 0) {
     mysqli_close($conn);
 
 header("Content-Type:application/vnd.ms-excel");
-header("Content-Disposition: attachment; filename=Laporan".$tarikh.$wad.".xlsx");
+header("Content-Disposition: attachment; filename=Laporan".$tarikh.$wad.$shift.".xlsx");
 
 $writer = new Xlsx($spreadsheet);
 $writer->save('php://output');
-
 
 ?>
