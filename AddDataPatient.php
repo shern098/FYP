@@ -10,9 +10,9 @@ $tarikh = $_SESSION["date"];
 
 if (isset($_GET["shift"])) {
     $shift =  $_GET["shift"];
-    if ($shift = "PAGI"){
+    if ($shift == "PAGI"){
     $id_shift = "M";
-    }elseif ($shift = "PETANG") {
+    }elseif ($shift == "PETANG") {
         $id_shift = "E";
     } 
 }
@@ -46,12 +46,17 @@ if (isset($_GET['diet'])) {
 
 if (isset($_GET['txtcatatan'])) {
     $catatan = mysqli_real_escape_string($conn, $_GET['txtcatatan']);
+    $catatan = trim($_POST['txtcatatan'] ?? '');
+    if(!$catatan) {
+        $catatan  = "Tiada Catatan";
+    }
 }
 
 // Get the current user from the session
 if (isset($_GET['currentuser'])) {
     $user = mysqli_real_escape_string($conn, $_GET['currentuser']);
 }
+
 // PROCEDURAL STYLE MYSQLI
 
 $tahun = substr($tarikh, 2,2);
@@ -79,7 +84,7 @@ try {
 
         echo "<script> window.location.href = 'WadAddPatient.php'; </script> ";
     } else {
-        echo "Error inserting record: " . $getdata->error . "<br>";
+        echo "console.log(Error inserting record: " . $getdata->error . ")";
     }
 } catch (Exception $e) {
     $_SESSION['duplicate_data'] = true;

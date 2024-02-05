@@ -164,13 +164,22 @@ if (!$user) {
                                         }
                                     }
                              
+                                    while ($dietRow = mysqli_fetch_assoc($display_Total_Belum_Dipesan)) {
+                                        $dietType = $dietRow['iddiet'];
+                                        if (array_key_exists($dietType, $dietCounts)) {
+                                            $diet_Counts_Belum_Dipesan[$dietType] = $dietRow['total_diet'];
+                                        }
+                                    }
+                             
                                     $totalDiet = array_sum($dietCounts);
+                                    $total_Belum_Dipesan = array_sum($diet_Counts_Belum_Dipesan);
 
                                     // Output the counts
 
 
                                     ?>
                                     <h6 class="m-0 font-weight-bold text-primary"> Jumlah Keseluruhan Diet: <?php echo $totalDiet; ?>
+                                    <h6 class="m-0 font-weight-bold text-primary"> Jumlah Belum Disemak: <?php echo $total_Belum_Dipesan;?>
                                     </h6>
                                 </div>
                             </div>

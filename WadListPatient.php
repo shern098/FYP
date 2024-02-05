@@ -132,7 +132,9 @@ if (!$user) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit</h6>
+
+                            <?php $tarikh_reverse = date("d-m-Y", strtotime($tarikh)); ?>
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit (<?php echo $tarikh_reverse ?>)</h6>
                         </div>
                         <div class="card-body">
                             <div class="table-responsive">
@@ -215,7 +217,7 @@ if (!$user) {
                                     </tfoot>
                                 </table>
 
-                                <div class="">
+                                <div class="form-inline mt-3" style="justify-content: space-between;">
                                     <a href="WadEditOrder.php" class="btn btn-primary btn-md btn-icon-split  ">
 
                                         <span class="icon text-white-50">
@@ -223,20 +225,18 @@ if (!$user) {
                                         </span>
                                         <span class="text">Edit Pesanan Masuk</span>
                                     </a>
-                                    <form action="TerimaFunction.php" method="get" class="form-inline">
+                                    <form action="TerimaFunction.php" method="get"class="d-flex flex-row-reverse bd-highlight">
                                         <input name="tarikh" style="display:none;" value=<?php echo $tarikh; ?>>
                                         <input name="wad" style="display:none;" value=<?php echo $user; ?>>
 
                                         <button type="submit" class="funcbtn btn btn-success btn-icon-split right" name="Terima" disabled><span class="icon text-white-600">
-                                                <i class="fas fa-arrow-right"></i>
-                                            </span>
-                                            <span class="text">Pesanan Diterima</span></button>
-
-                                            
-
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                        <span class="text">Pesanan Diterima</span></button>
+                                        
                                         <!-- offset is padding right -->
-                                        <select class="form-control col-5 offset-md-3" name="nurse" id="nurseSelect" style="display:inline-flex;" onchange="checkSelection()">
-                                            <option class="dropdown-item col-md-4" value="" selected>Pilih Jururawat</option>
+                                        <select class="form-control col-5 mr-2 " name="nurse" id="nurseSelect" style="display:inline-flex;" onchange="checkSelection()">
+                                            <option class="dropdown-item col-md-6" value="" selected>Pilih Jururawat</option>
                                             <?php
                                             // Include database connection
                                             include("db_connection.php");
@@ -257,6 +257,8 @@ if (!$user) {
 
                                             ?>
                                         </select>
+
+
                                     </form>
 
                                 </div>

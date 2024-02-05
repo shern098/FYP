@@ -129,7 +129,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
 
 
                                             <div class="custom-control custom-radio custom-control-inline">
-                                                <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="PAGI">
+                                                <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="PAGI" required>
                                                 <label class="custom-control-label" for="Pagi">PAGI</label>
                                             </div>
 
@@ -198,7 +198,7 @@ if (isset($_SESSION['duplicate_data']) && $_SESSION['duplicate_data']) {
                                             <br>
 
                                             <div id="lainlainTextarea">
-                                                <input type="text" placeholder="Catatan" id="catatan" class="form-control has-feedback-left" name="txtcatatan" rows="2" cols="25"></input>
+                                                <input type="text" placeholder="Catatan" id="catatan" class="form-control has-feedback-left" name="txtcatatan" rows="2" cols="25" ></input>
                                             </div>
 
 

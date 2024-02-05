@@ -10,6 +10,10 @@ $getTotalDiet = "SELECT masa_keyin_nurse, iddiet, COUNT(*) as total_diet FROM
 tblpatient  WHERE wad = '$user'
  AND DATE(masa_keyin_nurse) = '$tarikh' GROUP BY iddiet";
 
+$get_total_Belum_Dipesan = "SELECT masa_keyin_nurse, iddiet, COUNT(*) as total_diet FROM 
+tblpatient  WHERE wad = '$user'
+ AND DATE(masa_keyin_nurse) = '$tarikh' AND status = '0' GROUP BY iddiet";
+
 // Initialize an array to hold diet counts
 $dietCounts = [
   'ND' => 0, 'VEG' => 0, 'CLD' => 0, 'NLD' => 0, 'SD' => 0,
@@ -20,6 +24,7 @@ $dietCounts = [
 
 
  $displayTotalDiet = mysqli_query($conn, $getTotalDiet);
+ $display_Total_Belum_Dipesan = mysqli_query($conn, $get_total_Belum_Dipesan);
 
 
 ?>

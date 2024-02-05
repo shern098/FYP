@@ -123,7 +123,7 @@ if (!$user) {
                     $id = mysqli_real_escape_string($conn, $_GET['id']);
 
                     // Query to retrieve data based on the 'id'
-                    $query = "SELECT * FROM tblpatient WHERE rn = $id";
+                    $query = "SELECT * FROM tblpatient WHERE id_patient = '$id'";
 
                     $result = mysqli_query($conn, $query);
 
@@ -144,6 +144,7 @@ if (!$user) {
                       } else {
                         // Handle case where no data was found for the given 'id'
                         echo "Data tidak dapat dijumpai.";
+                        echo "<script>window.location.href='WadEditOrder.php';</script>";
                       }
                     } else {
                       // Handle query execution error
@@ -156,15 +157,17 @@ if (!$user) {
 
                   <form action="updateFunction.php" method="get">
 
+                    <input style="display: none;" type="text" class="form-control has-feedback-left" id="inputSuccess2" name="id" value="<?php echo $id ?>">
+
                     <div class="container form-group has-feedback">
 
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="pagi">
+                        <input type="radio" id="Pagi" name="shift" class="custom-control-input" value="PAGI">
                         <label class="custom-control-label" for="Pagi">PAGI</label>
                       </div>
 
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Petang" name="shift" class="custom-control-input" value="petang">
+                        <input type="radio" id="Petang" name="shift" class="custom-control-input" value="PETANG">
                         <label class="custom-control-label" for="Petang">PETANG</label>
                       </div>
 
@@ -172,27 +175,27 @@ if (!$user) {
 
 
                     <div class="form-group has-feedback col">
-                      <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="rn" placeholder="RN Pesakit"  value="<?php echo isset($rn) ? $rn : ''; ?>">
+                      <input type="text" class="form-control has-feedback-left" id="inputSuccess2" name="rn" placeholder="RN Pesakit" value="<?php echo isset($rn) ? $rn : ''; ?>">
                     </div>
 
                     <div class="form-group has-feedback col">
                       <input type="text" class="form-control" id="inputSuccess3" name="nokatil" placeholder="No Katil" value="<?php echo isset($nokatil) ? $nokatil : ''; ?>">
                     </div>
-                    
+
 
                     <div class="form-group has-feedback col">
                       <input type="text" class="form-control has-feedback-left" id="inputSuccess4" name="nama" placeholder="Nama Pesakit" value="<?php echo isset($nama) ? $nama : ''; ?>">
                     </div>
-                 
-                    
+
+
                     <div class="form-group has-feedback col">
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Kelas2" name="kelas" class="custom-control-input" value="K2" <?php echo ($kelas=='K2')?'checked':'' ?> required>
-                        <label class="custom-control-label" for="Kelas2" >Kelas 2</label>
+                        <input type="radio" id="Kelas2" name="kelas" class="custom-control-input" value="K2" <?php echo ($kelas == 'K2') ? 'checked' : '' ?> required>
+                        <label class="custom-control-label" for="Kelas2">Kelas 2</label>
                       </div>
 
                       <div class="custom-control custom-radio custom-control-inline">
-                        <input type="radio" id="Kelas3" name="kelas" class="custom-control-input" <?php echo ($kelas=='K3')?'checked':'' ?> value="K3">
+                        <input type="radio" id="Kelas3" name="kelas" class="custom-control-input" <?php echo ($kelas == 'K3') ? 'checked' : '' ?> value="K3">
                         <label class="custom-control-label" for="Kelas3">Kelas 3</label>
                       </div>
 
@@ -219,7 +222,7 @@ if (!$user) {
                       </select>
                       <br>
                       <div id="lainlainTextarea">
-                        <textarea id="lainlainText" class="form-control has-feedback-left" name="catatan" rows="2" cols="25"><?php echo $catatan ?></textarea>
+                        <textarea id="lainlainText" class="form-control has-feedback-left" name="txtcatatan" rows="2" cols="25"><?php echo $catatan ?></textarea>
                       </div>
 
 
@@ -229,7 +232,7 @@ if (!$user) {
                     <div class="form-group">
                       <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
                         <button type="button" class="btn btn-primary" id="cancelButton">Cancel</button>
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button type="submit" name="update" class="btn btn-success">Submit</button>
                       </div>
                     </div>
                   </form>

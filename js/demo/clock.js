@@ -121,7 +121,7 @@ function updateDateAndYear() {
   var dateElement = document.querySelector(".update-date");
 
   if (dateElement) {
-    dateElement.textContent = " " + day + "/" + month + "/ " + year;
+    dateElement.textContent = " " + day + "/" + month + "/" + year;
   // Update the content of the element with the date and year
 
 }

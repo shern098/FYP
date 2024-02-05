@@ -145,12 +145,13 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Perubahan Pesanan Pesakit </h6>
+                        <?php   $tarikh_reverse = date("d-m-Y", strtotime($tarikh)); ?>
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Perubahan Pesanan Pesakit (<?php echo $tarikh_reverse ?>) </h6>
                         </div>
                         <div class="card-body">
                             <form id="SaveFunction.php" method="get">
-                                <input type="hidden" name="currentUser" value="<?php echo $user; ?>">
                                 <div class="table-responsive">
+                                    <input type="hidden" name="currentUser" value="<?php echo $user; ?>">
                                     <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
@@ -174,7 +175,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                             // select data
                                             $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyin_nurse) ='$tarikh'";
-                                            echo $tarikh;
+                                          
                                             $display = mysqli_query($conn, $getdata);
                                             //display data
                                             if (mysqli_num_rows($display) > 0) {
@@ -232,18 +233,9 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                                                             </span>
                                                                         </a> <!-- Delete icon -->
 
-                                                                    <?php
-                                                                        break;
-                                                                    case "Telah Disemak":
-                                                                    ?>
-
-                                                                        <a href='CancelFunction.php?id=<?php echo $id_patient; ?>&status=0' onclick="return confirm('Batalkan Pesanan bernama: <?php echo $data['name']; ?>? ')" class="btn btn-warning btn-lg" style="text-decoration: none; ">
-                                                                            <span class="icon text-white-600">
-                                                                                <i class="fas fa-ban"></i>
-                                                                            </span>
-                                                                        </a>
                                                                 <?php
                                                                         break;
+
 
 
 

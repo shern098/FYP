@@ -8,13 +8,13 @@ include("db_connection.php");
 // Get id parameter value from URL and validate it
 $id = isset($_GET['id']) ? $_GET['id'] : null;
 
-if ($id === null || !is_numeric($id)) {
+if ($id === null) {
     // Handle invalid or missing 'id' parameter
     die("Invalid or missing 'id' parameter");
 }
 
 // Create a prepared statement
-$stmt = $conn->prepare("DELETE FROM `tblpatient` WHERE rn = ?");
+$stmt = $conn->prepare("DELETE FROM `tblpatient` WHERE id_patient = ?");
 
 if ($stmt === false) {
     // Handle any error in preparing the statement
