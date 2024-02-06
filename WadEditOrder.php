@@ -271,7 +271,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                         </tfoot>
                                     </table>
                                     <hr>
-                                    <div class="">
+                                    <div class="form-inline mt-3" style="justify-content: space-between;">
 
 
                                         <!--Will Bring to Add Patient Page-->
