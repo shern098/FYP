@@ -8,19 +8,19 @@ if (!$user) {
 }
 
 
-if(isset($_GET["wad"])){
+if (isset($_GET["wad"])) {
     $wad = $_GET["wad"];
 }
-if(isset($_GET["tarikh"])){
+if (isset($_GET["tarikh"])) {
     $tarikh = $_GET["tarikh"];
-    $shift=$_GET["shifts"];
+    $shift = $_GET["shifts"];
 }
 
-  if(isset($_GET["count"])){
+if (isset($_GET["count"])) {
     echo "<script>window.location.href=
-    'CountOrder.php?wad=".$wad."&tarikh=".$tarikh."&shifts=" . $shift . "'
+    'CountOrder.php?wad=" . $wad . "&tarikh=" . $tarikh . "&shifts=" . $shift . "'
     ;</script>";
-    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -45,7 +45,7 @@ if(isset($_GET["tarikh"])){
     <!-- Custom dt for this page -->
     <link href="vendor/datatables/dataTables.bootstrap4.min.css" rel="stylesheet">
 
-    
+
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
@@ -63,26 +63,26 @@ if(isset($_GET["tarikh"])){
     <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
     <style>
         .funcbtn:disabled {
-      background-color: grey;
-      color: black;
-    }
+            background-color: grey;
+            color: black;
+        }
     </style>
 
-        <script>
-            function checkSelection() {
+    <script>
+        function checkSelection() {
             var select = document.getElementById("adminSelect");
             var buttons = document.getElementsByClassName("funcbtn");
             if (select.value === "-1") {
                 for (var i = 0; i < buttons.length; i++) {
-                buttons[i].disabled = true;
+                    buttons[i].disabled = true;
                 }
             } else {
                 for (var i = 0; i < buttons.length; i++) {
-                buttons[i].disabled = false;
+                    buttons[i].disabled = false;
                 }
             }
-            }
-        </script>
+        }
+    </script>
 </head>
 
 <body id="page-top">
@@ -134,21 +134,22 @@ if(isset($_GET["tarikh"])){
                             </div>
                         </div>
                     </div>
-                    
 
-                    
+
+
 
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit Pada <?php echo $tarikh;?></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Pesanan Pesakit Pada <?php echo $tarikh; ?></h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">  
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                            
+
+                                            <th>id pesakit</th>
                                             <th>R/N PESAKIT</th>
                                             <th>NO. KATIL</th>
                                             <th>NAMA PESAKIT</th>
@@ -163,8 +164,8 @@ if(isset($_GET["tarikh"])){
 
                                         <?php
                                         //connect database
-                                        include("db_connection.php"); 
-                            
+                                        include("db_connection.php");
+
                                         // select data
                                         $getdata = "SELECT * FROM `tblpatient` where wad = '$wad' and LOCATE('$shift',`id_patient`) and DATE(masa_keyin_nurse) = '$tarikh'  and `status` IN (1, 2, 3, 4) ";
                                         $display = mysqli_query($conn, $getdata);
@@ -174,7 +175,7 @@ if(isset($_GET["tarikh"])){
                                             while ($data = mysqli_fetch_assoc($display)) {
 
 
-                                                
+
                                                 switch ($data['status']) {
                                                     case 0:
                                                         $status = "Belum Disemak";
@@ -185,15 +186,16 @@ if(isset($_GET["tarikh"])){
                                                     case 2:
                                                         $status = "Sedang Disediakan";
                                                         break;
-                                                     case 3:
+                                                    case 3:
                                                         $status = "Telah Sedia";
-                                                        break;   
+                                                        break;
                                                     case 4:
-                                                            $status = "Telah Diterima";
-                                                            break; 
+                                                        $status = "Telah Diterima";
+                                                        break;
                                                 }
 
                                                 echo "<tr>";
+                                                echo "<td>" . $data["id_patient"] . "</td>";
                                                 echo "<td>" . $data["rn"] . "</td>";
                                                 echo "<td>" . $data["bednum"] . "</td>";
                                                 echo "<td>" . $data["name"] . "</td>";
@@ -211,6 +213,7 @@ if(isset($_GET["tarikh"])){
 
                                     <tfoot>
                                         <tr>
+                                            <th>id pesakit</th>
                                             <th>R/N PESAKIT</th>
                                             <th>NO. KATIL</th>
                                             <th>NAMA PESAKIT</th>
@@ -218,77 +221,77 @@ if(isset($_GET["tarikh"])){
                                             <th>JENIS DIET</th>
                                             <th>CATATAN</th>
                                             <th>STATUS</th>
-                                            
+
                                         </tr>
                                     </tfoot>
                                 </table>
                                 <form action="UpStatus.php" method="get">
-                                     <input name="wad"  style="display:none;" value=<?php echo $wad; ?>>
-                                     <input name="tarikh"  style="display:none;" value=<?php echo $tarikh; ?>>
+                                    <input name="wad" style="display:none;" value=<?php echo $wad; ?>>
+                                    <input name="tarikh" style="display:none;" value=<?php echo $tarikh; ?>>
 
-                                <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Sahkan" disabled><span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                   </span>
-                                    <span class="text">Sahkan</span></button>
+                                    <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Sahkan" disabled><span class="icon text-white-600">
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                        <span class="text">Sahkan</span></button>
 
                                     <button type="submit" class="funcbtn btn btn-primary btn-icon-split right" name="Hantar" disabled><span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Hantar</span></button>
-                                    
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                        <span class="text">Hantar</span></button>
+
                                     <button type="submit" class="funcbtn btn btn-danger btn-icon-split right" name="Reset" disabled><span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Batal Status</span></button>
-                                    
-
-                                <select class="form-control col-3 offset-md-3" name="admin" id="adminSelect" style="display:inline-flex; " onchange="checkSelection()">
-                                            <option class="dropdown-item col-md-4" value="-1">Pilih Pengesah</option>
-                                            <?php
-                                            // Include database connection
-                                            include("db_connection.php");
-
-                                            // Select data from the database
-                                            $getdata = "SELECT * FROM `tblunitdietik`";
-                                            $display = mysqli_query($conn, $getdata);
+                                            <i class="fas fa-arrow-right"></i>
+                                        </span>
+                                        <span class="text">Batal Status</span></button>
 
 
-                                            // Loop through diet options and mark the selected option based on $diet variable
+                                    <select class="form-control col-3 offset-md-3" name="admin" id="adminSelect" style="display:inline-flex; " onchange="checkSelection()">
+                                        <option class="dropdown-item col-md-4" value="-1">Pilih Pengesah</option>
+                                        <?php
+                                        // Include database connection
+                                        include("db_connection.php");
 
-                                            while ($data = mysqli_fetch_assoc($display)) {
+                                        // Select data from the database
+                                        $getdata = "SELECT * FROM `tblunitdietik`";
+                                        $display = mysqli_query($conn, $getdata);
 
-                                                echo "<option value='" . $data["idunit"] . "' $selected>" . $data["Nama"] . "</option>";
-                                            }
 
-                                            mysqli_close($conn);
+                                        // Loop through diet options and mark the selected option based on $diet variable
 
-                                            ?>
-                                        </select>
+                                        while ($data = mysqli_fetch_assoc($display)) {
+
+                                            echo "<option value='" . $data["idunit"] . "' $selected>" . $data["Nama"] . "</option>";
+                                        }
+
+                                        mysqli_close($conn);
+
+                                        ?>
+                                    </select>
                                 </form>
                             </div>
                         </div>
                     </div>
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                            <h6 class="m-0 font-weight-bold text-primary">Senarai Bilangan Pesanan Pesakit Pada <?php echo $tarikh;?></h6>
+                            <h6 class="m-0 font-weight-bold text-primary">Senarai Bilangan Pesanan Pesakit Pada <?php echo $tarikh; ?></h6>
                         </div>
                         <div class="card-body">
-                            <div class="table-responsive">  
+                            <div class="table-responsive">
                                 <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                     <thead>
                                         <tr>
-                                        <?php
-                                          include("db_connection.php");
-                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC";
-                                          $display = mysqli_query($conn, $getdata);
-                                          //display data
-                                          if (mysqli_num_rows($display) > 0) {
-  
-                                              while ($data = mysqli_fetch_assoc($display)) {
-                                                  echo "<th>" . $data["iddiet"] . "</th>";
-                                              }
-                                          }
-                                          ?>
+                                            <?php
+                                            include("db_connection.php");
+                                            $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC";
+                                            $display = mysqli_query($conn, $getdata);
+                                            //display data
+                                            if (mysqli_num_rows($display) > 0) {
+
+                                                while ($data = mysqli_fetch_assoc($display)) {
+                                                    echo "<th>" . $data["iddiet"] . "</th>";
+                                                }
+                                            }
+                                            ?>
                                         </tr>
                                     </thead>
 
@@ -303,51 +306,51 @@ if(isset($_GET["tarikh"])){
                                             while ($data = mysqli_fetch_assoc($display)) {
                                                 echo "<td>" . $data["bil"] . "</td>";
                                             }
-                                        }else{
+                                        } else {
                                             echo "<td colspan=19> Tiada Data </td>";
-                                          }
+                                        }
                                         ?>
                                     </tbody>
 
                                     <tfoot>
                                         <tr>
-                                        <?php
-                                          include("db_connection.php");
-                                          $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC ";
-                                          $display = mysqli_query($conn, $getdata);
-                                          //display data
-                                          if (mysqli_num_rows($display) > 0) {
-  
-                                              while ($data = mysqli_fetch_assoc($display)) {
-                                                  echo "<th>" . $data["iddiet"] . "</th>";
-                                              }
-                                          }
-                                          ?>
+                                            <?php
+                                            include("db_connection.php");
+                                            $getdata = "SELECT * FROM `tbldiet` ORDER BY `tbldiet`.`idnum` ASC ";
+                                            $display = mysqli_query($conn, $getdata);
+                                            //display data
+                                            if (mysqli_num_rows($display) > 0) {
+
+                                                while ($data = mysqli_fetch_assoc($display)) {
+                                                    echo "<th>" . $data["iddiet"] . "</th>";
+                                                }
+                                            }
+                                            ?>
                                         </tr>
                                     </tfoot>
                                 </table>
                                 <form action="excel.php" method="get" id="formgetshift">
-                                      
-                                        </div>
-                                <a href='AdminViewReport.php?wad=0&historydate=<?php echo $tarikh?>&Filter=&Count=&shifts=<?php echo$shift ?>' class="btn btn-light btn-icon-split right">
-                                    <span class="icon text-white-600">
-                                        <i class="fas fa-arrow-right"></i>
-                                    </span>
-                                    <span class="text">Kembali</span>
-                                </a>
 
-                                <input name="wad"  style="display:none;" value=<?php echo $wad; ?>>
-                                     <input name="tarikh"  style="display:none;" value=<?php echo $tarikh; ?>>
-                                     <input name="shifts"  style="display:none;" value=<?php echo $shift; ?>>
-                                <button type="submit" class="funcbtn btn btn-grey btn-icon-split right" name="Laporan"><span class="icon text-white-600" onclick="">
-                                        <i class="fas fa-download"></i>
-                                    </span>
-                                    <span class="text">Download Laporan</span>
-                                </button>
-                                            </td>
+                            </div>
+                            <a href='AdminViewReport.php?wad=0&historydate=<?php echo $tarikh ?>&Filter=&Count=&shifts=<?php echo $shift ?>' class="btn btn-light btn-icon-split right">
+                                <span class="icon text-white-600">
+                                    <i class="fas fa-arrow-right"></i>
+                                </span>
+                                <span class="text">Kembali</span>
+                            </a>
 
-                                             <div class="container form-group has-feedback">
-</form>
+                            <input name="wad" style="display:none;" value=<?php echo $wad; ?>>
+                            <input name="tarikh" style="display:none;" value=<?php echo $tarikh; ?>>
+                            <input name="shifts" style="display:none;" value=<?php echo $shift; ?>>
+                            <button type="submit" class="funcbtn btn btn-grey btn-icon-split right" name="Laporan"><span class="icon text-white-600" onclick="">
+                                    <i class="fas fa-download"></i>
+                                </span>
+                                <span class="text">Download Laporan</span>
+                            </button>
+                            </td>
+
+                            <div class="container form-group has-feedback">
+                                </form>
                             </div>
                         </div>
                     </div>
@@ -377,7 +380,26 @@ if(isset($_GET["tarikh"])){
     include("LogoutPopup.php")
 
     ?>
+    <script>
+        $(document).ready(function() {
 
+
+            var table = $('#dataTable').DataTable({
+
+                columnDefs: [{
+                    targets: 0,
+                    visible: false,
+                    searchable: false
+
+                }]
+
+            });
+
+            table.searchPanes.container().prependTo(table.table().container());
+            table.searchPanes.resizePanes();
+
+        });
+    </script>
 </body>
 
 </html>
