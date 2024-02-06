@@ -117,7 +117,7 @@ if (!isset($_GET["Count"])) {
                             <div class="table-responsive">
                             <form action="" method="get" class="form-inline mb-2">
 
-                            <label>Pilih Shift</label>
+                            <label class="mr-2">Pilih Shift</label>
                             <div class="custom-control custom-radio custom-control-inline" >
                                 <input type="radio" id="pagi" name="shifts" class="custom-control-input" value="M" required >
                                 <label class="custom-control-label" for="pagi">pagi</label>

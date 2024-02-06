@@ -145,7 +145,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                     <!-- DataTales Example -->
                     <div class="card shadow mb-4">
                         <div class="card-header py-3">
-                        <?php   $tarikh_reverse = date("d-m-Y", strtotime($tarikh)); ?>
+                            <?php $tarikh_reverse = date("d-m-Y", strtotime($tarikh)); ?>
                             <h6 class="m-0 font-weight-bold text-primary">Senarai Perubahan Pesanan Pesakit (<?php echo $tarikh_reverse ?>) </h6>
                         </div>
                         <div class="card-body">
@@ -155,7 +155,9 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                     <table class="table table-bordered table-hover" id="dataTable" width="100%" cellspacing="0">
                                         <thead>
                                             <tr>
+
                                                 <th></th>
+                                                <th>ID PESAKIT</th>
                                                 <th>R/N PESAKIT</th>
                                                 <th>NO. KATIL</th>
                                                 <th>NAMA PESAKIT</th>
@@ -175,7 +177,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                                             // select data
                                             $getdata = "SELECT * FROM `tblpatient` where wad = '$user' and DATE(masa_keyin_nurse) ='$tarikh'";
-                                          
+
                                             $display = mysqli_query($conn, $getdata);
                                             //display data
                                             if (mysqli_num_rows($display) > 0) {
@@ -205,7 +207,8 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                             ?>
                                                         <tr>
 
-                                                            <td> <?php $id_patient               ?> </td>
+                                                            <td> <?php             ?> </td>
+                                                            <td> <?php echo $id_patient;  ?> </td>
                                                             <td> <?php echo $data["rn"];         ?> </td>
                                                             <td> <?php echo $data["bednum"];     ?> </td>
                                                             <td> <?php echo $data["name"];       ?> </td>
@@ -254,6 +257,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th></th>
                                                 <th></th>
                                                 <th></th>
                                                 <th></th>
@@ -368,7 +372,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
 
                 searchPanes: {
-                    columns: [2, 3, 4, 5, 6, 7], // Specify the column indices to include in the search panes
+                    columns: [2, 3, 4, 5, 6, 7,8,], // Specify the column indices to include in the search panes
 
                 },
                 scrollY: 400,
@@ -385,10 +389,16 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                     },
                     {
                         targets: 1, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
-                        width: "5%",
+                        visible: false,
+                        searchable: false
                     },
                     {
                         targets: 2, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        width: "5%",
+               
+                    },
+                    {
+                        targets: 3, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
                         width: "5%",
                     },
                     {
@@ -396,15 +406,15 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
                         width: "5%",
                     },
                     {
-                        targets: 6, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        targets: 7, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
                         width: "20%",
                     },
                     {
-                        targets: 7, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        targets: 8, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
                         width: "5%",
                     },
                     {
-                        targets: 8, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
+                        targets: 9, // Assuming the "Operasi" column is the 7th column (adjust if necessary).
                         orderable: false,
                     }
                 ],
@@ -428,7 +438,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
             // Hide checkboxes for rows with "Telah Disahkan" status.
             table.rows().every(function() {
                 var data = this.data();
-                var status = data[7]; // Assuming the status is in the 7th column (index 6).
+                var status = data[8]; // Assuming the status is in the 7th column (index 6).
                 var belumSemak = status === "Belum Disemak";
 
                 if (!belumSemak) {
@@ -458,6 +468,7 @@ if (isset($_SESSION['cancel_success']) && $_SESSION['cancel_success']) {
 
                     for (var i = 0; i < selectedRows.length; i++) {
                         rnList.push(selectedRows[i][1]); // Assuming the R/N PESAKIT is in the second column (index 1).
+                        console.log(rnList);
                     }
 
                     $.ajax({

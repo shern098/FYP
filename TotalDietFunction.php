@@ -21,6 +21,12 @@ $dietCounts = [
   'HPTD' => 0, 'LPTD' => 0, 'LVKD' => 0, 'LFRD' => 0, 'LPND' => 0,
   'MAC' => 0, 'LSD/DD' => 0, 'PND' => 0, 'LL' => 0
 ];
+$diet_Counts_Belum_Dipesan = [
+  'ND' => 0, 'VEG' => 0, 'CLD' => 0, 'NLD' => 0, 'SD' => 0,
+  'DD' => 0, 'HPD' => 0, 'LPD' => 0, 'LFD' => 0, 'LSD' => 0,
+  'HPTD' => 0, 'LPTD' => 0, 'LVKD' => 0, 'LFRD' => 0, 'LPND' => 0,
+  'MAC' => 0, 'LSD/DD' => 0, 'PND' => 0, 'LL' => 0
+];
 
 
  $displayTotalDiet = mysqli_query($conn, $getTotalDiet);
